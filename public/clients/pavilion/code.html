@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+
+<html lang="en-GB"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#003366", // Deep Blue
+                        "accent": "#E11D48", // Strong Red
+                        "background-light": "#f5f7f8",
+                        "background-dark": "#0f1923",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Public Sans', sans-serif; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100">
+<!-- Navigation -->
+<header class="sticky top-0 z-50 bg-white dark:bg-background-dark border-b border-slate-200 dark:border-slate-800">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between h-20">
+<div class="flex items-center gap-2">
+<div class="text-accent">
+<span class="material-symbols-outlined text-4xl">directions_car</span>
+</div>
+<div class="flex flex-col">
+<span class="text-xl font-black tracking-tighter text-primary dark:text-white uppercase leading-none">Pavilion</span>
+<span class="text-xs font-bold tracking-widest text-accent uppercase leading-none">Auto Services</span>
+</div>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-sm font-bold uppercase tracking-wide hover:text-accent transition-colors" href="#">MOT</a>
+<a class="text-sm font-bold uppercase tracking-wide hover:text-accent transition-colors" href="#">Servicing</a>
+<a class="text-sm font-bold uppercase tracking-wide hover:text-accent transition-colors" href="#">Repairs</a>
+<a class="text-sm font-bold uppercase tracking-wide hover:text-accent transition-colors" href="#">About</a>
+<a class="text-sm font-bold uppercase tracking-wide hover:text-accent transition-colors" href="#">Contact</a>
+</nav>
+<div class="flex items-center gap-4">
+<a class="hidden lg:flex flex-col items-end mr-4" href="tel:01273000000">
+<span class="text-[10px] font-bold text-slate-500 uppercase">Call us today</span>
+<span class="text-sm font-black text-primary dark:text-white">01273 685141</span>
+</a>
+<button class="bg-accent hover:bg-red-700 text-white px-6 py-3 rounded-lg text-sm font-extrabold uppercase tracking-wider shadow-lg shadow-accent/20 transition-all">
+                        Book Now
+                    </button>
+</div>
+</div>
+</div>
+</header>
+<main>
+<!-- Hero Section -->
+<section class="relative bg-primary overflow-hidden">
+<div class="absolute inset-0 opacity-20 bg-cover bg-center" data-alt="Mechanic performing an MOT test on a car" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBhP53O3cuhuOKPLWBYdLvI30dgylmHsrAW8MbUled_POMNKU1GwbYBlNt8JvxEbyLvOvKcAbAFdlhKeuE_Au4B7awslLf-bnoyYd341yNKYNxJAK7HRwrC7ZhPpU9CAKaC0nYUvGxu2gLqaEMf5LDaa7Z9PCExAwCaQNC8RjzMPEQoPJaZhpNyayJPW9LxS1jqzXq-q9Vf6XD7TC9bhRiMU7o65D7nrzjmwpVDp3CDcbOXpajSB1EI6NTubH9PpTuRbK0PYsruuAkK');"></div>
+<div class="absolute inset-0 bg-gradient-to-r from-primary via-primary/80 to-transparent"></div>
+<div class="relative max-w-7xl mx-auto px-4 py-20 lg:py-32 flex flex-col lg:flex-row items-center gap-12">
+<div class="w-full lg:w-3/5 text-white">
+<div class="inline-flex items-center gap-2 bg-accent px-3 py-1 rounded mb-6">
+<span class="text-[10px] font-black uppercase tracking-[0.2em]">DVSA Approved Centre</span>
+</div>
+<h1 class="text-5xl lg:text-7xl font-black leading-tight mb-6 tracking-tight">
+                        Professional <span class="text-accent underline decoration-4 underline-offset-8">MOT Testing</span> in Brighton.
+                    </h1>
+<p class="text-xl text-slate-300 mb-8 max-w-2xl leading-relaxed">
+                        Fast, honest, and reliable Ministry of Transport testing for Class 4 vehicles. Same-day appointments and free local collection available.
+                    </p>
+<div class="flex flex-wrap gap-4">
+<div class="flex items-center gap-3 bg-white/10 backdrop-blur-sm border border-white/20 p-4 rounded-xl">
+<span class="material-symbols-outlined text-accent text-3xl">payments</span>
+<div>
+<p class="text-[10px] uppercase font-bold text-slate-400">Class 4 MOT</p>
+<p class="text-xl font-black">Only £45.00</p>
+</div>
+</div>
+<div class="flex items-center gap-3 bg-white/10 backdrop-blur-sm border border-white/20 p-4 rounded-xl">
+<span class="material-symbols-outlined text-accent text-3xl">verified</span>
+<div>
+<p class="text-[10px] uppercase font-bold text-slate-400">Re-test Policy</p>
+<p class="text-xl font-black">Free Re-test</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Fast Booking Form Card -->
+<div class="w-full lg:w-2/5">
+<div class="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-2xl border-t-4 border-accent">
+<h3 class="text-2xl font-black text-primary dark:text-white mb-6 uppercase tracking-tight italic">Instant MOT Booking</h3>
+<form class="space-y-4">
+<div>
+<label class="block text-xs font-bold uppercase text-slate-500 mb-1">Vehicle Registration</label>
+<input class="w-full bg-yellow-400 text-slate-900 border-2 border-slate-900 font-black text-2xl px-4 py-3 rounded-lg focus:ring-0 uppercase text-center placeholder:text-slate-900/40" placeholder="ENTER REG" type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-xs font-bold uppercase text-slate-500 mb-1">Preferred Date</label>
+<input class="w-full bg-slate-100 dark:bg-slate-800 border-transparent rounded-lg p-3 text-sm focus:border-accent" type="date"/>
+</div>
+<div>
+<label class="block text-xs font-bold uppercase text-slate-500 mb-1">Time Slot</label>
+<select class="w-full bg-slate-100 dark:bg-slate-800 border-transparent rounded-lg p-3 text-sm focus:border-accent">
+<option>Morning (08:00 - 12:00)</option>
+<option>Afternoon (12:00 - 17:00)</option>
+</select>
+</div>
+</div>
+<div>
+<label class="block text-xs font-bold uppercase text-slate-500 mb-1">Contact Phone</label>
+<input class="w-full bg-slate-100 dark:bg-slate-800 border-transparent rounded-lg p-3 text-sm focus:border-accent" placeholder="07123 456 789" type="tel"/>
+</div>
+<button class="w-full bg-primary hover:bg-slate-800 text-white font-black uppercase py-4 rounded-lg tracking-widest transition-all mt-4 flex items-center justify-center gap-2" type="submit">
+                                Check Availability <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</form>
+</div>
+</div>
+</div>
+</section>
+<!-- Service Features -->
+<section class="py-20 bg-white dark:bg-background-dark">
+<div class="max-w-7xl mx-auto px-4">
+<div class="text-center mb-16">
+<p class="text-accent font-black uppercase tracking-[0.3em] text-sm mb-4 italic">Why Choose Pavilion?</p>
+<h2 class="text-4xl font-black text-primary dark:text-white tracking-tight">Brighton's Most Trusted MOT Station</h2>
+</div>
+<div class="grid md:grid-cols-3 gap-8">
+<div class="p-8 border-2 border-slate-100 dark:border-slate-800 rounded-2xl hover:border-accent transition-colors group">
+<div class="w-16 h-16 bg-primary/5 rounded-full flex items-center justify-center mb-6 group-hover:bg-accent transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-white text-3xl">speed</span>
+</div>
+<h4 class="text-xl font-black mb-4 uppercase italic">45-Minute Turnaround</h4>
+<p class="text-slate-600 dark:text-slate-400 leading-relaxed">Relax in our comfortable waiting room with free Wi-Fi and coffee while we complete your test in under an hour.</p>
+</div>
+<div class="p-8 border-2 border-slate-100 dark:border-slate-800 rounded-2xl hover:border-accent transition-colors group">
+<div class="w-16 h-16 bg-primary/5 rounded-full flex items-center justify-center mb-6 group-hover:bg-accent transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-white text-3xl">build_circle</span>
+</div>
+<h4 class="text-xl font-black mb-4 uppercase italic">Honest Repairs</h4>
+<p class="text-slate-600 dark:text-slate-400 leading-relaxed">If your car fails, we'll provide a clear, competitive quote with no obligation. We only fix what actually needs fixing.</p>
+</div>
+<div class="p-8 border-2 border-slate-100 dark:border-slate-800 rounded-2xl hover:border-accent transition-colors group">
+<div class="w-16 h-16 bg-primary/5 rounded-full flex items-center justify-center mb-6 group-hover:bg-accent transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-white text-3xl">schedule</span>
+</div>
+<h4 class="text-xl font-black mb-4 uppercase italic">Early Bird Drops</h4>
+<p class="text-slate-600 dark:text-slate-400 leading-relaxed">Busy schedule? Drop your keys off as early as 7:30 AM and we'll call you as soon as your vehicle is ready for collection.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- What's Checked -->
+<section class="py-20 bg-slate-50 dark:bg-slate-900/50">
+<div class="max-w-7xl mx-auto px-4 flex flex-col lg:flex-row gap-16 items-center">
+<div class="w-full lg:w-1/2">
+<div class="relative">
+<div class="absolute -top-4 -left-4 w-24 h-24 border-t-8 border-l-8 border-accent"></div>
+<img class="rounded-xl shadow-2xl grayscale hover:grayscale-0 transition-all duration-500" data-alt="Close up of a car brake disc being inspected" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOZATkW4n1SyKrIqEhGhnV42qDwRY-2CXFGfm074OnNt3skRt3Yxl3JqyLFswFkuPpVjUsOa9a8qQZ-k1piEs1vmj2Fi5i7k0XYEV7Pc04QLY3CK2aeeQNHakTKLt4Ak9zwkG4p3bcHztolcZc49yQBg_VEdyu4gkfPK2DnMWAMflRzcP687zwnDE1T72qhQF8Se0vjl3BLPtkwPn1n7v0ytCvgsprmx3HZR0LwZkluPzqLGOFifFtd4nZoIrB-ZOwIA_YOfMXKPXp"/>
+<div class="absolute -bottom-10 -right-10 hidden lg:block">
+<div class="bg-primary text-white p-8 rounded-xl shadow-xl">
+<p class="text-4xl font-black">20+</p>
+<p class="text-xs font-bold uppercase tracking-widest text-accent">Years Experience</p>
+</div>
+</div>
+</div>
+</div>
+<div class="w-full lg:w-1/2">
+<h2 class="text-4xl font-black text-primary dark:text-white mb-8 italic uppercase leading-none">What do we check?</h2>
+<p class="text-slate-600 dark:text-slate-400 mb-8 text-lg">Our comprehensive Class 4 MOT includes detailed safety inspections mandated by the DVSA, covering everything from visibility to road safety.</p>
+<ul class="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-8">
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-accent">check_circle</span>
+<span class="font-bold text-slate-700 dark:text-slate-200 uppercase text-sm">Brakes &amp; Suspension</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-accent">check_circle</span>
+<span class="font-bold text-slate-700 dark:text-slate-200 uppercase text-sm">Lights &amp; Indicators</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-accent">check_circle</span>
+<span class="font-bold text-slate-700 dark:text-slate-200 uppercase text-sm">Tyres &amp; Wheels</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-accent">check_circle</span>
+<span class="font-bold text-slate-700 dark:text-slate-200 uppercase text-sm">Exhaust &amp; Emissions</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-accent">check_circle</span>
+<span class="font-bold text-slate-700 dark:text-slate-200 uppercase text-sm">Seatbelts &amp; Airbags</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-accent">check_circle</span>
+<span class="font-bold text-slate-700 dark:text-slate-200 uppercase text-sm">Steering Control</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-accent">check_circle</span>
+<span class="font-bold text-slate-700 dark:text-slate-200 uppercase text-sm">Wipers &amp; Washers</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-accent">check_circle</span>
+<span class="font-bold text-slate-700 dark:text-slate-200 uppercase text-sm">Fuel System</span>
+</li>
+</ul>
+<button class="mt-12 bg-transparent border-2 border-primary text-primary dark:border-white dark:text-white font-black uppercase px-8 py-4 rounded-lg hover:bg-primary hover:text-white transition-all tracking-widest text-sm">
+                        Download Checklist (PDF)
+                    </button>
+</div>
+</div>
+</section>
+<!-- Testimonials -->
+<section class="py-20 bg-white dark:bg-background-dark overflow-hidden">
+<div class="max-w-7xl mx-auto px-4">
+<div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+<div>
+<p class="text-accent font-black uppercase tracking-[0.3em] text-sm mb-4 italic">Customer Stories</p>
+<h2 class="text-4xl font-black text-primary dark:text-white tracking-tight">Don't just take our word for it</h2>
+</div>
+<div class="flex gap-2">
+<button class="w-12 h-12 rounded-full border border-slate-200 dark:border-slate-800 flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-12 h-12 rounded-full border border-slate-200 dark:border-slate-800 flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Testimonial 1 -->
+<div class="bg-background-light dark:bg-slate-900 p-8 rounded-2xl relative">
+<span class="material-symbols-outlined text-6xl text-accent/10 absolute top-4 right-4">format_quote</span>
+<div class="flex gap-1 text-yellow-400 mb-4">
+<span class="material-symbols-outlined fill-1">star</span>
+<span class="material-symbols-outlined fill-1">star</span>
+<span class="material-symbols-outlined fill-1">star</span>
+<span class="material-symbols-outlined fill-1">star</span>
+<span class="material-symbols-outlined fill-1">star</span>
+</div>
+<p class="text-slate-700 dark:text-slate-300 mb-6 italic">"Excellent service from Pavilion. They found a minor fault during the MOT, explained it clearly, and had it fixed within the hour at a very fair price."</p>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-slate-300 rounded-full bg-cover" data-alt="Portrait of a male customer" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCW8TpP-rMxec5ICYHPofJipXSrXJHttJCJW_uiYT78S9ufcmKaO5Wuqm8m7LKlb9L8kzMwnrTJlI4INc0HC-jtd_1j0YnKebqOSmjsGvq1HZuA6zvVRLpc5DhzCrq8UpfRwTiTZucvVwHuuJiw7qdOTg3c70j4CJI67sPdQZP8h88a2vuOadjJSU-moqkXo5kJz3I9uhxLzD4yf66mJZ3q6GUU_mU5eaHIPjXLJucIstgw9anT76pCNL0GWie_s-XpCTAD6oLhqL9K');"></div>
+<div>
+<p class="font-black text-primary dark:text-white text-sm uppercase">James Harrison</p>
+<p class="text-xs text-slate-500 font-bold uppercase">Brighton Resident</p>
+</div>
+</div>
+</div>
+<!-- Testimonial 2 -->
+<div class="bg-background-light dark:bg-slate-900 p-8 rounded-2xl relative">
+<span class="material-symbols-outlined text-6xl text-accent/10 absolute top-4 right-4">format_quote</span>
+<div class="flex gap-1 text-yellow-400 mb-4">
+<span class="material-symbols-outlined fill-1">star</span>
+<span class="material-symbols-outlined fill-1">star</span>
+<span class="material-symbols-outlined fill-1">star</span>
+<span class="material-symbols-outlined fill-1">star</span>
+<span class="material-symbols-outlined fill-1">star</span>
+</div>
+<p class="text-slate-700 dark:text-slate-300 mb-6 italic">"Friendly, honest, and reliable. Hard to find a garage you can trust, but these guys are the real deal. Won't take my car anywhere else."</p>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-slate-300 rounded-full bg-cover" data-alt="Portrait of a female customer" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBJXVHkwVyPtuGg_-7ckep3XkXRaFEHhDMcBiZqF_GQ0iDY8yLA-6bB05jn-6zZYzYvSs1GK0r7ZraoWLbfZb7WROPMTunKZl44mNyecQwhPhdDJTm7QohBgbK2SoilAInBq7jUIwcv3wk5f3tMZSLscFy8JPG0TGuZ6LBH7b0ycZNO7JGapbyVnEz5BTXxU2HgFH2cG8Uh6VKaQ-oEV-4S-w7ZS4jmtyroK8C49nqxzgUGyrkvNkzoLejsI5fIq8DuJnmPxZo20m3y');"></div>
+<div>
+<p class="font-black text-primary dark:text-white text-sm uppercase">Sarah Miller</p>
+<p class="text-xs text-slate-500 font-bold uppercase">Local Business Owner</p>
+</div>
+</div>
+</div>
+<!-- Testimonial 3 -->
+<div class="bg-background-light dark:bg-slate-900 p-8 rounded-2xl relative">
+<span class="material-symbols-outlined text-6xl text-accent/10 absolute top-4 right-4">format_quote</span>
+<div class="flex gap-1 text-yellow-400 mb-4">
+<span class="material-symbols-outlined fill-1">star</span>
+<span class="material-symbols-outlined fill-1">star</span>
+<span class="material-symbols-outlined fill-1">star</span>
+<span class="material-symbols-outlined fill-1">star</span>
+<span class="material-symbols-outlined fill-1">star</span>
+</div>
+<p class="text-slate-700 dark:text-slate-300 mb-6 italic">"Booked in for a same-day MOT and was out in 45 minutes. The waiting area is actually clean and the coffee is decent too! 5 stars."</p>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-slate-300 rounded-full bg-cover" data-alt="Portrait of a male customer" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA_PfLp6x46Xr5Xt6sm7zm5h8pA-xKJ-7cOu6AxiRNSkHi6kGfBGswa9JUgz4jIofu7ZJrcYMz6oetsJTal6lXzg6lYblvM3J8C0EAAXkm9q1PBBG5wGleJg2uUbYH5NsYArXXPPo7zh69Pwh0EXVvwAeHreFqbRJnlx6td30rhuMp_E7tCYS5XcozeZrpx_ko0ldbgDXqu9WfLN5d3psiyGjrkoJVVqU3JAgD24jmvvnq9TLXZxBmXiU-VgJPZcD-Sgj8QdchI9Rrg');"></div>
+<div>
+<p class="font-black text-primary dark:text-white text-sm uppercase">David Chen</p>
+<p class="text-xs text-slate-500 font-bold uppercase">Commuter</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Call to Action Banner -->
+<section class="bg-accent py-12">
+<div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-8">
+<div class="text-white text-center md:text-left">
+<h2 class="text-3xl font-black uppercase italic tracking-tight">Need a Service as well?</h2>
+<p class="font-bold opacity-90">Combine your MOT with a Full Service and save £25.00</p>
+</div>
+<button class="bg-primary hover:bg-slate-800 text-white font-black uppercase px-10 py-5 rounded-lg tracking-[0.2em] shadow-xl transition-all whitespace-nowrap">
+                    View Package Deals
+                </button>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-primary text-white py-20">
+<div class="max-w-7xl mx-auto px-4">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-16 border-b border-white/10">
+<div>
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-4xl text-accent">directions_car</span>
+<div class="flex flex-col">
+<span class="text-xl font-black tracking-tighter uppercase leading-none">Pavilion</span>
+<span class="text-xs font-bold tracking-widest text-accent uppercase leading-none">Auto Services</span>
+</div>
+</div>
+<p class="text-slate-400 text-sm leading-relaxed mb-6">Your local, family-run automotive specialists in Brighton. Quality service you can trust since 2003.</p>
+<div class="flex gap-4">
+<a class="w-10 h-10 rounded bg-white/5 flex items-center justify-center hover:bg-accent transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">public</span>
+</a>
+<a class="w-10 h-10 rounded bg-white/5 flex items-center justify-center hover:bg-accent transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">share</span>
+</a>
+</div>
+</div>
+<div>
+<h5 class="text-sm font-black uppercase tracking-widest text-accent mb-6">Services</h5>
+<ul class="space-y-4">
+<li><a class="text-slate-400 hover:text-white text-sm font-bold transition-colors" href="#">MOT Testing</a></li>
+<li><a class="text-slate-400 hover:text-white text-sm font-bold transition-colors" href="#">Vehicle Servicing</a></li>
+<li><a class="text-slate-400 hover:text-white text-sm font-bold transition-colors" href="#">Brake Repairs</a></li>
+<li><a class="text-slate-400 hover:text-white text-sm font-bold transition-colors" href="#">Clutch Replacement</a></li>
+<li><a class="text-slate-400 hover:text-white text-sm font-bold transition-colors" href="#">Diagnostics</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-sm font-black uppercase tracking-widest text-accent mb-6">Company</h5>
+<ul class="space-y-4">
+<li><a class="text-slate-400 hover:text-white text-sm font-bold transition-colors" href="#">About Us</a></li>
+<li><a class="text-slate-400 hover:text-white text-sm font-bold transition-colors" href="#">Our Team</a></li>
+<li><a class="text-slate-400 hover:text-white text-sm font-bold transition-colors" href="#">Price List</a></li>
+<li><a class="text-slate-400 hover:text-white text-sm font-bold transition-colors" href="#">Terms of Service</a></li>
+<li><a class="text-slate-400 hover:text-white text-sm font-bold transition-colors" href="#">Contact</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-sm font-black uppercase tracking-widest text-accent mb-6">Location</h5>
+<p class="text-slate-400 text-sm font-bold mb-4">
+                        Unit 5, Pavilion Trade Park<br/>
+                        Brighton, BN2 3QA
+                    </p>
+<div class="flex items-center gap-2 text-white font-black mb-2">
+<span class="material-symbols-outlined text-accent">phone</span>
+                        01273 685141
+                    </div>
+<div class="flex items-center gap-2 text-white font-black">
+<span class="material-symbols-outlined text-accent">mail</span>
+                        info@pavilionauto.co.uk
+                    </div>
+</div>
+</div>
+<div class="pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-bold text-slate-500 uppercase tracking-widest">
+<p>© 2024 Pavilion Auto Services. All Rights Reserved.</p>
+<div class="flex gap-6">
+<a class="hover:text-accent" href="#">Privacy Policy</a>
+<a class="hover:text-accent" href="#">Sitemap</a>
+</div>
+</div>
+</div>
+</footer>
+</body></html>
