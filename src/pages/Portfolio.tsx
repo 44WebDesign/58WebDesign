@@ -29,7 +29,7 @@ const projects: Project[] = [
   {
     id: '2',
     title: 'Mr Bees Brewery',
-    category: 'Promo Video',
+    category: 'Promo Videos',
     image: '',
     videoUrl: '/Beer_Showcase_Video_For_Brewery.mp4',
     desc: 'Engaging promo video for a local brewery business.',
@@ -79,7 +79,7 @@ const projects: Project[] = [
   {
     id: '07',
     title: 'GlobexFM',
-    category: 'Promo Clips',
+    category: 'Promo Videos',
     image: '',
     videoUrl: '/globexfm.mp4',
     desc: 'Intro for a business event video shown to thousands .',
