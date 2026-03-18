@@ -186,7 +186,7 @@ export default function Home() {
             playsInline 
             className="w-full h-full object-cover"
           >
-            <source src="public/Go_Kart_Video_Clip.mp4" type="video/mp4" />
+            <source src="/Go_Kart_Video_Clip.mp4" type="video/mp4" />
           </video>
               </div>
             </div>
@@ -213,7 +213,7 @@ export default function Home() {
             playsInline 
             className="w-full h-full object-cover"
           >
-            <source src="public/Beer_Showcase_Video_For_Brewery.mp4" type="video/mp4" />
+            <source src="/Beer_Showcase_Video_For_Brewery.mp4" type="video/mp4" />
           </video>
               </div>
             </div>
