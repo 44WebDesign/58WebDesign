@@ -4,14 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>Platinum Sports & Prestige | 58WebDesign</title>
+    <title>Pavilion Garage | 58WebDesign</title>
     
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
+    <!-- Tailwind CSS via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     
+    <!-- Tailwind Configuration -->
     <script>
         tailwind.config = {
             theme: {
@@ -40,6 +43,7 @@
 </head>
 <body class="font-sans min-h-screen flex flex-col">
 
+    <!-- Navbar -->
     <nav class="w-full px-8 py-6 flex justify-center items-center border-b border-primary/5 bg-background-light">
         <div class="flex items-center gap-2">
             <span class="font-display text-4xl tracking-[-0.12em] text-primary">58</span>
@@ -47,9 +51,11 @@
         </div>
     </nav>
 
+    <!-- Main Content -->
     <main class="flex-grow flex flex-col items-center justify-center py-12 px-6">
-        <div class="max-w-7xl w-full space-y-10">
+        <div class="max-w-6xl w-full space-y-10">
             
+            <!-- Header -->
             <div class="text-center space-y-6">
                 <h1 class="font-display text-6xl md:text-8xl tracking-tighter leading-[0.9]">
                     Select a <span class="italic opacity-80">Concept.</span>
@@ -59,11 +65,13 @@
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pt-4">
+            <!-- Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pt-4">
                 
-                <a href="/clients/platinum/1.html" class="group block bg-white rounded-2xl overflow-hidden border border-primary/10 transition-all duration-500 hover:shadow-xl hover:-translate-y-1 flex flex-col">
+                <!-- Card 1 -->
+                <a href="/clients/pavilion/1.html" class="group block bg-white rounded-2xl overflow-hidden border border-primary/10 transition-all duration-500 hover:shadow-xl hover:-translate-y-1 flex flex-col">
                     <div class="aspect-[4/3] bg-zinc-100 relative overflow-hidden flex items-center justify-center border-b border-primary/5">
-                        <img src="/clients/platinum/1.png" alt="Concept 1" class="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-40 transition-opacity duration-500" referrerPolicy="no-referrer">
+                        <img src="/clients/pavilion/1.png" alt="Concept 1" class="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-40 transition-opacity duration-500" referrerPolicy="no-referrer">
                         <span class="relative z-10 font-display text-9xl text-primary/20 group-hover:text-primary/40 group-hover:scale-110 transition-all duration-500 drop-shadow-sm">1</span>
                         <div class="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     </div>
@@ -73,17 +81,18 @@
                             <svg class="w-5 h-5 opacity-0 group-hover:opacity-100 transition-all transform -translate-x-2 group-hover:translate-x-0 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                         </div>
                         <div>
-                            <h3 class="font-display text-4xl tracking-tight mb-3">Stealth Alpha</h3>
+                            <h3 class="font-display text-4xl tracking-tight mb-3">Clean & Bright</h3>
                             <p class="text-sm text-primary/60 font-light leading-relaxed">
-                               A dark, high-contrast aesthetic that uses moody lighting and bold serif typography to emphasize the power and exclusivity of the vehicles.
+                                A clean, spacious design with plenty of whitespace and elegant transitions.
                             </p>
                         </div>
                     </div>
                 </a>
 
-                <a href="/clients/platinum/2.html" class="group block bg-white rounded-2xl overflow-hidden border border-primary/10 transition-all duration-500 hover:shadow-xl hover:-translate-y-1 flex flex-col">
+                <!-- Card 2 -->
+                <a href="/clients/pavilion/2.html" class="group block bg-white rounded-2xl overflow-hidden border border-primary/10 transition-all duration-500 hover:shadow-xl hover:-translate-y-1 flex flex-col">
                     <div class="aspect-[4/3] bg-zinc-100 relative overflow-hidden flex items-center justify-center border-b border-primary/5">
-                        <img src="/clients/platinum/2.png" alt="Concept 2" class="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-40 transition-opacity duration-500" referrerPolicy="no-referrer">
+                        <img src="/clients/pavilion/2.png" alt="Concept 2" class="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-40 transition-opacity duration-500" referrerPolicy="no-referrer">
                         <span class="relative z-10 font-display text-9xl text-primary/20 group-hover:text-primary/40 group-hover:scale-110 transition-all duration-500 drop-shadow-sm">2</span>
                         <div class="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     </div>
@@ -93,17 +102,18 @@
                             <svg class="w-5 h-5 opacity-0 group-hover:opacity-100 transition-all transform -translate-x-2 group-hover:translate-x-0 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                         </div>
                         <div>
-                            <h3 class="font-display text-4xl tracking-tight mb-3">Modern Prestige</h3>
+                            <h3 class="font-display text-4xl tracking-tight mb-3">Colourful</h3>
                             <p class="text-sm text-primary/60 font-light leading-relaxed">
-                                This layout balances a dark theme with statistical social proof and clear calls to action, positioning the brand as a high-volume, reliable industry leader.
+                                A more colourful approach designed to drive engagements and leads.
                             </p>
                         </div>
                     </div>
                 </a>
 
-                <a href="/clients/platinum/3.html" class="group block bg-white rounded-2xl overflow-hidden border border-primary/10 transition-all duration-500 hover:shadow-xl hover:-translate-y-1 flex flex-col">
+                <!-- Card 3 -->
+                <a href="/clients/pavilion/3.html" class="group block bg-white rounded-2xl overflow-hidden border border-primary/10 transition-all duration-500 hover:shadow-xl hover:-translate-y-1 flex flex-col">
                     <div class="aspect-[4/3] bg-zinc-100 relative overflow-hidden flex items-center justify-center border-b border-primary/5">
-                        <img src="/clients/platinum/3.png" alt="Concept 3" class="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-40 transition-opacity duration-500" referrerPolicy="no-referrer">
+                        <img src="/clients/pavilion/3.png" alt="Concept 3" class="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-40 transition-opacity duration-500" referrerPolicy="no-referrer">
                         <span class="relative z-10 font-display text-9xl text-primary/20 group-hover:text-primary/40 group-hover:scale-110 transition-all duration-500 drop-shadow-sm">3</span>
                         <div class="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     </div>
@@ -113,29 +123,9 @@
                             <svg class="w-5 h-5 opacity-0 group-hover:opacity-100 transition-all transform -translate-x-2 group-hover:translate-x-0 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                         </div>
                         <div>
-                            <h3 class="font-display text-4xl tracking-tight mb-3">Editorial Luxury</h3>
+                            <h3 class="font-display text-4xl tracking-tight mb-3">Boxed</h3>
                             <p class="text-sm text-primary/60 font-light leading-relaxed">
-                                A sophisticated "light mode" approach that utilizes airy whitespace and large-scale imagery to evoke the feeling of a premium automotive magazine.
-                            </p>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="/clients/platinum/4.html" class="group block bg-white rounded-2xl overflow-hidden border border-primary/10 transition-all duration-500 hover:shadow-xl hover:-translate-y-1 flex flex-col">
-                    <div class="aspect-[4/3] bg-zinc-100 relative overflow-hidden flex items-center justify-center border-b border-primary/5">
-                        <img src="/clients/platinum/4.png" alt="Concept 4" class="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-40 transition-opacity duration-500" referrerPolicy="no-referrer">
-                        <span class="relative z-10 font-display text-9xl text-primary/20 group-hover:text-primary/40 group-hover:scale-110 transition-all duration-500 drop-shadow-sm">4</span>
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    </div>
-                    <div class="p-8 space-y-6 flex-grow flex flex-col">
-                        <div class="flex justify-between items-start">
-                            <span class="text-[10px] uppercase tracking-widest opacity-40 font-bold">Concept 04</span>
-                            <svg class="w-5 h-5 opacity-0 group-hover:opacity-100 transition-all transform -translate-x-2 group-hover:translate-x-0 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                        </div>
-                        <div>
-                            <h3 class="font-display text-4xl tracking-tight mb-3">Artisian Focus</h3>
-                            <p class="text-sm text-primary/60 font-light leading-relaxed">
-                                This design highlights the human element of "white-glove" service by using evocative background imagery and delicate, centered framing to convey craftsmanship.
+                                A boxed layout design for a more traditional feel.
                             </p>
                         </div>
                     </div>
@@ -145,6 +135,7 @@
         </div>
     </main>
 
+    <!-- Footer -->
     <footer class="w-full py-8 text-center border-t border-primary/5">
         <p class="text-[10px] uppercase tracking-[0.3em] opacity-40 font-medium">
             &copy; 2026 58WebDesign. All rights reserved.
