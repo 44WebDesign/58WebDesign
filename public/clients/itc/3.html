@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ipswich Trade Centre — Design Concept 1: Industrial Bold</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --coal: oklch(14% 0.008 240);
+  --steel: oklch(22% 0.012 238);
+  --plate: oklch(30% 0.01 240);
+  --rust: oklch(34% 0.28 266);
+  --rust-hot: oklch(40% 0.28 266);
+  --hi: oklch(72% 0.18 266);
+  --chalk: oklch(94% 0.006 80);
+  --muted: oklch(52% 0.01 240);
+  --line: oklch(28% 0.012 240);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Barlow', sans-serif;
+  background: var(--coal);
+  color: var(--chalk);
+  overflow-x: hidden;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 clamp(1.5rem, 5vw, 4rem);
+  height: 64px;
+  background: oklch(14% 0.008 240 / 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+
+.nav-logo {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 1.4rem;
+  letter-spacing: 0.08em;
+  color: var(--chalk);
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.nav-logo span { color: var(--rust); }
+
+.nav-links {
+  display: flex; gap: 2.5rem; list-style: none;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.nav-links a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.nav-links a:hover { color: var(--chalk); }
+
+.nav-cta {
+  background: var(--rust);
+  color: #fff;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.55rem 1.4rem;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.nav-cta:hover { background: var(--rust-hot); }
+
+/* HERO */
+.hero {
+  min-height: 100svh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-top: 64px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* diagonal rule */
+.hero::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 50%;
+  width: 2px;
+  background: var(--rust);
+  transform: skewX(-4deg) translateX(-1px);
+  z-index: 1;
+}
+
+.hero-left {
+  padding: clamp(3rem, 8vw, 7rem) clamp(1.5rem, 5vw, 4rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--rust);
+  margin-bottom: 1.5rem;
+  display: flex; align-items: center; gap: 0.8rem;
+}
+.hero-eyebrow::before {
+  content: '';
+  display: block;
+  width: 32px; height: 2px;
+  background: var(--rust);
+}
+
+h1 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(3.5rem, 7vw, 6.5rem);
+  line-height: 0.92;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+h1 .accent { color: var(--rust); }
+
+.hero-body {
+  font-size: 1.05rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: oklch(72% 0.01 240);
+  max-width: 48ch;
+  margin-bottom: 3rem;
+}
+
+.hero-actions {
+  display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;
+}
+.btn-primary {
+  background: var(--rust);
+  color: #fff;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.9rem 2.2rem;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.2s, transform 0.15s;
+}
+.btn-primary:hover { background: var(--rust-hot); transform: translateY(-1px); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--chalk);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.9rem 2.2rem;
+  border: 1px solid var(--line);
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: border-color 0.2s, color 0.2s;
+}
+.btn-ghost:hover { border-color: var(--muted); color: var(--chalk); }
+
+.hero-stats {
+  display: flex; gap: 2.5rem; margin-top: 3.5rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--line);
+}
+.stat-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 2.4rem;
+  line-height: 1;
+  color: var(--hi);
+}
+.stat-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 0.3rem;
+}
+
+.hero-right {
+  position: relative;
+  overflow: hidden;
+}
+.hero-img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: brightness(0.55) saturate(0.6);
+}
+
+.hero-right-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to right, var(--coal) 0%, transparent 30%);
+  z-index: 1;
+}
+
+/* grid pattern bg */
+.hero-grid-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background-image:
+    linear-gradient(oklch(28% 0.012 240 / 0.35) 1px, transparent 1px),
+    linear-gradient(90deg, oklch(28% 0.012 240 / 0.35) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* BAND */
+.band {
+  background: var(--rust);
+  padding: 1.2rem clamp(1.5rem, 5vw, 4rem);
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.band-track {
+  display: flex; gap: 3rem; animation: scroll 22s linear infinite;
+}
+.band-item {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #fff;
+  opacity: 0.9;
+  flex-shrink: 0;
+}
+.band-sep { color: rgba(255,255,255,0.4); }
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* SERVICES */
+.services {
+  padding: clamp(4rem, 8vw, 8rem) clamp(1.5rem, 5vw, 4rem);
+}
+.section-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--rust);
+  margin-bottom: 3rem;
+  display: flex; align-items: center; gap: 1rem;
+}
+.section-label::after {
+  content: '';
+  display: block;
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+.service-card {
+  background: var(--steel);
+  padding: 2.5rem 2rem;
+  position: relative;
+  transition: background 0.25s;
+  overflow: hidden;
+}
+.service-card:hover { background: var(--plate); }
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--rust);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease-out;
+}
+.service-card:hover::before { transform: scaleX(1); }
+
+.service-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 3rem;
+  line-height: 1;
+  color: var(--line);
+  position: absolute;
+  top: 1.5rem; right: 1.5rem;
+}
+.service-icon {
+  width: 40px; height: 40px;
+  margin-bottom: 1.5rem;
+  color: var(--rust);
+}
+.service-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+  color: var(--chalk);
+}
+.service-desc {
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+/* WHY ITC */
+.why {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 70vh;
+}
+.why-img-col {
+  position: relative;
+  overflow: hidden;
+}
+.why-img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: brightness(0.5) saturate(0.5);
+}
+.why-img-col::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to left, var(--coal) 0%, transparent 50%);
+}
+.why-content {
+  background: var(--steel);
+  padding: clamp(3rem, 6vw, 6rem) clamp(2rem, 5vw, 5rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.why-content h2 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  line-height: 1;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+.why-content h2 em {
+  font-style: normal;
+  color: var(--rust);
+}
+.why-list { list-style: none; display: flex; flex-direction: column; gap: 1.5rem; margin-top: 1rem; }
+.why-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+.why-check {
+  width: 20px; height: 20px;
+  border: 2px solid var(--rust);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.why-check::after {
+  content: '';
+  width: 8px; height: 8px;
+  background: var(--rust);
+}
+.why-item-text {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: oklch(72% 0.01 240);
+}
+.why-item-text strong {
+  display: block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--chalk);
+  margin-bottom: 0.2rem;
+}
+
+/* CATEGORIES */
+.categories {
+  padding: clamp(4rem, 8vw, 8rem) clamp(1.5rem, 5vw, 4rem);
+  background: var(--coal);
+}
+.cat-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 3rem;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.cat-header h2 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(2rem, 4vw, 3rem);
+  text-transform: uppercase;
+  line-height: 1;
+}
+.view-all {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--rust);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rust);
+  padding-bottom: 2px;
+  white-space: nowrap;
+}
+
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto auto;
+  gap: 3px;
+}
+.cat-item {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  cursor: pointer;
+}
+.cat-item:first-child {
+  grid-column: span 2;
+  grid-row: span 2;
+  aspect-ratio: auto;
+}
+.cat-img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease-out, filter 0.3s;
+  filter: brightness(0.5) saturate(0.5);
+}
+.cat-item:hover .cat-img {
+  transform: scale(1.04);
+  filter: brightness(0.6) saturate(0.7);
+}
+.cat-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, oklch(14% 0.008 240 / 0.85) 0%, transparent 60%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.5rem;
+}
+.cat-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--chalk);
+  line-height: 1.1;
+}
+.cat-item:first-child .cat-name { font-size: 1.8rem; }
+.cat-arrow {
+  width: 28px; height: 28px;
+  border: 1px solid oklch(94% 0.006 80 / 0.3);
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 0.8rem;
+  transition: background 0.2s;
+}
+.cat-item:hover .cat-arrow { background: var(--rust); border-color: var(--rust); }
+
+/* EMBROIDERY */
+.emb {
+  background: var(--rust);
+  padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 4rem);
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+.emb-content h2 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  line-height: 0.95;
+  text-transform: uppercase;
+  color: #fff;
+  margin-bottom: 1.5rem;
+}
+.emb-content p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.78);
+  max-width: 50ch;
+  margin-bottom: 2.5rem;
+}
+.btn-white {
+  background: #fff;
+  color: var(--rust);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.9rem 2.2rem;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.2s, transform 0.15s;
+}
+.btn-white:hover { background: oklch(96% 0 0); transform: translateY(-1px); }
+.emb-specs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.emb-spec {
+  background: rgba(0,0,0,0.15);
+  padding: 1.2rem;
+}
+.emb-spec-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #fff;
+  margin-bottom: 0.4rem;
+}
+.emb-spec-desc {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.55;
+}
+
+/* TESTIMONIALS */
+.testimonials {
+  padding: clamp(4rem, 8vw, 8rem) clamp(1.5rem, 5vw, 4rem);
+  background: var(--steel);
+}
+.testi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin-top: 3rem;
+}
+.testi-card {
+  background: var(--steel);
+  padding: 2.5rem 2rem;
+}
+.testi-quote {
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: oklch(72% 0.01 240);
+  margin-bottom: 1.5rem;
+  font-style: italic;
+}
+.testi-quote::before { content: '\201C'; color: var(--rust); font-size: 1.5rem; line-height: 0; vertical-align: -0.3em; margin-right: 0.2rem; }
+.testi-author {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--chalk);
+}
+.testi-company {
+  font-size: 0.78rem;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-top: 0.2rem;
+}
+
+/* CTA SECTION */
+.cta-section {
+  padding: clamp(5rem, 10vw, 10rem) clamp(1.5rem, 5vw, 4rem);
+  background: var(--coal);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cta-section::before {
+  content: 'ITC';
+  position: absolute;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 28vw;
+  color: var(--steel);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  opacity: 0.35;
+}
+.cta-section h2 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  line-height: 1;
+  text-transform: uppercase;
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+.cta-section p {
+  font-size: 1rem;
+  color: oklch(62% 0.01 240);
+  max-width: 52ch;
+  margin: 0 auto 3rem;
+  line-height: 1.7;
+  position: relative;
+}
+.cta-actions {
+  display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+  position: relative;
+}
+
+/* FOOTER */
+footer {
+  background: oklch(10% 0.006 240);
+  border-top: 1px solid var(--line);
+  padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem) 2rem;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 3rem;
+}
+.footer-brand .nav-logo { display: block; margin-bottom: 1rem; font-size: 1.2rem; }
+.footer-brand p {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.6;
+  max-width: 32ch;
+}
+.footer-col-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--chalk);
+  margin-bottom: 1.2rem;
+}
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+.footer-links a {
+  font-size: 0.85rem;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--chalk); }
+.footer-bottom {
+  border-top: 1px solid var(--line);
+  padding-top: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero-left > * {
+  animation: fadeUp 0.6s ease-out both;
+}
+.hero-eyebrow { animation-delay: 0.1s; }
+h1 { animation-delay: 0.22s; }
+.hero-body { animation-delay: 0.34s; }
+.hero-actions { animation-delay: 0.46s; }
+.hero-stats { animation-delay: 0.58s; }
+
+/* SVG icons */
+.icon { display: block; width: 36px; height: 36px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+@media (max-width: 900px) {
+  .hero, .why, .emb { grid-template-columns: 1fr; }
+  .hero::after { display: none; }
+  .hero-right { height: 40vw; min-height: 280px; }
+  .why-img-col { height: 40vw; min-height: 240px; }
+  .cat-grid { grid-template-columns: 1fr 1fr; }
+  .cat-item:first-child { grid-column: span 2; grid-row: span 1; aspect-ratio: 16/7; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .nav-links { display: none; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">Ipswich <span>Trade</span> Centre</a>
+  <ul class="nav-links">
+    <li><a href="#">Products</a></li>
+    <li><a href="#">Workwear</a></li>
+    <li><a href="#">Embroidery</a></li>
+    <li><a href="#">Signage</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="#">Get a Quote</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Suffolk's Trade Specialists</div>
+    <h1>Built for<br>those who<br><span class="accent">build.</span></h1>
+    <p class="hero-body">PPE, workwear, tools, fixings and branded clothing for tradespeople, businesses and teams across Ipswich, Suffolk and beyond.</p>
+    <div class="hero-actions">
+      <a href="#" class="btn-primary">Shop Now</a>
+      <a href="#" class="btn-ghost">Get a Quote</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">20+</div>
+        <div class="stat-label">Years Trading</div>
+      </div>
+      <div>
+        <div class="stat-num">500+</div>
+        <div class="stat-label">Local Clients</div>
+      </div>
+      <div>
+        <div class="stat-num">7</div>
+        <div class="stat-label">Product Ranges</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-grid-bg"></div>
+    <img class="hero-img" src="https://images.unsplash.com/photo-1646640345481-81d36b291b39?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Tradespeople at work on a construction site">
+    <div class="hero-right-overlay"></div>
+  </div>
+</section>
+
+<!-- SCROLLING BAND -->
+<div class="band" aria-hidden="true">
+  <div class="band-track">
+    <span class="band-item">PPE & Safety</span><span class="band-sep">///</span>
+    <span class="band-item">Workwear</span><span class="band-sep">///</span>
+    <span class="band-item">Embroidery & Print</span><span class="band-sep">///</span>
+    <span class="band-item">Tools</span><span class="band-sep">///</span>
+    <span class="band-item">Fixings</span><span class="band-sep">///</span>
+    <span class="band-item">Signage</span><span class="band-sep">///</span>
+    <span class="band-item">Branded Clothing</span><span class="band-sep">///</span>
+    <span class="band-item">Groundscrews</span><span class="band-sep">///</span>
+    <span class="band-item">PPE & Safety</span><span class="band-sep">///</span>
+    <span class="band-item">Workwear</span><span class="band-sep">///</span>
+    <span class="band-item">Embroidery & Print</span><span class="band-sep">///</span>
+    <span class="band-item">Tools</span><span class="band-sep">///</span>
+    <span class="band-item">Fixings</span><span class="band-sep">///</span>
+    <span class="band-item">Signage</span><span class="band-sep">///</span>
+    <span class="band-item">Branded Clothing</span><span class="band-sep">///</span>
+    <span class="band-item">Groundscrews</span><span class="band-sep">///</span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services">
+  <div class="section-label">What we supply</div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <svg class="service-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <div class="service-title">PPE & Safety</div>
+      <p class="service-desc">Hard hats, hi-vis, gloves, eye and ear protection. Everything to keep your team compliant and safe on site.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <svg class="service-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.38 3.46L16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.57a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.57a2 2 0 0 0-1.34-2.23z"/></svg>
+      <div class="service-title">Workwear</div>
+      <p class="service-desc">Durable trousers, jackets, fleeces and shirts for every trade. Built tough, priced right, available in bulk.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <svg class="service-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+      <div class="service-title">Tools</div>
+      <p class="service-desc">Hand tools, power tools, accessories and consumables from trusted brands, ready to collect or delivered.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">04</div>
+      <svg class="service-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      <div class="service-title">Fixings & Consumables</div>
+      <p class="service-desc">Screws, bolts, anchors, adhesives and sealants. Stock your van or site with everything that holds it together.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">05</div>
+      <svg class="service-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+      <div class="service-title">Signage</div>
+      <p class="service-desc">Safety signs, custom site boards, vehicle graphics and branded display. Printed and ready fast.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">06</div>
+      <svg class="service-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      <div class="service-title">Embroidery & Print</div>
+      <p class="service-desc">Your logo on workwear, polo shirts, hoodies, caps and bags. Minimum orders from just one item.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY ITC -->
+<section class="why">
+  <div class="why-img-col">
+    <img class="why-img" src="https://images.unsplash.com/photo-1581092446327-9b52bd1570c2?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Worker in hi-vis workwear on a Suffolk building site">
+  </div>
+  <div class="why-content">
+    <div class="section-label" style="margin-bottom:2rem;">Why ITC</div>
+    <h2>Suffolk's <em>trade</em><br>community<br>trusts us.</h2>
+    <ul class="why-list">
+      <li class="why-item">
+        <div class="why-check"></div>
+        <div class="why-item-text">
+          <strong>Local knowledge, real stock</strong>
+          Based in Ipswich, we know what Suffolk tradespeople need and we hold it in stock — no waiting weeks for essentials.
+        </div>
+      </li>
+      <li class="why-item">
+        <div class="why-check"></div>
+        <div class="why-item-text">
+          <strong>Account ordering for businesses</strong>
+          Set up a trade account for streamlined ordering, invoicing and volume discounts across all our product ranges.
+        </div>
+      </li>
+      <li class="why-item">
+        <div class="why-check"></div>
+        <div class="why-item-text">
+          <strong>Embroidery done in-house</strong>
+          We handle everything ourselves: design, embroidery, print and dispatch. No outsourcing, no delays.
+        </div>
+      </li>
+      <li class="why-item">
+        <div class="why-check"></div>
+        <div class="why-item-text">
+          <strong>Community partnerships</strong>
+          Proud to kit out local sports clubs, schools, charities and events across Suffolk and East Anglia.
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="categories">
+  <div class="cat-header">
+    <div>
+      <div class="section-label" style="margin-bottom:1rem;">Shop by category</div>
+      <h2>Everything<br>you need.</h2>
+    </div>
+    <a class="view-all" href="#">View all products</a>
+  </div>
+  <div class="cat-grid">
+    <div class="cat-item">
+      <img class="cat-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=900&q=80" alt="PPE safety equipment">
+      <div class="cat-overlay">
+        <div class="cat-name">PPE & Safety Equipment</div>
+        <div class="cat-arrow">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="1.5" aria-hidden="true"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
+        </div>
+      </div>
+    </div>
+    <div class="cat-item">
+      <img class="cat-img" src="https://images.unsplash.com/photo-1724300489015-15bf8c4ee9d2?q=80&w=680&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Workwear clothing">
+      <div class="cat-overlay">
+        <div class="cat-name">Workwear</div>
+        <div class="cat-arrow"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="1.5" aria-hidden="true"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
+      </div>
+    </div>
+    <div class="cat-item">
+      <img class="cat-img" src="https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=600&q=80" alt="Hand tools and power tools">
+      <div class="cat-overlay">
+        <div class="cat-name">Tools</div>
+        <div class="cat-arrow"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="1.5" aria-hidden="true"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
+      </div>
+    </div>
+    <div class="cat-item">
+      <img class="cat-img" src="https://images.unsplash.com/photo-1627570375109-aa27d594108c?q=80&w=1631&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Branded embroidered clothing">
+      <div class="cat-overlay">
+        <div class="cat-name">Branded Clothing</div>
+        <div class="cat-arrow"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="1.5" aria-hidden="true"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
+      </div>
+    </div>
+    <div class="cat-item">
+      <img class="cat-img" src="https://images.unsplash.com/photo-1529255848089-c4e456d166e0?q=80&w=688&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Fixings screws and bolts">
+      <div class="cat-overlay">
+        <div class="cat-name">Fixings</div>
+        <div class="cat-arrow"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="1.5" aria-hidden="true"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EMBROIDERY CALLOUT -->
+<section class="emb">
+  <div class="emb-content">
+    <h2>Your brand.<br>On everything.</h2>
+    <p>From a single embroidered polo to a full team kit, we handle the artwork, embroidery and printing in-house — fast turnaround, competitive pricing, no minimum fuss.</p>
+    <a href="#" class="btn-white">Get a Branding Quote</a>
+  </div>
+  <div class="emb-specs">
+    <div class="emb-spec">
+      <div class="emb-spec-title">Embroidery</div>
+      <div class="emb-spec-desc">High-quality logo embroidery on any garment. Durable, professional, wash-resistant.</div>
+    </div>
+    <div class="emb-spec">
+      <div class="emb-spec-title">Print</div>
+      <div class="emb-spec-desc">Screen print and digital transfer print for bold, full-colour designs.</div>
+    </div>
+    <div class="emb-spec">
+      <div class="emb-spec-title">Signage</div>
+      <div class="emb-spec-desc">Site boards, vehicle wraps, wall graphics and safety signs — all in-house.</div>
+    </div>
+    <div class="emb-spec">
+      <div class="emb-spec-title">Merchandise</div>
+      <div class="emb-spec-desc">Branded pens, bags, bottles, mugs and promotional items for your business.</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-label">What clients say</div>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <p class="testi-quote">ITC have been our go-to for workwear and PPE for years. Reliable stock, fair prices, and the team always goes the extra mile.</p>
+      <div class="testi-author">James Alderton</div>
+      <div class="testi-company">Alderton Building Services, Ipswich</div>
+    </div>
+    <div class="testi-card">
+      <p class="testi-quote">The embroidery work on our team kits was outstanding. Quick turnaround and the quality was exactly what we needed for the season.</p>
+      <div class="testi-author">Sarah Moran</div>
+      <div class="testi-company">Bury Bulldogs FC</div>
+    </div>
+    <div class="testi-card">
+      <p class="testi-quote">Set up a trade account and it's made ordering so much easier. One phone call and everything arrives the next day — proper local service.</p>
+      <div class="testi-author">Mike Tilson</div>
+      <div class="testi-company">Tilson Electrical, Suffolk</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Ready to<br>order?</h2>
+  <p>Visit us in Ipswich, browse the online shop, or call us for a quote. We're here to supply your trade, your team, and your brand.</p>
+  <div class="cta-actions">
+    <a href="#" class="btn-primary">Visit the Shop</a>
+    <a href="#" class="btn-ghost">Call Us Today</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a class="nav-logo" href="#">Ipswich <span>Trade</span> Centre</a>
+      <p>Suffolk's specialist supplier of PPE, workwear, tools, fixings, signage and branded clothing. Serving tradespeople and businesses since 2004.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Products</div>
+      <ul class="footer-links">
+        <li><a href="#">PPE & Safety</a></li>
+        <li><a href="#">Workwear</a></li>
+        <li><a href="#">Tools</a></li>
+        <li><a href="#">Fixings</a></li>
+        <li><a href="#">Signage</a></li>
+        <li><a href="#">Merchandise</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Services</div>
+      <ul class="footer-links">
+        <li><a href="#">Embroidery</a></li>
+        <li><a href="#">Print</a></li>
+        <li><a href="#">Trade Accounts</a></li>
+        <li><a href="#">Groundscrews</a></li>
+        <li><a href="#">Sustainability</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <ul class="footer-links">
+        <li><a href="#">Visit Us in Ipswich</a></li>
+        <li><a href="#">Get a Quote</a></li>
+        <li><a href="#">News</a></li>
+        <li><a href="#">Online Shop</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Ipswich Trade Centre. All rights reserved.</span>
+    <span>Ipswich, Suffolk, IP1</span>
+  </div>
+</footer>
+
+</body>
+</html>

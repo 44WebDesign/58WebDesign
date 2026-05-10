@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Ipswich Trade Center | 58WebDesign</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['"Instrument Serif"', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#1a1a1a',
+                        'background-light': '#F9F9F9',
+                        'background-dark': '#0A0A0A',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-color: #F9F9F9;
+            color: #1a1a1a;
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
+</head>
+<body class="font-sans min-h-screen flex flex-col">
+
+    <!-- Navbar -->
+    <nav class="w-full px-8 py-6 flex justify-center items-center border-b border-primary/5 bg-background-light">
+        <div class="flex items-center gap-2">
+            <span class="font-display text-4xl tracking-[-0.12em] text-primary">58</span>
+            <span class="text-[10px] uppercase tracking-[0.3em] font-medium text-primary/70">WebDesign</span>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow flex flex-col items-center justify-center py-12 px-6">
+        <div class="max-w-6xl w-full space-y-10">
+            
+            <!-- Header -->
+            <div class="text-center space-y-6">
+                <h1 class="font-display text-6xl md:text-8xl tracking-tighter leading-[0.9]">
+                    Select a <span class="italic opacity-80">Concept.</span>
+                </h1>
+                <p class="max-w-xl mx-auto text-lg text-primary/60 font-light leading-relaxed">
+                    Please review the design concepts below. Click on any card to view the interactive demo for your project.
+                </p>
+            </div>
+
+            <!-- Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pt-4">
+                
+                <!-- Card 1 -->
+                <a href="/clients/itc/1.html" class="group block bg-white rounded-2xl overflow-hidden border border-primary/10 transition-all duration-500 hover:shadow-xl hover:-translate-y-1 flex flex-col">
+                    <div class="aspect-[4/3] bg-zinc-100 relative overflow-hidden flex items-center justify-center border-b border-primary/5">
+                        <img src="/clients/itc/1.png" alt="Concept 1" class="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-40 transition-opacity duration-500" referrerPolicy="no-referrer">
+                        <span class="relative z-10 font-display text-9xl text-primary/20 group-hover:text-primary/40 group-hover:scale-110 transition-all duration-500 drop-shadow-sm">1</span>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    </div>
+                    <div class="p-8 space-y-6 flex-grow flex flex-col">
+                        <div class="flex justify-between items-start">
+                            <span class="text-[10px] uppercase tracking-widest opacity-40 font-bold">Concept 01</span>
+                            <svg class="w-5 h-5 opacity-0 group-hover:opacity-100 transition-all transform -translate-x-2 group-hover:translate-x-0 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </div>
+                        <div>
+                            <h3 class="font-display text-4xl tracking-tight mb-3">Industrial Impact</h3>
+                            <p class="text-sm text-primary/60 font-light leading-relaxed">
+                                A high-energy, dark-themed layout that uses heavy, italicized typography and high-contrast action photography to appeal to the "boots on the ground" professional.
+                            </p>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Card 2 -->
+                <a href="/clients/itc/2.html" class="group block bg-white rounded-2xl overflow-hidden border border-primary/10 transition-all duration-500 hover:shadow-xl hover:-translate-y-1 flex flex-col">
+                    <div class="aspect-[4/3] bg-zinc-100 relative overflow-hidden flex items-center justify-center border-b border-primary/5">
+                        <img src="/clients/itc/2.png" alt="Concept 2" class="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-40 transition-opacity duration-500" referrerPolicy="no-referrer">
+                        <span class="relative z-10 font-display text-9xl text-primary/20 group-hover:text-primary/40 group-hover:scale-110 transition-all duration-500 drop-shadow-sm">2</span>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    </div>
+                    <div class="p-8 space-y-6 flex-grow flex flex-col">
+                        <div class="flex justify-between items-start">
+                            <span class="text-[10px] uppercase tracking-widest opacity-40 font-bold">Concept 02</span>
+                            <svg class="w-5 h-5 opacity-0 group-hover:opacity-100 transition-all transform -translate-x-2 group-hover:translate-x-0 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </div>
+                        <div>
+                            <h3 class="font-display text-4xl tracking-tight mb-3">Professional Direct</h3>
+                            <p class="text-sm text-primary/60 font-light leading-relaxed">
+                                This design focuses on authority and longevity, utilizing a clean split-screen layout and bold headlines to position the brand as a dependable, established partner.
+                            </p>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Card 3 -->
+                <a href="/clients/itc/3.html" class="group block bg-white rounded-2xl overflow-hidden border border-primary/10 transition-all duration-500 hover:shadow-xl hover:-translate-y-1 flex flex-col">
+                    <div class="aspect-[4/3] bg-zinc-100 relative overflow-hidden flex items-center justify-center border-b border-primary/5">
+                        <img src="/clients/itc/3.png" alt="Concept 3" class="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-40 transition-opacity duration-500" referrerPolicy="no-referrer">
+                        <span class="relative z-10 font-display text-9xl text-primary/20 group-hover:text-primary/40 group-hover:scale-110 transition-all duration-500 drop-shadow-sm">3</span>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    </div>
+                    <div class="p-8 space-y-6 flex-grow flex flex-col">
+                        <div class="flex justify-between items-start">
+                            <span class="text-[10px] uppercase tracking-widest opacity-40 font-bold">Concept 03</span>
+                            <svg class="w-5 h-5 opacity-0 group-hover:opacity-100 transition-all transform -translate-x-2 group-hover:translate-x-0 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </div>
+                        <div>
+                            <h3 class="font-display text-4xl tracking-tight mb-3">Trade Hero</h3>
+                            <p class="text-sm text-primary/60 font-light leading-relaxed">
+                                Combining human-centric imagery with a strong blue accent color, this layout emphasizes the reliability and specific services offered to the local Suffolk community.
+                            </p>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full py-8 text-center border-t border-primary/5">
+        <p class="text-[10px] uppercase tracking-[0.3em] opacity-40 font-medium">
+            &copy; 2026 58WebDesign. All rights reserved.
+        </p>
+    </footer>
+
+</body>
+</html>
