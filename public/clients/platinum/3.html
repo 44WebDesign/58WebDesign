@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Platinum Sports & Prestige — Design 2: Champagne Editorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --ivory: oklch(97% 0.008 85);
+    --cream: oklch(94% 0.010 85);
+    --warm-white: oklch(99% 0.004 85);
+    --champagne: oklch(82% 0 0);
+    --champagne-deep: oklch(58% 0 0);
+    --champagne-dark: oklch(32% 0 0);
+    --espresso: oklch(18% 0.003 85);
+    --charcoal: oklch(28% 0.003 85);
+    --warm-grey: oklch(55% 0.003 85);
+    --light-warm: oklch(80% 0.003 85);
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--ivory);
+    color: var(--espresso);
+    font-family: var(--sans);
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--warm-white);
+    border-bottom: 1px solid oklch(88% 0.010 85);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 4rem; height: 80px;
+  }
+  .nav-left { display: flex; align-items: center; gap: 3rem; }
+  .nav-logo {
+    font-family: var(--serif); font-size: 1rem; font-weight: 400;
+    letter-spacing: 0.04em; color: var(--espresso);
+  }
+  .nav-tagline { font-size: 0.6rem; color: var(--warm-grey); letter-spacing: 0.15em; text-transform: uppercase; }
+  .nav-divider { width: 1px; height: 30px; background: oklch(88% 0.010 85); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.7rem; font-weight: 400; letter-spacing: 0.05em;
+    color: var(--warm-grey); text-decoration: none; transition: color 0.25s;
+  }
+  .nav-links a:hover { color: var(--espresso); }
+  .nav-cta {
+    background: var(--espresso); color: var(--warm-white);
+    font-size: 0.65rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 0.75rem 1.8rem; text-decoration: none; transition: background 0.25s;
+  }
+  .nav-cta:hover { background: var(--champagne-dark); }
+
+  /* HERO — SPLIT LAYOUT */
+  .hero {
+    display: grid; grid-template-columns: 1fr 1fr;
+    min-height: 100vh; margin-top: 80px;
+  }
+  .hero-text {
+    background: var(--cream);
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 5rem 4rem 5rem 5rem;
+  }
+  .hero-issue {
+    display: flex; align-items: center; gap: 1rem;
+    font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--champagne-deep);
+    margin-bottom: 3rem;
+  }
+  .hero-issue span { width: 30px; height: 1px; background: var(--champagne-deep); display: inline-block; }
+  .hero-text h1 {
+    font-family: var(--serif); font-size: clamp(3rem, 5.5vw, 5.5rem);
+    font-weight: 400; line-height: 1.05; letter-spacing: -0.01em;
+    margin-bottom: 2rem; color: var(--espresso);
+  }
+  .hero-text h1 em { font-style: italic; }
+  .hero-divider { width: 50px; height: 2px; background: var(--champagne); margin-bottom: 2rem; }
+  .hero-text p {
+    font-size: 0.9rem; line-height: 1.85; color: var(--warm-grey);
+    max-width: 400px; margin-bottom: 3rem;
+  }
+  .hero-actions { display: flex; align-items: center; gap: 2rem; }
+  .btn-dark {
+    background: var(--espresso); color: var(--warm-white);
+    font-size: 0.65rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase;
+    padding: 0.9rem 2.2rem; text-decoration: none; transition: background 0.25s;
+  }
+  .btn-dark:hover { background: var(--champagne-dark); }
+  .btn-text {
+    font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--warm-grey); text-decoration: none; display: flex; align-items: center; gap: 0.5rem;
+    transition: color 0.25s;
+  }
+  .btn-text:hover { color: var(--espresso); }
+  .btn-text::after { content: '→'; }
+  .hero-image {
+    position: relative; overflow: hidden;
+  }
+  .hero-image img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 8s ease-out;
+  }
+  .hero-image:hover img { transform: scale(1.03); }
+  .hero-caption {
+    position: absolute; bottom: 2rem; right: 2rem;
+    font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: rgba(255,255,255,0.7); writing-mode: vertical-rl;
+    text-orientation: mixed; transform: rotate(180deg);
+  }
+
+  /* MARQUEE STRIP */
+  .marquee-strip {
+    background: var(--espresso); overflow: hidden;
+    padding: 0.9rem 0; display: flex; gap: 0;
+  }
+  .marquee-track {
+    display: flex; gap: 3rem; animation: marquee 20s linear infinite;
+    white-space: nowrap;
+  }
+  .marquee-track span {
+    font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--champagne); flex-shrink: 0;
+  }
+  .marquee-sep { color: oklch(62% 0 0) !important; }
+  @keyframes marquee { from { transform: translateX(0) } to { transform: translateX(-50%) } }
+
+  /* ABOUT SECTION */
+  .about {
+    display: grid; grid-template-columns: 1fr 1.3fr;
+    padding: 0; min-height: 80vh;
+  }
+  .about-visual { position: relative; overflow: hidden; min-height: 500px; }
+  .about-visual img { width: 100%; height: 100%; object-fit: cover; }
+  .about-visual-overlay {
+    position: absolute; bottom: 2.5rem; left: 2.5rem;
+    background: var(--warm-white); padding: 1.5rem 2rem;
+  }
+  .about-visual-overlay .big-num {
+    font-family: var(--serif); font-size: 3rem; font-weight: 400; color: var(--champagne-deep); line-height: 1;
+  }
+  .about-visual-overlay p { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--warm-grey); margin-top: 0.3rem; }
+  .about-content {
+    background: var(--cream); padding: 5rem 4rem 5rem 5rem;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .label-pill {
+    display: inline-block; font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase;
+    background: var(--champagne); color: var(--espresso);
+    padding: 0.4rem 1rem; margin-bottom: 2rem;
+  }
+  .about-content h2 {
+    font-family: var(--serif); font-size: clamp(2rem, 3.5vw, 3.2rem);
+    font-weight: 400; line-height: 1.15; margin-bottom: 2rem;
+  }
+  .about-content p { font-size: 0.85rem; line-height: 1.95; color: var(--warm-grey); margin-bottom: 1.5rem; }
+
+  /* SERVICES — FULL WIDTH LISTING */
+  .services { background: var(--warm-white); padding: 6rem 5rem; }
+  .services-top {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+    align-items: start; margin-bottom: 4rem;
+  }
+  .services-top h2 {
+    font-family: var(--serif); font-size: clamp(2.2rem, 4vw, 3.8rem);
+    font-weight: 400; line-height: 1.1;
+  }
+  .services-top p { font-size: 0.85rem; line-height: 1.9; color: var(--warm-grey); padding-top: 0.5rem; }
+  .service-list { border-top: 1px solid oklch(88% 0.010 85); }
+  .service-row {
+    display: grid; grid-template-columns: 60px 1fr 300px 80px;
+    align-items: center; gap: 2rem;
+    padding: 1.8rem 0; border-bottom: 1px solid oklch(88% 0.010 85);
+    transition: background 0.2s; cursor: default;
+    position: relative;
+  }
+  .service-row:hover { background: var(--cream); margin: 0 -5rem; padding-left: 5rem; padding-right: 5rem; }
+  .service-row-num { font-family: var(--serif); font-size: 0.8rem; color: var(--champagne-deep); }
+  .service-row h3 { font-family: var(--serif); font-size: 1.3rem; font-weight: 400; }
+  .service-row p { font-size: 0.75rem; color: var(--warm-grey); line-height: 1.7; }
+  .service-row-arrow { font-size: 1.2rem; color: var(--champagne-deep); text-align: right; opacity: 0; transition: opacity 0.2s; }
+  .service-row:hover .service-row-arrow { opacity: 1; }
+
+  /* IMAGE TRIO */
+  .image-trio {
+    display: grid; grid-template-columns: 1.5fr 1fr 1fr;
+    height: 55vh; min-height: 400px;
+  }
+  .trio-cell { overflow: hidden; position: relative; }
+  .trio-cell img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94); }
+  .trio-cell:hover img { transform: scale(1.04); }
+  .trio-label {
+    position: absolute; bottom: 1.5rem; left: 1.5rem;
+    font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(255,255,255,0.85); background: rgba(18,14,10,0.6);
+    padding: 0.4rem 0.8rem;
+  }
+
+  /* QUOTE PULL */
+  .quote-pull {
+    background: var(--espresso); padding: 5rem;
+    display: flex; align-items: flex-start; gap: 4rem;
+  }
+  .quote-pull-line { width: 2px; background: var(--champagne); flex-shrink: 0; }
+  .quote-pull blockquote {
+    font-family: var(--serif); font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+    font-weight: 400; font-style: italic; line-height: 1.5;
+    color: var(--warm-white); flex: 1;
+  }
+  .quote-pull-meta { flex-shrink: 0; width: 180px; }
+  .quote-pull-meta p { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--champagne); }
+  .quote-pull-meta small { display: block; font-size: 0.6rem; color: var(--warm-grey); margin-top: 0.3rem; letter-spacing: 0.1em; }
+
+  /* TESTIMONIALS */
+  .testimonials { background: var(--cream); padding: 6rem 5rem; }
+  .testimonials h2 {
+    font-family: var(--serif); font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 400; margin-bottom: 3rem;
+  }
+  .test-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; }
+  .test-card { background: var(--warm-white); padding: 2.5rem 3rem; }
+  .test-card p {
+    font-family: var(--serif); font-size: 1.1rem; font-weight: 400; font-style: italic;
+    line-height: 1.7; color: var(--charcoal); margin-bottom: 1.5rem;
+  }
+  .test-divider { width: 30px; height: 1px; background: var(--champagne); margin-bottom: 1rem; }
+  .test-author { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--espresso); font-weight: 500; }
+  .test-role { font-size: 0.65rem; color: var(--warm-grey); margin-top: 0.2rem; }
+
+  /* PROCESS TIMELINE */
+  .process { background: var(--ivory); padding: 6rem 5rem; }
+  .process h2 { font-family: var(--serif); font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 400; margin-bottom: 3rem; }
+  .timeline {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    position: relative;
+  }
+  .timeline::before {
+    content: ''; position: absolute; top: 18px; left: 10%; right: 10%;
+    height: 1px; background: oklch(88% 0.010 85);
+  }
+  .timeline-step { padding: 0 1.5rem 0 0; }
+  .timeline-dot {
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--champagne); border: 3px solid var(--ivory);
+    margin-bottom: 2rem; position: relative; z-index: 1;
+  }
+  .timeline-step:first-child .timeline-dot { background: var(--espresso); }
+  .timeline-step h3 { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.8rem; font-weight: 500; }
+  .timeline-step p { font-size: 0.75rem; line-height: 1.8; color: var(--warm-grey); }
+
+  /* CTA FULL BLEED */
+  .cta-section {
+    display: grid; grid-template-columns: 1fr 1fr; min-height: 60vh;
+  }
+  .cta-image { overflow: hidden; position: relative; }
+  .cta-image img { width: 100%; height: 100%; object-fit: cover; }
+  .cta-content {
+    background: var(--espresso);
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 5rem 4rem;
+  }
+  .cta-content p.eyebrow { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--champagne); margin-bottom: 2rem; }
+  .cta-content h2 {
+    font-family: var(--serif); font-size: clamp(2rem, 3.5vw, 3.5rem);
+    font-weight: 400; color: var(--warm-white); line-height: 1.15; margin-bottom: 1.5rem;
+  }
+  .cta-content h2 em { font-style: italic; }
+  .cta-content p.body { font-size: 0.8rem; line-height: 1.85; color: oklch(50% 0.003 85); margin-bottom: 2.5rem; }
+  .btn-dark-cta {
+    background: var(--espresso); color: var(--warm-white);
+    font-size: 0.65rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase;
+    padding: 1rem 2.5rem; text-decoration: none; display: inline-block;
+    transition: background 0.25s; width: fit-content;
+  }
+  .btn-dark-cta:hover { background: var(--champagne-dark); }
+
+  /* FOOTER */
+  footer { background: oklch(14% 0.003 85); padding: 4rem 5rem 2rem; }
+  .footer-top {
+    display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem;
+    padding-bottom: 3rem; border-bottom: 1px solid oklch(22% 0.003 85); margin-bottom: 2rem;
+  }
+  .footer-brand-name { font-family: var(--serif); font-size: 1.1rem; color: var(--champagne); margin-bottom: 0.5rem; }
+  .footer-brand p { font-size: 0.72rem; color: oklch(48% 0.003 85); line-height: 1.85; margin-top: 0.8rem; }
+  .footer-col h5 { font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--champagne); margin-bottom: 1.2rem; }
+  .footer-col a { display: block; font-size: 0.72rem; color: oklch(48% 0.003 85); text-decoration: none; margin-bottom: 0.6rem; transition: color 0.25s; }
+  .footer-col a:hover { color: var(--warm-white); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+  .footer-bottom p { font-size: 0.62rem; color: oklch(35% 0.003 85); letter-spacing: 0.08em; }
+
+  @media (max-width: 900px) {
+    nav { padding: 0 1.5rem; }
+    .nav-links { display: none; }
+    .hero, .about, .cta-section { grid-template-columns: 1fr; }
+    .hero-image { height: 50vh; }
+    .about-visual { min-height: 300px; }
+    .services { padding: 4rem 1.5rem; }
+    .services-top { grid-template-columns: 1fr; }
+    .service-row { grid-template-columns: 40px 1fr; }
+    .service-row p, .service-row-arrow { display: none; }
+    .image-trio { grid-template-columns: 1fr; height: auto; }
+    .trio-cell { height: 220px; }
+    .quote-pull { flex-direction: column; padding: 3rem 1.5rem; gap: 2rem; }
+    .quote-pull-meta { width: auto; }
+    .test-grid { grid-template-columns: 1fr; }
+    .timeline { grid-template-columns: 1fr 1fr; }
+    .timeline::before { display: none; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .process, .testimonials, .footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-left">
+    <div>
+      <div class="nav-logo">Platinum Sports & Prestige</div>
+      <div class="nav-tagline">Enclosed Vehicle Transport</div>
+    </div>
+    <div class="nav-divider"></div>
+    <ul class="nav-links">
+      <li><a href="#">About</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="#">Fleet</a></li>
+      <li><a href="#">Storage</a></li>
+    </ul>
+  </div>
+  <a href="#contact" class="nav-cta">Request a Quote</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-issue">
+      <span></span>
+      Enclosed Transport Specialists
+    </div>
+    <h1>The art of moving <em>exceptional</em> vehicles</h1>
+    <div class="hero-divider"></div>
+    <p>Platinum Sports & Prestige delivers end-to-end VIP transportation across the UK and Europe. For collectors, dealers, and enthusiasts who demand the extraordinary.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-dark">Request a Quote</a>
+      <a href="#services" class="btn-text">Our Services</a>
+    </div>
+  </div>
+  <div class="hero-image">
+    <img src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=900&q=85" alt="Luxury vehicle transport">
+    <div class="hero-caption">Platinum Sports & Prestige</div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <span>Enclosed Transport</span><span class="marquee-sep">·</span>
+    <span>UK & Europe</span><span class="marquee-sep">·</span>
+    <span>Prestige Storage</span><span class="marquee-sep">·</span>
+    <span>Race & Track Days</span><span class="marquee-sep">·</span>
+    <span>Auction Transport</span><span class="marquee-sep">·</span>
+    <span>White Glove Handover</span><span class="marquee-sep">·</span>
+    <span>Fully Insured</span><span class="marquee-sep">·</span>
+    <span>Enclosed Transport</span><span class="marquee-sep">·</span>
+    <span>UK & Europe</span><span class="marquee-sep">·</span>
+    <span>Prestige Storage</span><span class="marquee-sep">·</span>
+    <span>Race & Track Days</span><span class="marquee-sep">·</span>
+    <span>Auction Transport</span><span class="marquee-sep">·</span>
+    <span>White Glove Handover</span><span class="marquee-sep">·</span>
+    <span>Fully Insured</span><span class="marquee-sep">·</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about">
+  <div class="about-visual">
+    <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800&q=85" alt="Prestige vehicle">
+    <div class="about-visual-overlay">
+      <div class="big-num">15+</div>
+      <p>Years of Excellence</p>
+    </div>
+  </div>
+  <div class="about-content">
+    <span class="label-pill">Our Story</span>
+    <h2>Based in Felixstowe. Trusted across Europe.</h2>
+    <p>Founded on the belief that extraordinary vehicles deserve extraordinary care, Platinum Sports & Prestige has become the partner of choice for discerning clients across the UK and mainland Europe.</p>
+    <p>Our approach is simple: treat every vehicle as if it were irreplaceable, because to its owner, it is. From the moment we collect your car to the moment it is delivered, you receive complete transparency, total security, and genuine expertise.</p>
+    <p>Whether you're transporting a race car to a circuit, a classic to a concours, or a supercar to a second home in Europe, we are the specialists you want behind the wheel of your logistics.</p>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="services-top">
+    <h2>Services built around your vehicle</h2>
+    <p>From a single enclosed move to a long-term storage arrangement, every service is tailored to the individual. No standard packages. No compromises.</p>
+  </div>
+  <div class="service-list">
+    <div class="service-row">
+      <span class="service-row-num">01</span>
+      <h3>Enclosed Vehicle Transport</h3>
+      <p>Full-protection, enclosed transportation shielding your vehicle from the elements throughout the journey.</p>
+      <span class="service-row-arrow">→</span>
+    </div>
+    <div class="service-row">
+      <span class="service-row-num">02</span>
+      <h3>UK & European Delivery</h3>
+      <p>Seamless cross-border logistics across the UK and mainland Europe with full documentation and insurance.</p>
+      <span class="service-row-arrow">→</span>
+    </div>
+    <div class="service-row">
+      <span class="service-row-num">03</span>
+      <h3>Prestige Vehicle Storage</h3>
+      <p>Climate-controlled, 24/7 monitored secure storage for your collection with full condition reporting.</p>
+      <span class="service-row-arrow">→</span>
+    </div>
+    <div class="service-row">
+      <span class="service-row-num">04</span>
+      <h3>Race & Track Day Transport</h3>
+      <p>Time-critical specialist transportation for motorsport events, track days, and racing circuits.</p>
+      <span class="service-row-arrow">→</span>
+    </div>
+    <div class="service-row">
+      <span class="service-row-num">05</span>
+      <h3>Auction & Dealer Logistics</h3>
+      <p>Trusted by leading auction houses and prestige dealerships for discreet, efficient vehicle moves.</p>
+      <span class="service-row-arrow">→</span>
+    </div>
+  </div>
+</section>
+
+<!-- IMAGE TRIO -->
+<div class="image-trio">
+  <div class="trio-cell">
+    <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=900&q=80" alt="Supercar">
+    <div class="trio-label">Supercar Specialists</div>
+  </div>
+  <div class="trio-cell">
+    <img src="https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=600&q=80" alt="Ferrari">
+    <div class="trio-label">Ferrari & Lamborghini</div>
+  </div>
+  <div class="trio-cell">
+    <img src="https://images.unsplash.com/photo-1580414057403-c5f451f30e1c?w=600&q=80" alt="Classic cars">
+    <div class="trio-label">Classic Collection</div>
+  </div>
+</div>
+
+<!-- PULL QUOTE -->
+<div class="quote-pull">
+  <div class="quote-pull-line"></div>
+  <blockquote>"The measure of excellence in luxury transport is not speed or price. It is the absolute confidence that your vehicle will arrive precisely as it left — and the peace of mind that comes with knowing who is responsible for it."</blockquote>
+  <div class="quote-pull-meta">
+    <p>The Platinum Standard</p>
+    <small>Our founding philosophy</small>
+  </div>
+</div>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <h2>Trusted by those who know</h2>
+  <div class="test-grid">
+    <div class="test-card">
+      <p>"Platinum transported my Lamborghini Huracán to Monaco without a single issue. Arrived spotless, on time, with a full condition report. Exceptional service."</p>
+      <div class="test-divider"></div>
+      <div class="test-author">James H.</div>
+      <div class="test-role">Private Collector, London</div>
+    </div>
+    <div class="test-card">
+      <p>"We've used several enclosed transport companies over the years. Platinum is in a different league for professionalism, communication, and care."</p>
+      <div class="test-divider"></div>
+      <div class="test-author">Prestige Auto Group</div>
+      <div class="test-role">Dealership Partner, London</div>
+    </div>
+    <div class="test-card">
+      <p>"My classic Porsche 911 is irreplaceable. Platinum are the only company I trust with it. They understand what these cars mean to their owners."</p>
+      <div class="test-divider"></div>
+      <div class="test-author">Richard M.</div>
+      <div class="test-role">Classic Car Collector</div>
+    </div>
+    <div class="test-card">
+      <p>"Used Platinum for a circuit day at Spa. Their team handled everything with precision — exactly the stress-free experience we needed before a track weekend."</p>
+      <div class="test-divider"></div>
+      <div class="test-author">Sophia T.</div>
+      <div class="test-role">Track Day Enthusiast</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process">
+  <p class="label-pill" style="margin-bottom:1.5rem;">How It Works</p>
+  <h2>Simple for you. Meticulous for us.</h2>
+  <div class="timeline">
+    <div class="timeline-step">
+      <div class="timeline-dot"></div>
+      <h3>Consultation</h3>
+      <p>Tell us about your vehicle, destination, and timeline. We advise the best approach and provide a clear, transparent quote.</p>
+    </div>
+    <div class="timeline-step">
+      <div class="timeline-dot"></div>
+      <h3>Planning</h3>
+      <p>We handle all route planning, documentation, insurance, and border logistics before we collect your vehicle.</p>
+    </div>
+    <div class="timeline-step">
+      <div class="timeline-dot"></div>
+      <h3>Collection</h3>
+      <p>White-glove collection at a time that suits you. A full photographic condition report is produced at point of collection.</p>
+    </div>
+    <div class="timeline-step">
+      <div class="timeline-dot"></div>
+      <h3>Delivery</h3>
+      <p>Delivered in perfect condition. We brief you personally at handover, with full documentation. Always.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <div class="cta-image">
+    <img src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=900&q=80" alt="Prestige vehicle">
+  </div>
+  <div class="cta-content">
+    <p class="eyebrow">Get In Touch</p>
+    <h2>Ready to move your <em>prized possession?</em></h2>
+    <p class="body">Request a bespoke quotation with no obligation. Our team is ready to advise on the best approach for your vehicle, your timeline, and your peace of mind.</p>
+    <a href="https://platinumsportsandprestige.co.uk/contact/" class="btn-dark-cta">Request a Quote</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-brand-name">Platinum Sports & Prestige</div>
+      <p>The UK's premier enclosed vehicle transport specialists, serving collectors, dealers, and enthusiasts across the United Kingdom and Europe from our base in Felixstowe.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Services</h5>
+      <a href="#">Enclosed Transport</a>
+      <a href="#">European Delivery</a>
+      <a href="#">Prestige Storage</a>
+      <a href="#">Race & Track</a>
+      <a href="#">Auction Moves</a>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <a href="#">About Us</a>
+      <a href="#">Our Fleet</a>
+      <a href="#">News</a>
+      <a href="#">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h5>Connect</h5>
+      <a href="#">Instagram</a>
+      <a href="#">Facebook</a>
+      <a href="#">info@platinumsportsandprestige.co.uk</a>
+      <a href="#">Felixstowe, Suffolk, UK</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Platinum Sports & Prestige. All rights reserved. Registered in England & Wales.</p>
+    <p>Privacy Policy · Terms of Service</p>
+  </div>
+</footer>
+
+</body>
+</html>
