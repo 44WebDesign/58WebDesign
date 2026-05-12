@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Platinum Sports & Prestige — Design 4: Atelier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+
+/* ─── DESIGN TOKENS ─────────────────────────────────────────── */
+:root {
+  --black:        #0D0C0A;
+  --black-2:      #141412;
+  --black-3:      #1C1B19;
+  --ebony:        #242320;
+  --gold:         #C0BDB8;
+  --gold-light:   #E0DDDA;
+  --gold-dim:     #6E6B67;
+  --gold-shimmer: linear-gradient(105deg, #6E6B67 0%, #D8D5D0 35%, #FFFFFF 50%, #D8D5D0 65%, #C0BDB8 85%, #6E6B67 100%);
+  --champagne:    #EDEAE4;
+  --champagne-2:  #B8B4AE;
+  --stone:        #6B6865;
+  --border-gold:  rgba(192,189,184,0.2);
+  --border-dim:   rgba(192,189,184,0.08);
+  --white-off:    #F5F3F0;
+  --font-display: 'Josefin Sans', sans-serif;
+  --font-serif:   'Cormorant Garamond', serif;
+
+  /* spacing rhythm */
+  --sp-xs: 0.5rem;
+  --sp-sm: 1rem;
+  --sp-md: 2rem;
+  --sp-lg: 4rem;
+  --sp-xl: 7rem;
+}
+
+/* ─── RESET ──────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  background: var(--black);
+  color: var(--champagne);
+  font-family: var(--font-display);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── GRAIN OVERLAY ─────────────────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 9999; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  opacity: 1;
+}
+
+/* ─── ART DECO GEOMETRIC ORNAMENT (SVG inline reused) ───────── */
+.deco-rule {
+  display: flex; align-items: center; gap: 1rem;
+  margin: 1.25rem 0;
+}
+.deco-rule-line { flex: 1; height: 1px; background: var(--border-gold); }
+.deco-rule-diamond {
+  width: 8px; height: 8px;
+  background: var(--gold);
+  transform: rotate(45deg); flex-shrink: 0;
+}
+.deco-rule-sm .deco-rule-diamond { width: 5px; height: 5px; }
+
+/* ─── SHIMMER TEXT UTILITY ──────────────────────────────────── */
+.shimmer {
+  background: var(--gold-shimmer);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% auto;
+  animation: shimmer-anim 4s linear infinite;
+}
+@keyframes shimmer-anim {
+  from { background-position: 200% center; }
+  to   { background-position: -200% center; }
+}
+
+/* ─── NAVIGATION ─────────────────────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+  height: 76px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 0 3rem;
+  background: rgba(13,12,10,0.92);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border-dim);
+}
+.nav-links-left, .nav-links-right {
+  display: flex; gap: 2.5rem; list-style: none;
+}
+.nav-links-right { justify-content: flex-end; }
+.nav-links-left a, .nav-links-right a {
+  color: var(--stone);
+  text-decoration: none;
+  font-size: 0.65rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+.nav-links-left a:hover, .nav-links-right a:hover { color: var(--gold); }
+.nav-centre-brand {
+  text-align: center; text-decoration: none; display: block;
+}
+.nav-brand-top {
+  font-family: var(--font-display);
+  font-size: 0.55rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 700;
+  display: block;
+  margin-bottom: 0.15rem;
+}
+.nav-brand-main {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--champagne);
+  display: block;
+  letter-spacing: 0.04em;
+  font-weight: 300;
+}
+
+/* mobile nav */
+.hamburger {
+  display: none; flex-direction: column; gap: 5px;
+  cursor: pointer; background: none; border: none; padding: 4px;
+}
+.hamburger span { display: block; width: 22px; height: 1px; background: var(--champagne); transition: all 0.3s; }
+.mobile-overlay {
+  display: none; position: fixed; inset: 0; z-index: 490;
+  background: var(--black);
+  flex-direction: column; align-items: center; justify-content: center;
+  gap: 0;
+}
+.mobile-overlay.open { display: flex; }
+.mobile-overlay a {
+  display: block; width: 100%; text-align: center;
+  color: var(--champagne); text-decoration: none;
+  font-family: var(--font-serif); font-size: 2.8rem;
+  font-style: italic; font-weight: 300;
+  padding: 1.25rem 2rem;
+  border-bottom: 1px solid var(--border-dim);
+  transition: color 0.3s;
+}
+.mobile-overlay a:first-of-type { border-top: 1px solid var(--border-dim); }
+.mobile-overlay a:hover { color: var(--gold); }
+.mobile-close {
+  position: absolute; top: 1.75rem; right: 2rem;
+  background: none; border: none; color: var(--stone);
+  font-size: 1.25rem; cursor: pointer; font-family: var(--font-display);
+}
+
+/* ─── HERO ───────────────────────────────────────────────────── */
+.hero {
+  min-height: 100dvh;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  padding-top: 76px;
+  position: relative;
+  overflow: hidden;
+}
+/* full-bleed bg image */
+.hero-bg {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
+  filter: brightness(0.28) saturate(0.6) contrast(1.1);
+  z-index: 0;
+}
+.hero-bg-vignette {
+  position: absolute; inset: 0; z-index: 1;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 100%, rgba(13,12,10,0.95) 0%, transparent 100%),
+    radial-gradient(ellipse 100% 50% at 50% 0%,   rgba(13,12,10,0.7) 0%, transparent 100%),
+    linear-gradient(to bottom, rgba(13,12,10,0.4), rgba(13,12,10,0.0) 40%, rgba(13,12,10,0.6));
+}
+
+/* centre-column hero content */
+.hero-body {
+  position: relative; z-index: 2;
+  display: flex; flex-direction: column;
+  align-items: center; text-align: center;
+  justify-content: center;
+  padding: 4rem 2rem 3rem;
+}
+.hero-kicker {
+  font-size: 0.58rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+/* Art Deco framed badge */
+.hero-deco-frame {
+  display: inline-block;
+  border: 1px solid var(--border-gold);
+  padding: 2.5rem 4rem 2rem;
+  position: relative;
+  margin-bottom: 2rem;
+}
+.hero-deco-frame::before,
+.hero-deco-frame::after {
+  content: '';
+  position: absolute;
+  width: 20px; height: 20px;
+  border-color: var(--gold);
+  border-style: solid;
+  opacity: 0.6;
+}
+.hero-deco-frame::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+.hero-deco-frame::after  { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+
+.hero-title {
+  font-family: var(--font-serif);
+  font-size: clamp(3.2rem, 7vw, 7.5rem);
+  font-weight: 300;
+  line-height: 0.95;
+  letter-spacing: 0.03em;
+  color: var(--champagne);
+  margin-bottom: 0.5rem;
+}
+.hero-title strong {
+  display: block; font-weight: 600;
+  font-family: var(--font-display);
+  font-size: 0.38em;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.75rem;
+}
+.hero-title em {
+  font-style: italic; display: block;
+  color: var(--champagne-2);
+}
+
+.hero-sub {
+  font-family: var(--font-serif);
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
+  font-style: italic;
+  color: var(--stone);
+  max-width: 52ch;
+  line-height: 1.75;
+  font-weight: 300;
+  margin: 1.5rem auto 0;
+}
+
+.hero-actions {
+  margin-top: 2.5rem;
+  display: flex; gap: 1.25rem; align-items: center; flex-wrap: wrap;
+  justify-content: center;
+}
+.btn-deco {
+  display: inline-flex; align-items: center; gap: 0.75rem;
+  font-family: var(--font-display);
+  font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase;
+  font-weight: 700; text-decoration: none; padding: 1rem 2.5rem;
+  border: 1px solid var(--gold);
+  color: var(--black);
+  position: relative; overflow: hidden;
+  transition: color 0.3s;
+  background: var(--gold-shimmer);
+  background-size: 200% auto;
+  animation: shimmer-anim 4s linear infinite;
+}
+.btn-deco:hover { filter: brightness(1.12); }
+.btn-ghost-deco {
+  display: inline-flex; align-items: center; gap: 0.75rem;
+  font-family: var(--font-display);
+  font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase;
+  font-weight: 600; text-decoration: none; padding: 1rem 2.5rem;
+  border: 1px solid var(--border-gold);
+  color: var(--champagne-2);
+  transition: all 0.3s;
+}
+.btn-ghost-deco:hover { border-color: var(--gold); color: var(--gold); }
+
+/* hero bottom stats bar */
+.hero-stats-bar {
+  position: relative; z-index: 2;
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--border-dim);
+  background: rgba(13,12,10,0.75);
+  backdrop-filter: blur(16px);
+}
+.stat-cell {
+  padding: 1.75rem 2rem;
+  border-right: 1px solid var(--border-dim);
+  text-align: center;
+  position: relative;
+}
+.stat-cell:last-child { border-right: none; }
+.stat-n {
+  font-family: var(--font-serif);
+  font-size: 2.4rem; font-style: italic; font-weight: 300;
+  background: var(--gold-shimmer);
+  background-size: 200% auto;
+  animation: shimmer-anim 4s linear infinite;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  line-height: 1;
+  margin-bottom: 0.4rem;
+  display: block;
+}
+.stat-l {
+  font-size: 0.55rem; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--stone); font-weight: 600;
+}
+
+/* ─── SECTION SCAFFOLDING ────────────────────────────────────── */
+.section { padding: var(--sp-xl) 0; }
+.section-alt { background: var(--black-2); }
+.section-dark { background: var(--black-3); }
+
+.container { max-width: 1380px; margin: 0 auto; padding: 0 3rem; }
+
+.section-eyebrow {
+  font-size: 0.55rem; letter-spacing: 0.35em; text-transform: uppercase;
+  color: var(--gold); font-weight: 700; margin-bottom: 0.5rem;
+  display: flex; align-items: center; justify-content: center; gap: 1rem;
+}
+.section-eyebrow::before,
+.section-eyebrow::after {
+  content: '◆'; font-size: 0.4rem; opacity: 0.5;
+}
+.section-title-centre {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 4vw, 4rem);
+  font-weight: 300; line-height: 1.1;
+  text-align: center;
+  color: var(--champagne);
+  letter-spacing: 0.02em;
+}
+.section-title-centre em { font-style: italic; }
+.section-title-centre strong {
+  display: block; font-family: var(--font-display);
+  font-size: 0.5em; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gold); font-weight: 700; margin-bottom: 0.5rem;
+}
+
+/* ─── MARQUEE ────────────────────────────────────────────────── */
+.marquee-bar {
+  border-top: 1px solid var(--border-gold);
+  border-bottom: 1px solid var(--border-gold);
+  padding: 0.85rem 0; overflow: hidden;
+  background: var(--black-2);
+}
+.marquee-track {
+  display: flex; gap: 0; white-space: nowrap;
+  animation: marquee-scroll 35s linear infinite;
+}
+.marquee-item {
+  display: flex; align-items: center; gap: 2rem;
+  padding: 0 2rem;
+  font-size: 0.58rem; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--stone); font-weight: 600;
+}
+.marquee-item .m-dot {
+  width: 4px; height: 4px; background: var(--gold);
+  transform: rotate(45deg); flex-shrink: 0;
+}
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ─── INTRO / ABOUT ─────────────────────────────────────────── */
+.intro-grid {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: 6rem; align-items: center;
+}
+.intro-text .eyebrow-left {
+  font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--gold); font-weight: 700; margin-bottom: var(--sp-md);
+  display: flex; align-items: center; gap: 0.75rem;
+}
+.intro-text .eyebrow-left::before { content: ''; width: 28px; height: 1px; background: var(--gold); }
+.intro-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 3.5vw, 3.4rem);
+  font-weight: 300; line-height: 1.1;
+  color: var(--champagne); margin-bottom: 1.5rem;
+}
+.intro-title em { font-style: italic; }
+.intro-body {
+  font-family: var(--font-serif);
+  font-size: 1.05rem; color: var(--stone);
+  line-height: 1.9; font-weight: 300;
+  margin-bottom: 1.25rem; max-width: 48ch;
+}
+
+/* right: stacked images with geometric overlay */
+.intro-visual {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 340px 180px;
+  gap: 4px;
+}
+.intro-visual img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.intro-visual .img-span { grid-column: 1 / -1; }
+.intro-visual-badge {
+  position: absolute; bottom: -1.5rem; left: 2rem;
+  background: var(--black);
+  border: 1px solid var(--border-gold);
+  padding: 1.25rem 2rem;
+  z-index: 3;
+}
+.badge-label {
+  font-size: 0.5rem; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 0.3rem; font-weight: 700;
+}
+.badge-val {
+  font-family: var(--font-serif);
+  font-size: 1.6rem; font-style: italic; font-weight: 300; color: var(--champagne);
+}
+
+/* ─── SERVICES ────────────────────────────────────────────────── */
+/* Asymmetric bento — 12-col */
+.services-bento {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-auto-rows: 300px;
+  gap: 3px;
+  margin-top: 4rem;
+}
+.sb { position: relative; overflow: hidden; }
+.sb-7 { grid-column: span 7; }
+.sb-5 { grid-column: span 5; }
+.sb-4 { grid-column: span 4; }
+.sb-8 { grid-column: span 8; }
+.sb img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  filter: brightness(0.42) saturate(0.65);
+  transition: transform 0.8s cubic-bezier(0.16,1,0.3,1),
+              filter 0.6s ease;
+}
+.sb:hover img { transform: scale(1.07); filter: brightness(0.3) saturate(0.5); }
+
+.sb-body {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 2rem 2.25rem;
+}
+/* decorative top-left corner lines */
+.sb-body::before {
+  content: '';
+  position: absolute; top: 1.5rem; left: 1.5rem;
+  width: 24px; height: 24px;
+  border-left: 1px solid var(--gold);
+  border-top: 1px solid var(--gold);
+  opacity: 0.4;
+  transition: opacity 0.3s;
+}
+.sb:hover .sb-body::before { opacity: 1; }
+
+.sb-num {
+  font-size: 0.5rem; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--gold); font-weight: 700; margin-bottom: 0.6rem;
+}
+.sb-name {
+  font-family: var(--font-serif);
+  font-size: 1.45rem; font-weight: 300; font-style: italic;
+  color: var(--champagne); margin-bottom: 0.5rem; line-height: 1.2;
+}
+.sb-7 .sb-name { font-size: 1.9rem; }
+.sb-desc {
+  font-family: var(--font-serif);
+  font-size: 0.88rem; color: var(--champagne-2);
+  line-height: 1.65; font-weight: 300;
+  max-width: 44ch;
+  opacity: 0; transform: translateY(8px);
+  transition: opacity 0.4s 0.05s, transform 0.4s 0.05s;
+}
+.sb:hover .sb-desc { opacity: 1; transform: translateY(0); }
+
+/* ─── GEOMETRIC DIVIDER ─────────────────────────────────────── */
+.geo-divider {
+  display: flex; align-items: center; gap: 2rem;
+  padding: 0 3rem;
+}
+.geo-line { flex: 1; height: 1px; background: var(--border-gold); }
+.geo-shape {
+  position: relative; width: 60px; height: 60px; flex-shrink: 0;
+}
+.geo-shape svg { width: 100%; height: 100%; }
+
+/* ─── PROCESS ─────────────────────────────────────────────────── */
+.process-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  margin-top: 4rem;
+  border: 1px solid var(--border-dim);
+}
+.process-col {
+  padding: 3rem 2.5rem;
+  border-right: 1px solid var(--border-dim);
+  position: relative;
+}
+.process-col:last-child { border-right: none; }
+/* gold top accent per column */
+.process-col::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--gold-shimmer);
+  background-size: 200% auto;
+  animation: shimmer-anim 4s linear infinite;
+  opacity: 0; transition: opacity 0.4s;
+}
+.process-col:hover::before { opacity: 1; }
+
+.process-num {
+  font-family: var(--font-serif); font-style: italic;
+  font-size: 4rem; font-weight: 300; line-height: 1;
+  color: var(--border-gold); margin-bottom: 1.5rem;
+  display: block;
+}
+.process-title {
+  font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--champagne); font-weight: 700; margin-bottom: 1rem;
+}
+.process-desc {
+  font-family: var(--font-serif);
+  font-size: 0.95rem; color: var(--stone);
+  line-height: 1.8; font-weight: 300;
+}
+
+/* ─── FULL-BLEED PHOTO STRIP ─────────────────────────────────── */
+.photo-strip {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  height: 440px;
+}
+.photo-strip-cell { position: relative; overflow: hidden; }
+.photo-strip-cell img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  filter: brightness(0.5) saturate(0.7);
+  transition: transform 0.7s cubic-bezier(0.16,1,0.3,1), filter 0.4s;
+}
+.photo-strip-cell:hover img { transform: scale(1.05); filter: brightness(0.35) saturate(0.6); }
+.photo-strip-cell:not(:last-child) { border-right: 1px solid var(--border-dim); }
+.ps-label {
+  position: absolute; bottom: 2rem; left: 2rem; right: 2rem;
+}
+.ps-cat {
+  font-size: 0.52rem; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--gold); font-weight: 700; margin-bottom: 0.5rem;
+}
+.ps-title {
+  font-family: var(--font-serif);
+  font-size: 1.3rem; font-style: italic; font-weight: 300; color: var(--champagne);
+}
+
+/* ─── TESTIMONIALS ───────────────────────────────────────────── */
+.testimonials-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+  background: var(--border-dim);
+  margin-top: 4rem;
+}
+.t-block {
+  background: var(--black-2);
+  padding: 3.5rem;
+  position: relative; overflow: hidden;
+}
+.t-block::before {
+  content: '\201C';
+  font-family: var(--font-serif);
+  font-size: 9rem; font-weight: 300; font-style: italic;
+  color: var(--gold); opacity: 0.07;
+  position: absolute; top: -1.5rem; left: 2rem;
+  line-height: 1; pointer-events: none;
+}
+/* corner ornament */
+.t-block::after {
+  content: '';
+  position: absolute; bottom: 0; right: 0;
+  width: 40px; height: 40px;
+  border-right: 1px solid var(--border-gold);
+  border-bottom: 1px solid var(--border-gold);
+}
+.t-quote {
+  font-family: var(--font-serif);
+  font-size: 1.1rem; font-style: italic; font-weight: 300;
+  line-height: 1.75; color: var(--champagne-2);
+  margin-bottom: 2rem; position: relative; z-index: 1;
+}
+.t-rule { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+.t-rule-line { width: 28px; height: 1px; background: var(--gold); }
+.t-author {
+  font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--gold); font-weight: 700;
+}
+.t-vehicle {
+  font-family: var(--font-serif);
+  font-size: 0.85rem; font-style: italic; color: var(--stone);
+  margin-top: 0.3rem; font-weight: 300;
+}
+
+/* ─── CTA ────────────────────────────────────────────────────── */
+.cta-section {
+  position: relative; min-height: 80vh;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center; overflow: hidden;
+}
+.cta-bg {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
+  filter: brightness(0.22) saturate(0.5);
+}
+.cta-overlay {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 50%, rgba(192,189,184,0.04) 0%, transparent 70%),
+    linear-gradient(to bottom, rgba(13,12,10,0.6), rgba(13,12,10,0.4), rgba(13,12,10,0.7));
+}
+.cta-content {
+  position: relative; z-index: 2;
+  max-width: 760px; padding: 0 2rem;
+}
+
+/* geometric frame around CTA */
+.cta-frame {
+  display: inline-block;
+  border: 1px solid var(--border-gold);
+  padding: 4rem 5rem;
+  position: relative;
+}
+.cta-frame::before,
+.cta-frame::after {
+  content: '';
+  position: absolute;
+  width: 28px; height: 28px;
+  border-color: var(--gold);
+  border-style: solid;
+}
+.cta-frame::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+.cta-frame::after  { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+
+.cta-kicker {
+  font-size: 0.55rem; letter-spacing: 0.38em; text-transform: uppercase;
+  color: var(--gold); font-weight: 700; margin-bottom: 1.5rem;
+  display: flex; align-items: center; justify-content: center; gap: 1rem;
+}
+.cta-kicker::before, .cta-kicker::after {
+  content: '◆'; font-size: 0.4rem; opacity: 0.5;
+}
+.cta-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  font-weight: 300; line-height: 1.05;
+  color: var(--champagne); margin-bottom: 0.75rem;
+}
+.cta-title em { font-style: italic; }
+.cta-body {
+  font-family: var(--font-serif);
+  font-size: 1.05rem; font-style: italic; font-weight: 300;
+  color: var(--stone); max-width: 46ch; margin: 1.5rem auto 2.5rem;
+  line-height: 1.8;
+}
+.cta-contact {
+  display: flex; gap: 0; justify-content: center; flex-wrap: wrap;
+  border: 1px solid var(--border-dim); margin-top: 2rem;
+}
+.cta-contact-item {
+  padding: 1.25rem 2.5rem;
+  border-right: 1px solid var(--border-dim);
+  text-align: center;
+}
+.cta-contact-item:last-child { border-right: none; }
+.cc-label {
+  font-size: 0.5rem; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--stone); font-weight: 600; margin-bottom: 0.4rem;
+}
+.cc-val {
+  font-family: var(--font-serif);
+  font-size: 0.95rem; font-style: italic; color: var(--champagne-2);
+  text-decoration: none; display: block;
+}
+
+/* ─── FOOTER ──────────────────────────────────────────────────── */
+footer {
+  background: var(--black);
+  border-top: 1px solid var(--border-dim);
+  padding: 5rem 0 0;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2.5fr 1fr 1fr 1fr;
+  gap: 4rem; margin-bottom: 4rem;
+}
+.footer-brand {
+  font-family: var(--font-serif);
+  font-size: 1.5rem; font-style: italic; font-weight: 300;
+  color: var(--champagne); margin-bottom: 0.25rem;
+}
+.footer-subbrand {
+  font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--gold); font-weight: 700; margin-bottom: 1.25rem;
+}
+.footer-tagline {
+  font-family: var(--font-serif);
+  font-size: 0.92rem; font-style: italic; font-weight: 300;
+  color: var(--stone); line-height: 1.8; max-width: 30ch;
+}
+.footer-h {
+  font-size: 0.52rem; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--gold); font-weight: 700; margin-bottom: 1.5rem;
+  display: flex; align-items: center; gap: 0.6rem;
+}
+.footer-h::after { content: ''; flex: 1; height: 1px; background: var(--border-dim); }
+.footer-ul { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; }
+.footer-ul a {
+  font-family: var(--font-serif);
+  font-style: italic; font-weight: 300;
+  color: var(--stone); text-decoration: none;
+  font-size: 0.95rem; transition: color 0.25s;
+}
+.footer-ul a:hover { color: var(--champagne); }
+.footer-bar {
+  border-top: 1px solid var(--border-dim);
+  padding: 1.75rem 3rem;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.footer-copy {
+  font-size: 0.6rem; letter-spacing: 0.12em; color: var(--stone); font-weight: 600;
+}
+.footer-legal { display: flex; gap: 2rem; }
+.footer-legal a {
+  font-size: 0.6rem; letter-spacing: 0.1em; color: var(--stone);
+  text-decoration: none; transition: color 0.25s;
+}
+.footer-legal a:hover { color: var(--gold); }
+
+/* ─── REVEAL ANIMATIONS ─────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.9s cubic-bezier(0.16,1,0.3,1),
+    transform 0.9s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal.in { opacity: 1; transform: translateY(0); }
+
+/* stagger children */
+.stagger > * {
+  opacity: 0; transform: translateY(16px);
+  transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+}
+.stagger.in > *:nth-child(1) { transition-delay: 0ms; }
+.stagger.in > *:nth-child(2) { transition-delay: 80ms; }
+.stagger.in > *:nth-child(3) { transition-delay: 160ms; }
+.stagger.in > *:nth-child(4) { transition-delay: 240ms; }
+.stagger.in > * { opacity: 1; transform: translateY(0); }
+
+/* ─── REDUCED MOTION ─────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* ─── MOBILE ──────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  nav { grid-template-columns: 1fr auto; padding: 0 1.5rem; }
+  .nav-links-left, .nav-links-right { display: none; }
+  .hamburger { display: flex; }
+
+  .hero-deco-frame { padding: 2rem 2rem 1.5rem; }
+  .hero-stats-bar { grid-template-columns: 1fr 1fr; }
+  .stat-cell:nth-child(2) { border-right: none; }
+  .stat-cell:nth-child(3) { border-top: 1px solid var(--border-dim); }
+  .stat-cell:nth-child(4) { border-top: 1px solid var(--border-dim); border-right: none; }
+
+  .container { padding: 0 1.5rem; }
+  .section { padding: 4rem 0; }
+
+  .intro-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .intro-visual { grid-template-columns: 1fr 1fr; grid-template-rows: 220px 140px; }
+
+  .services-bento { grid-template-columns: 1fr; grid-auto-rows: 260px; }
+  .sb-7, .sb-5, .sb-4, .sb-8 { grid-column: span 1; }
+  .sb-desc { opacity: 1; transform: none; }
+
+  .process-row { grid-template-columns: 1fr; }
+  .process-col { border-right: none; border-bottom: 1px solid var(--border-dim); }
+  .process-col:last-child { border-bottom: none; }
+
+  .photo-strip { grid-template-columns: 1fr; height: auto; }
+  .photo-strip-cell { height: 280px; border-right: none !important; border-bottom: 1px solid var(--border-dim); }
+  .photo-strip-cell:last-child { border-bottom: none; }
+
+  .testimonials-grid { grid-template-columns: 1fr; }
+
+  .cta-frame { padding: 2.5rem 2rem; }
+  .cta-contact { flex-direction: column; }
+  .cta-contact-item { border-right: none; border-bottom: 1px solid var(--border-dim); }
+  .cta-contact-item:last-child { border-bottom: none; }
+
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+  .footer-bar { flex-direction: column; gap: 1rem; text-align: center; padding: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══════════════════════════════════════════════════ -->
+<nav>
+  <ul class="nav-links-left">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">Process</a></li>
+  </ul>
+
+  <a href="#" class="nav-centre-brand">
+    <span class="nav-brand-top">Est. Felixstowe</span>
+    <span class="nav-brand-main">Platinum Sports &amp; Prestige</span>
+  </a>
+
+  <ul class="nav-links-right">
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Enquire</a></li>
+  </ul>
+
+  <button class="hamburger" onclick="openMenu()" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-overlay" id="mobileOverlay">
+  <button class="mobile-close" onclick="closeMenu()">✕</button>
+  <a href="#services"  onclick="closeMenu()">Services</a>
+  <a href="#process"   onclick="closeMenu()">Process</a>
+  <a href="#about"     onclick="closeMenu()">About</a>
+  <a href="#contact"   onclick="closeMenu()">Enquire</a>
+</div>
+
+<!-- ══ HERO ═════════════════════════════════════════════════ -->
+<section class="hero" id="top">
+  <img class="hero-bg"
+    src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1800&q=90&auto=format&fit=crop"
+    alt="Enclosed prestige vehicle transport">
+  <div class="hero-bg-vignette"></div>
+
+  <div class="hero-body">
+    <div class="hero-kicker">United Kingdom &amp; Europe · Enclosed Vehicle Specialists</div>
+
+    <div class="hero-deco-frame">
+      <h1 class="hero-title">
+        <strong>Platinum Sports &amp; Prestige</strong>
+        The Art of<br>
+        <em>Vehicle Transport</em>
+      </h1>
+    </div>
+
+    <div class="deco-rule" style="max-width:320px; margin:0 auto 1.5rem;">
+      <div class="deco-rule-line"></div>
+      <div class="deco-rule-diamond"></div>
+      <div class="deco-rule-line"></div>
+    </div>
+
+    <p class="hero-sub">
+      White-glove, fully enclosed transportation for the world's most exceptional vehicles —
+      handled with the precision and discretion they deserve.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#contact" class="btn-deco">Reserve Transport</a>
+      <a href="#services" class="btn-ghost-deco">Explore Services</a>
+    </div>
+  </div>
+
+  <div class="hero-stats-bar stagger">
+    <div class="stat-cell">
+      <span class="stat-n">500+</span>
+      <span class="stat-l">Vehicles Transported</span>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-n">14</span>
+      <span class="stat-l">Countries Served</span>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-n">Zero</span>
+      <span class="stat-l">Damage Claims</span>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-n">7 Days</span>
+      <span class="stat-l">Always Available</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MARQUEE ══════════════════════════════════════════════ -->
+<div class="marquee-bar">
+  <div class="marquee-track">
+    <!-- duplicated for seamless loop -->
+    <div class="marquee-item"><div class="m-dot"></div>Ferrari</div>
+    <div class="marquee-item"><div class="m-dot"></div>Lamborghini</div>
+    <div class="marquee-item"><div class="m-dot"></div>McLaren</div>
+    <div class="marquee-item"><div class="m-dot"></div>Porsche</div>
+    <div class="marquee-item"><div class="m-dot"></div>Rolls-Royce</div>
+    <div class="marquee-item"><div class="m-dot"></div>Bentley</div>
+    <div class="marquee-item"><div class="m-dot"></div>Aston Martin</div>
+    <div class="marquee-item"><div class="m-dot"></div>Bugatti</div>
+    <div class="marquee-item"><div class="m-dot"></div>Classic Collections</div>
+    <div class="marquee-item"><div class="m-dot"></div>Race Vehicles</div>
+    <div class="marquee-item"><div class="m-dot"></div>UK to Europe</div>
+    <div class="marquee-item"><div class="m-dot"></div>Ferrari</div>
+    <div class="marquee-item"><div class="m-dot"></div>Lamborghini</div>
+    <div class="marquee-item"><div class="m-dot"></div>McLaren</div>
+    <div class="marquee-item"><div class="m-dot"></div>Porsche</div>
+    <div class="marquee-item"><div class="m-dot"></div>Rolls-Royce</div>
+    <div class="marquee-item"><div class="m-dot"></div>Bentley</div>
+    <div class="marquee-item"><div class="m-dot"></div>Aston Martin</div>
+    <div class="marquee-item"><div class="m-dot"></div>Bugatti</div>
+    <div class="marquee-item"><div class="m-dot"></div>Classic Collections</div>
+    <div class="marquee-item"><div class="m-dot"></div>Race Vehicles</div>
+    <div class="marquee-item"><div class="m-dot"></div>UK to Europe</div>
+  </div>
+</div>
+
+<!-- ══ ABOUT ════════════════════════════════════════════════ -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="intro-grid">
+      <div class="intro-text reveal">
+        <div class="eyebrow-left">Who We Are</div>
+        <h2 class="intro-title">
+          Bespoke Transport,<br><em>Delivered with Honour</em>
+        </h2>
+        <div class="deco-rule deco-rule-sm"><div class="deco-rule-line"></div><div class="deco-rule-diamond"></div><div class="deco-rule-line" style="max-width:40px;"></div></div>
+        <p class="intro-body">Based in Felixstowe, Platinum Sports & Prestige was founded on the conviction that the finest vehicles in the world deserve a transport partner who takes them as seriously as their custodians do.</p>
+        <p class="intro-body">We operate exclusively enclosed trailers. We provide full condition reports before every transit. We deliver on time, with discretion, and without exception.</p>
+        <a href="#contact" class="btn-deco" style="margin-top:2rem; display:inline-flex;">Speak to Our Team</a>
+      </div>
+
+      <div class="intro-visual reveal">
+        <img class="img-span"
+          src="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=900&q=85&auto=format&fit=crop"
+          alt="Enclosed transport trailer">
+        <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=500&q=80&auto=format&fit=crop"
+          alt="Prestige vehicle detail">
+        <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=500&q=80&auto=format&fit=crop"
+          alt="Sports car">
+        <div class="intro-visual-badge">
+          <div class="badge-label">Zero Damage Record</div>
+          <div class="badge-val">500+ Vehicles</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SERVICES ═════════════════════════════════════════════ -->
+<section class="section section-alt" id="services">
+  <div class="container">
+    <div class="reveal" style="text-align:center;">
+      <div class="section-eyebrow">Our Services</div>
+      <h2 class="section-title-centre">
+        <strong>What We Offer</strong>
+        Every Commission,<br><em>Treated as Exceptional</em>
+      </h2>
+      <div class="deco-rule" style="max-width:280px; margin:1.5rem auto 0;">
+        <div class="deco-rule-line"></div>
+        <div class="deco-rule-diamond"></div>
+        <div class="deco-rule-line"></div>
+      </div>
+    </div>
+
+    <div class="services-bento reveal">
+      <div class="sb sb-7">
+        <img src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=1000&q=85&auto=format&fit=crop" alt="Enclosed transport">
+        <div class="sb-body">
+          <div class="sb-num">01 — Flagship Service</div>
+          <div class="sb-name">Enclosed Vehicle Transport</div>
+          <div class="sb-desc">Air-ride enclosed trailers, full insurance, and real-time GPS tracking. The uncompromising standard for vehicles that demand nothing less.</div>
+        </div>
+      </div>
+      <div class="sb sb-5">
+        <img src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=700&q=80&auto=format&fit=crop" alt="European delivery">
+        <div class="sb-body">
+          <div class="sb-num">02</div>
+          <div class="sb-name">European Collection &amp; Delivery</div>
+          <div class="sb-desc">Door-to-door across 14 countries. Customs-experienced and fully documented throughout.</div>
+        </div>
+      </div>
+      <div class="sb sb-4">
+        <img src="https://images.unsplash.com/photo-1493238792000-8113da705763?w=600&q=80&auto=format&fit=crop" alt="Race logistics">
+        <div class="sb-body">
+          <div class="sb-num">03</div>
+          <div class="sb-name">Race &amp; Track Day Logistics</div>
+          <div class="sb-desc">Circuit-to-circuit transport. On time, every time.</div>
+        </div>
+      </div>
+      <div class="sb sb-4">
+        <img src="https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?w=600&q=80&auto=format&fit=crop" alt="Storage">
+        <div class="sb-body">
+          <div class="sb-num">04</div>
+          <div class="sb-name">Secure Vehicle Storage</div>
+          <div class="sb-desc">Climate-controlled, monitored, and insured storage.</div>
+        </div>
+      </div>
+      <div class="sb sb-4">
+        <img src="https://images.unsplash.com/photo-1591419478162-a4dd21b7ec0a?q=80&w=1587&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Dealer transport">
+        <div class="sb-body">
+          <div class="sb-num">05</div>
+          <div class="sb-name">Dealer &amp; Auction Transport</div>
+          <div class="sb-desc">Discreet, reliable prestige stock movement.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ GEO DIVIDER ══════════════════════════════════════════ -->
+<div style="padding: 3rem 0; background: var(--black-2);">
+  <div class="geo-divider">
+    <div class="geo-line"></div>
+    <div class="geo-shape">
+      <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="15" y="15" width="30" height="30" stroke="rgba(192,189,184,0.35)" stroke-width="1" transform="rotate(45 30 30)"/>
+        <rect x="21" y="21" width="18" height="18" stroke="rgba(192,189,184,0.2)" stroke-width="1" transform="rotate(45 30 30)"/>
+        <circle cx="30" cy="30" r="3" fill="#C0BDB8" opacity="0.7"/>
+      </svg>
+    </div>
+    <div class="geo-line"></div>
+  </div>
+</div>
+
+<!-- ══ PROCESS ══════════════════════════════════════════════ -->
+<section class="section section-dark" id="process">
+  <div class="container">
+    <div class="reveal" style="text-align:center;">
+      <div class="section-eyebrow">How It Works</div>
+      <h2 class="section-title-centre">
+        <strong>Our Process</strong>
+        Four Steps to<br><em>Flawless Delivery</em>
+      </h2>
+    </div>
+
+    <div class="process-row stagger">
+      <div class="process-col">
+        <span class="process-num">I</span>
+        <div class="process-title">Consultation</div>
+        <p class="process-desc">We discuss your vehicle, route, and timeline in detail. Every requirement is understood before any commitment is made.</p>
+      </div>
+      <div class="process-col">
+        <span class="process-num">II</span>
+        <div class="process-title">Condition Report</div>
+        <p class="process-desc">A photographic and written pre-transit inspection completed with you present. Your vehicle's condition is documented precisely.</p>
+      </div>
+      <div class="process-col">
+        <span class="process-num">III</span>
+        <div class="process-title">Enclosed Transit</div>
+        <p class="process-desc">Your vehicle travels in a fully enclosed, air-ride trailer. GPS tracked in real time. Shielded from weather, debris, and exposure.</p>
+      </div>
+      <div class="process-col">
+        <span class="process-num">IV</span>
+        <div class="process-title">White-Glove Delivery</div>
+        <p class="process-desc">Delivered to your exact location at the agreed time, with a final inspection and signed delivery confirmation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PHOTO STRIP ══════════════════════════════════════════ -->
+<div class="photo-strip">
+  <div class="photo-strip-cell">
+    <img src="https://images.unsplash.com/photo-1592198084033-aade902d1aae?w=700&q=80&auto=format&fit=crop" alt="Ferrari">
+    <div class="ps-label">
+      <div class="ps-cat">Supercar · Ferrari</div>
+      <div class="ps-title">488 Pista — UK to Monaco</div>
+    </div>
+  </div>
+  <div class="photo-strip-cell">
+    <img src="https://images.unsplash.com/photo-1590362891991-f776e747a588?w=700&q=80&auto=format&fit=crop" alt="Porsche">
+    <div class="ps-label">
+      <div class="ps-cat">Classic · Porsche</div>
+      <div class="ps-title">911 GT3 — Suffolk to Geneva</div>
+    </div>
+  </div>
+  <div class="photo-strip-cell">
+    <img src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=700&q=80&auto=format&fit=crop" alt="McLaren">
+    <div class="ps-label">
+      <div class="ps-cat">Hypercar · McLaren</div>
+      <div class="ps-title">720S — UK to Circuit de Spa</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TESTIMONIALS ═════════════════════════════════════════ -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="reveal" style="text-align:center;">
+      <div class="section-eyebrow">Testimonials</div>
+      <h2 class="section-title-centre">
+        <strong>Client Voices</strong>
+        Words From Those<br><em>Who Trust Us</em>
+      </h2>
+    </div>
+    <div class="testimonials-grid reveal">
+      <div class="t-block">
+        <div class="t-quote">My Ferrari 488 Pista made it from Suffolk to the Monaco Grand Prix paddock without a mark. The condition report gave me absolute confidence before the car had moved an inch. I've not used anyone else since.</div>
+        <div class="t-rule"><div class="t-rule-line"></div></div>
+        <div class="t-author">James R. — Private Collector</div>
+        <div class="t-vehicle">Ferrari 488 Pista · Suffolk to Monaco</div>
+      </div>
+      <div class="t-block">
+        <div class="t-quote">As a prestige dealer moving six-figure inventory regularly, we need complete reliability. Platinum have never missed a collection, never missed a delivery, and always communicate before we have to ask.</div>
+        <div class="t-rule"><div class="t-rule-line"></div></div>
+        <div class="t-author">Charlotte M. — Prestige Dealer Principal</div>
+        <div class="t-vehicle">Ongoing dealer account · Multiple vehicles</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA ═══════════════════════════════════════════════════ -->
+<section class="cta-section" id="contact">
+  <img class="cta-bg"
+    src="https://images.unsplash.com/photo-1526726538690-5cbf956ae2fd?w=1800&q=80&auto=format&fit=crop"
+    alt="Luxury vehicle">
+  <div class="cta-overlay"></div>
+  <div class="cta-content">
+    <div class="cta-frame">
+      <div class="cta-kicker">Get in Touch</div>
+      <h2 class="cta-title">
+        Ready to Move Your<br><em>Prized Possession?</em>
+      </h2>
+      <div class="deco-rule" style="max-width:200px; margin:1.5rem auto;">
+        <div class="deco-rule-line"></div>
+        <div class="deco-rule-diamond"></div>
+        <div class="deco-rule-line"></div>
+      </div>
+      <p class="cta-body">Speak to our team about your vehicle and requirements. We respond to all enquiries within two hours and are available seven days a week.</p>
+      <a href="mailto:info@platinumsportsandprestige.co.uk" class="btn-deco" style="margin:0 auto 2rem; display:inline-flex;">Send an Enquiry</a>
+      <div class="cta-contact">
+        <div class="cta-contact-item">
+          <div class="cc-label">Telephone</div>
+          <a class="cc-val" href="tel:+441394000000">+44 1394 000 000</a>
+        </div>
+        <div class="cta-contact-item">
+          <div class="cc-label">Email</div>
+          <a class="cc-val" href="mailto:info@platinumsportsandprestige.co.uk">info@platinumsports...</a>
+        </div>
+        <div class="cta-contact-item">
+          <div class="cc-label">Location</div>
+          <span class="cc-val">Felixstowe, Suffolk</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ════════════════════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-subbrand">Established · Felixstowe</div>
+        <div class="footer-brand">Platinum Sports &amp; Prestige</div>
+        <div class="deco-rule deco-rule-sm" style="margin: 1rem 0;">
+          <div class="deco-rule-line" style="max-width:40px;"></div>
+          <div class="deco-rule-diamond"></div>
+          <div class="deco-rule-line" style="flex:unset; width:40px;"></div>
+        </div>
+        <p class="footer-tagline">Enclosed vehicle transport specialists serving collectors, dealers, and enthusiasts across the UK and Europe.</p>
+      </div>
+      <div>
+        <div class="footer-h">Services</div>
+        <ul class="footer-ul">
+          <li><a href="#">Enclosed Transport</a></li>
+          <li><a href="#">European Delivery</a></li>
+          <li><a href="#">Race Logistics</a></li>
+          <li><a href="#">Secure Storage</a></li>
+          <li><a href="#">Dealer Transport</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-h">Company</div>
+        <ul class="footer-ul">
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Our Fleet</a></li>
+          <li><a href="#">Testimonials</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-h">Contact</div>
+        <ul class="footer-ul">
+          <li><a href="#">Felixstowe, Suffolk</a></li>
+          <li><a href="#">info@platinumsportsandprestige.co.uk</a></li>
+          <li><a href="#">+44 1394 000 000</a></li>
+          <li><a href="#">Available 7 Days</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bar">
+    <div class="footer-copy">© 2024 PLATINUM SPORTS &amp; PRESTIGE LTD · ALL RIGHTS RESERVED</div>
+    <div class="footer-legal">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu
+  function openMenu()  { document.getElementById('mobileOverlay').classList.add('open');    document.body.style.overflow = 'hidden'; }
+  function closeMenu() { document.getElementById('mobileOverlay').classList.remove('open'); document.body.style.overflow = ''; }
+
+  // Scroll reveal — IntersectionObserver only, no scroll listeners
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); revealObs.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.reveal, .stagger').forEach(el => revealObs.observe(el));
+</script>
+</body>
+</html>
