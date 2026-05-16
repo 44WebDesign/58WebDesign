@@ -1,0 +1,1868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ricky's Bread & Beyond — Handcrafted Sandwiches & Burgers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700;1,900&family=DM+Sans:ital,wght@0,400;0,500;1,400&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --teal: #00E5C9;
+    --teal-dim: #00B8A0;
+    --coral: #FF4E3A;
+    --coral-dim: #CC3A28;
+    --amber: #FFB830;
+    --amber-dim: #CC9020;
+    --magenta: #FF2D78;
+    --magenta-dim: #CC1A5A;
+    --cream: #FFF5E0;
+    --dark: #0A0A0F;
+    --dark-2: #12121C;
+    --dark-3: #1A1A2E;
+    --dark-4: #1E1E32;
+    --chrome: #C8D8E8;
+    --chrome-dim: #8899A8;
+    --text-body: #D0D8E4;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    color: var(--text-body);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── SCANLINE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.07) 2px,
+      rgba(0,0,0,0.07) 4px
+    );
+    pointer-events: none;
+    z-index: 1000;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 900;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2.5rem;
+    background: rgba(10, 10, 15, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0, 229, 201, 0.15);
+  }
+
+  .nav-logo {
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--teal);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--amber); }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--chrome-dim);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--teal); }
+
+  .nav-cta {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--dark);
+    background: var(--teal);
+    padding: 0.5rem 1.25rem;
+    border: none;
+    cursor: pointer;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    transition: background 0.2s, transform 0.15s;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .nav-cta:hover { background: var(--amber); transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100dvh;
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    overflow: hidden;
+    padding-top: 5rem;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 80% 50%, rgba(0,229,201,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 20% 80%, rgba(255,45,120,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 70% at 60% 20%, rgba(255,184,48,0.05) 0%, transparent 65%),
+      linear-gradient(135deg, #0A0A0F 0%, #12121C 50%, #0F0F1A 100%);
+  }
+
+  /* Grid lines */
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,201,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,201,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    perspective: 600px;
+    transform-style: preserve-3d;
+  }
+
+  /* Floor grid for retro-diner effect */
+  .hero-floor {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 40%;
+    background-image:
+      linear-gradient(rgba(0,229,201,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,201,0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+    transform: perspective(400px) rotateX(60deg);
+    transform-origin: bottom center;
+    pointer-events: none;
+  }
+
+  /* Neon glow circles */
+  .glow-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+  }
+  .glow-orb-1 {
+    width: 400px; height: 400px;
+    right: 5%;  top: 10%;
+    background: rgba(0,229,201,0.12);
+  }
+  .glow-orb-2 {
+    width: 300px; height: 300px;
+    right: 20%; bottom: 10%;
+    background: rgba(255,45,120,0.1);
+  }
+  .glow-orb-3 {
+    width: 200px; height: 200px;
+    left: 5%; bottom: 20%;
+    background: rgba(255,184,48,0.08);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 10;
+    padding: 3rem 3rem 3rem 5vw;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.65rem;
+    font-weight: 400;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.6s ease forwards 0.2s;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 32px; height: 1px;
+    background: var(--teal);
+  }
+
+  .hero-headline {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-style: italic;
+    font-weight: 900;
+    font-size: clamp(4rem, 8vw, 7.5rem);
+    line-height: 0.9;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 0.7s ease forwards 0.35s;
+  }
+
+  .hero-headline .line-1 { color: var(--cream); display: block; }
+  .hero-headline .line-2 {
+    display: block;
+    color: var(--teal);
+    -webkit-text-stroke: 2px var(--teal);
+    text-shadow: 0 0 40px rgba(0,229,201,0.4), 0 0 80px rgba(0,229,201,0.2);
+  }
+  .hero-headline .line-3 { color: var(--amber); display: block; }
+
+  .hero-sub {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--chrome-dim);
+    max-width: 38ch;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.6s ease forwards 0.5s;
+  }
+
+  .hero-sub strong { color: var(--cream); font-weight: 500; }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.6s ease forwards 0.65s;
+  }
+
+  .btn-primary {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--dark);
+    background: var(--teal);
+    padding: 0.85rem 2.25rem;
+    border: none;
+    cursor: pointer;
+    clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s;
+    box-shadow: 0 0 30px rgba(0,229,201,0.25);
+  }
+
+  .btn-primary:hover {
+    background: var(--cream);
+    transform: translateY(-2px);
+    box-shadow: 0 0 50px rgba(0,229,201,0.4);
+  }
+
+  .btn-primary:active { transform: scale(0.98) translateY(0); }
+
+  .btn-ghost {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--chrome);
+    background: transparent;
+    padding: 0.85rem 1.75rem;
+    border: 1px solid rgba(200, 216, 232, 0.25);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s;
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--amber);
+    color: var(--amber);
+  }
+
+  /* Hero stats */
+  .hero-stats {
+    margin-top: 3rem;
+    display: flex;
+    gap: 2.5rem;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.6s ease forwards 0.8s;
+  }
+
+  .stat {
+    border-left: 2px solid rgba(0,229,201,0.3);
+    padding-left: 1rem;
+  }
+
+  .stat-num {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--teal);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--chrome-dim);
+    margin-top: 0.3rem;
+  }
+
+  /* Hero visual side */
+  .hero-visual {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 5vw 3rem 2rem;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards 0.5s;
+  }
+
+  .hero-plate {
+    position: relative;
+    width: min(480px, 90%);
+    aspect-ratio: 1;
+  }
+
+  /* Decorative chrome rings */
+  .ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .ring-1 {
+    width: 105%; height: 105%;
+    border-color: rgba(0,229,201,0.12);
+    animation: spinSlow 30s linear infinite;
+  }
+
+  .ring-2 {
+    width: 115%; height: 115%;
+    border-color: rgba(255,184,48,0.08);
+    border-style: dashed;
+    animation: spinSlow 45s linear infinite reverse;
+  }
+
+  .ring-3 {
+    width: 90%; height: 90%;
+    border-color: rgba(255,45,120,0.1);
+    animation: spinSlow 20s linear infinite;
+  }
+
+  .burger-showcase {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 40% 35%, rgba(255,184,48,0.15) 0%, transparent 50%),
+      radial-gradient(circle at 70% 70%, rgba(255,78,58,0.12) 0%, transparent 45%),
+      linear-gradient(135deg, #1A1A2E 0%, #12121C 100%);
+    border: 1px solid rgba(0,229,201,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    box-shadow:
+      0 0 60px rgba(0,229,201,0.1),
+      0 0 120px rgba(0,229,201,0.05),
+      inset 0 0 40px rgba(0,0,0,0.4);
+  }
+
+  /* SVG Burger illustration */
+  .burger-art {
+    width: 75%;
+    height: 75%;
+  }
+
+  /* Corner decorations */
+  .corner-deco {
+    position: absolute;
+    width: 60px; height: 60px;
+  }
+  .corner-deco-tl { top: -10px; left: -10px; border-top: 2px solid var(--teal); border-left: 2px solid var(--teal); }
+  .corner-deco-tr { top: -10px; right: -10px; border-top: 2px solid var(--amber); border-right: 2px solid var(--amber); }
+  .corner-deco-bl { bottom: -10px; left: -10px; border-bottom: 2px solid var(--magenta); border-left: 2px solid var(--magenta); }
+  .corner-deco-br { bottom: -10px; right: -10px; border-bottom: 2px solid var(--coral); border-right: 2px solid var(--coral); }
+
+  /* Floating badge */
+  .float-badge {
+    position: absolute;
+    background: var(--amber);
+    color: var(--dark);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-style: italic;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.9rem;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+
+  .badge-1 { top: 10%; right: -5%; animation: floatY 3s ease-in-out infinite; }
+  .badge-2 { bottom: 15%; left: -8%; background: var(--magenta); color: var(--cream); animation: floatY 4s ease-in-out infinite 1s; }
+
+  /* ── DIVIDER ── */
+  .section-divider {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--teal), var(--amber), var(--magenta), transparent);
+    margin: 0;
+    opacity: 0.4;
+  }
+
+  /* Ticker */
+  .ticker {
+    background: var(--teal);
+    padding: 0.6rem 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .ticker-inner {
+    display: inline-flex;
+    gap: 0;
+    animation: ticker 20s linear infinite;
+  }
+
+  .ticker-item {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-style: italic;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--dark);
+    padding: 0 2rem;
+  }
+
+  .ticker-item::after {
+    content: '◆';
+    margin-left: 2rem;
+    color: rgba(10,10,15,0.4);
+  }
+
+  /* ── SECTION HEADERS ── */
+  .section {
+    padding: 5rem 5vw;
+    position: relative;
+  }
+
+  .section-label {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.6rem;
+    font-weight: 400;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 24px; height: 1px;
+    background: var(--teal);
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-style: italic;
+    font-weight: 900;
+    font-size: clamp(3rem, 5vw, 4.5rem);
+    line-height: 0.95;
+    text-transform: uppercase;
+    color: var(--cream);
+    margin-bottom: 1.5rem;
+  }
+
+  .section-title em {
+    font-style: normal;
+    color: var(--amber);
+  }
+
+  /* ── ABOUT ── */
+  .about {
+    background: var(--dark-2);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .about-text p {
+    color: var(--text-body);
+    line-height: 1.8;
+    margin-bottom: 1.25rem;
+  }
+
+  .about-text p strong { color: var(--cream); font-weight: 500; }
+
+  .about-features {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .feature-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.85rem;
+    color: var(--chrome);
+  }
+
+  .feature-chip::before {
+    content: '▸';
+    color: var(--teal);
+    font-size: 0.7rem;
+  }
+
+  .about-visual {
+    position: relative;
+  }
+
+  .diner-art {
+    width: 100%;
+    border: 1px solid rgba(0,229,201,0.15);
+    background: linear-gradient(135deg, #1E1E32 0%, #12121C 100%);
+    aspect-ratio: 4/3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Horizontal neon line decoration */
+  .neon-lines {
+    position: absolute;
+    left: 0; right: 0;
+  }
+
+  .about-quote {
+    position: absolute;
+    bottom: -1.5rem;
+    right: -1.5rem;
+    background: var(--coral);
+    padding: 1.25rem 1.5rem;
+    max-width: 220px;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%);
+  }
+
+  .about-quote p {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-style: italic;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--cream);
+    line-height: 1.3;
+  }
+
+  .about-quote cite {
+    display: block;
+    font-family: 'DM Sans', sans-serif;
+    font-style: normal;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,245,224,0.65);
+    margin-top: 0.5rem;
+  }
+
+  /* ── MENU ── */
+  .menu-section {
+    background: var(--dark);
+  }
+
+  .menu-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 3.5rem;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .menu-tabs {
+    display: flex;
+    gap: 0;
+    border: 1px solid rgba(0,229,201,0.2);
+  }
+
+  .menu-tab {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.6rem 1.4rem;
+    background: transparent;
+    color: var(--chrome-dim);
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .menu-tab.active {
+    background: var(--teal);
+    color: var(--dark);
+  }
+
+  .menu-tab:hover:not(.active) {
+    background: rgba(0,229,201,0.08);
+    color: var(--teal);
+  }
+
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+    background: rgba(0,229,201,0.1);
+  }
+
+  .menu-card {
+    background: var(--dark-2);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.25s;
+    cursor: default;
+  }
+
+  .menu-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--card-accent, var(--teal));
+  }
+
+  .menu-card:hover {
+    background: var(--dark-3);
+    transform: translateY(-3px);
+  }
+
+  .menu-card:hover .card-glow {
+    opacity: 1;
+  }
+
+  .card-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 0%, var(--card-glow-color, rgba(0,229,201,0.06)) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+
+  .card-num {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.55rem;
+    font-weight: 400;
+    letter-spacing: 0.3em;
+    color: var(--card-accent, var(--teal));
+    margin-bottom: 1.25rem;
+    opacity: 0.7;
+  }
+
+  .card-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-style: italic;
+    font-weight: 700;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--cream);
+    margin-bottom: 0.6rem;
+    line-height: 1.1;
+  }
+
+  .card-desc {
+    font-size: 0.83rem;
+    color: var(--chrome-dim);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .card-price {
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--card-accent, var(--teal));
+  }
+
+  .card-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.75rem;
+    border: 1px solid;
+    border-color: var(--card-accent, var(--teal));
+    color: var(--card-accent, var(--teal));
+  }
+
+  /* Featured card */
+  .menu-card.featured {
+    grid-column: span 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .menu-card.featured::before { height: 4px; }
+
+  .featured-badge {
+    position: absolute;
+    top: 1.25rem; right: 1.25rem;
+    background: var(--amber);
+    color: var(--dark);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-style: italic;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.8rem;
+    clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+  }
+
+  .featured-img-placeholder {
+    aspect-ratio: 1;
+    background:
+      radial-gradient(circle at 40% 40%, rgba(255,184,48,0.2) 0%, transparent 60%),
+      radial-gradient(circle at 70% 70%, rgba(255,78,58,0.15) 0%, transparent 50%),
+      linear-gradient(135deg, #1A1A2E, #0F0F1A);
+    border: 1px solid rgba(255,184,48,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ── SPECIALS TICKER ── */
+  .specials-bar {
+    background: var(--dark-3);
+    border-top: 1px solid rgba(255,184,48,0.2);
+    border-bottom: 1px solid rgba(255,184,48,0.2);
+    padding: 1rem 5vw;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .specials-label {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--amber);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .specials-divider {
+    width: 1px; height: 20px;
+    background: rgba(255,184,48,0.3);
+    flex-shrink: 0;
+  }
+
+  .specials-scroll {
+    overflow: hidden;
+    flex: 1;
+    white-space: nowrap;
+  }
+
+  .specials-inner {
+    display: inline-flex;
+    gap: 3rem;
+    animation: ticker 25s linear infinite;
+  }
+
+  .special-item {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--chrome);
+  }
+
+  .special-item strong {
+    color: var(--amber);
+    font-style: italic;
+  }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials {
+    background: var(--dark-2);
+    overflow: hidden;
+  }
+
+  .testimonials-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .testimonials-header .section-label { justify-content: center; }
+  .testimonials-header .section-label::before { display: none; }
+
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+    background: rgba(255,45,120,0.1);
+  }
+
+  .review-card {
+    background: var(--dark-2);
+    padding: 2rem;
+    position: relative;
+    transition: transform 0.2s;
+  }
+
+  .review-card:hover { transform: translateY(-2px); }
+
+  .review-stars {
+    display: flex;
+    gap: 3px;
+    margin-bottom: 1rem;
+  }
+
+  .star {
+    width: 14px; height: 14px;
+    background: var(--amber);
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  }
+
+  .review-text {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--text-body);
+    margin-bottom: 1.5rem;
+    font-style: italic;
+  }
+
+  .review-text::before { content: '"'; color: var(--teal); font-size: 1.5rem; line-height: 0; vertical-align: -0.4em; margin-right: 0.2em; }
+
+  .reviewer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .reviewer-avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: var(--dark);
+    flex-shrink: 0;
+  }
+
+  .reviewer-name {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--chrome);
+  }
+
+  .reviewer-loc {
+    font-size: 0.7rem;
+    color: var(--chrome-dim);
+    margin-top: 0.1rem;
+  }
+
+  /* Highlight review */
+  .review-card.highlight {
+    background: var(--dark-3);
+    border-top: 3px solid var(--magenta);
+  }
+
+  /* ── CTA ── */
+  .cta-section {
+    min-height: 80dvh;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    background: var(--dark);
+    padding: 6rem 5vw;
+  }
+
+  .cta-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 50%, rgba(0,229,201,0.06) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 20% 20%, rgba(255,45,120,0.05) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 80% 80%, rgba(255,184,48,0.05) 0%, transparent 60%);
+  }
+
+  /* Star field */
+  .stars {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .star-dot {
+    position: absolute;
+    width: 2px; height: 2px;
+    border-radius: 50%;
+    background: var(--chrome);
+    opacity: 0;
+    animation: twinkle var(--d) ease-in-out infinite var(--delay);
+  }
+
+  .cta-content {
+    position: relative;
+    z-index: 10;
+    max-width: 800px;
+  }
+
+  .cta-eyebrow {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.6rem;
+    font-weight: 400;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 1.5rem;
+  }
+
+  .cta-headline {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-style: italic;
+    font-weight: 900;
+    font-size: clamp(3.5rem, 7vw, 6rem);
+    line-height: 0.92;
+    text-transform: uppercase;
+    color: var(--cream);
+    margin-bottom: 1.5rem;
+  }
+
+  .cta-headline .accent { color: var(--teal); text-shadow: 0 0 40px rgba(0,229,201,0.5); }
+
+  .cta-sub {
+    font-size: 1.05rem;
+    color: var(--chrome-dim);
+    max-width: 42ch;
+    margin: 0 auto 3rem;
+    line-height: 1.7;
+  }
+
+  .cta-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-large {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-style: italic;
+    font-size: 1.2rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--dark);
+    background: var(--teal);
+    padding: 1rem 3rem;
+    border: none;
+    cursor: pointer;
+    clip-path: polygon(16px 0%, 100% 0%, calc(100% - 16px) 100%, 0% 100%);
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s;
+    box-shadow: 0 0 50px rgba(0,229,201,0.3);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-large::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%);
+    transform: translateX(-100%);
+    transition: transform 0.4s;
+  }
+
+  .btn-large:hover {
+    background: var(--amber);
+    transform: translateY(-3px);
+    box-shadow: 0 0 70px rgba(255,184,48,0.4);
+  }
+
+  .btn-large:hover::after { transform: translateX(100%); }
+  .btn-large:active { transform: scale(0.98) translateY(0); }
+
+  .cta-info {
+    margin-top: 2.5rem;
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .info-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .info-value {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--amber);
+  }
+
+  .info-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--chrome-dim);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--dark-2);
+    border-top: 1px solid rgba(0,229,201,0.1);
+    padding: 2.5rem 5vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: gap;
+    gap: 1.5rem;
+  }
+
+  .footer-logo {
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--teal);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .footer-logo span { color: var(--amber); }
+
+  .footer-text {
+    font-size: 0.75rem;
+    color: var(--chrome-dim);
+    letter-spacing: 0.05em;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .footer-links a {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--chrome-dim);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--teal); }
+
+  /* ── SCROLL ANIMATIONS ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* ── KEYFRAMES ── */
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+  @keyframes spinSlow {
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+
+  @keyframes ticker {
+    to { transform: translateX(-50%); }
+  }
+
+  @keyframes floatY {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 0.6; }
+  }
+
+  @keyframes pulse-border {
+    0%, 100% { border-color: rgba(0,229,201,0.3); }
+    50% { border-color: rgba(0,229,201,0.7); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+
+    .hero-content { padding: 4rem 2rem 2rem; }
+    .hero-eyebrow { justify-content: center; }
+    .hero-eyebrow::before { display: none; }
+    .hero-sub { margin: 0 auto 2.5rem; }
+    .hero-actions { justify-content: center; }
+    .hero-stats { justify-content: center; }
+    .hero-visual { padding: 2rem; }
+    .hero-plate { width: min(320px, 80%); }
+
+    .about { grid-template-columns: 1fr; }
+    .about-visual { order: -1; }
+    .about-quote { right: 0; bottom: 0; }
+
+    .menu-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .menu-card.featured {
+      grid-column: span 2;
+      grid-template-columns: 1fr;
+    }
+
+    .reviews-grid {
+      grid-template-columns: 1fr;
+    }
+
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .section { padding: 4rem 1.5rem; }
+  }
+
+  @media (max-width: 560px) {
+    .menu-grid { grid-template-columns: 1fr; }
+    .menu-card.featured { grid-column: span 1; grid-template-columns: 1fr; }
+    .cta-info { gap: 1.5rem; }
+    footer { flex-direction: column; text-align: center; }
+    .footer-links { flex-wrap: wrap; justify-content: center; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Ricky's<span>&</span>Beyond</a>
+  <ul class="nav-links">
+    <li><a href="#about">Our Story</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#order">Visit Us</a></li>
+  </ul>
+  <a href="#order" class="nav-cta">Order Now</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-floor"></div>
+  <div class="glow-orb glow-orb-1"></div>
+  <div class="glow-orb glow-orb-2"></div>
+  <div class="glow-orb glow-orb-3"></div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">Handcrafted · Est. 2019 · East Side</p>
+
+    <h1 class="hero-headline">
+      <span class="line-1">Bread</span>
+      <span class="line-2">& Beyond</span>
+      <span class="line-3">Ricky's</span>
+    </h1>
+
+    <p class="hero-sub">
+      <strong>Sandwiches and burgers</strong> built with genuine care, served fast, and eaten slow. Step in. The jukebox is on.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#menu" class="btn-primary">See the Menu</a>
+      <a href="#about" class="btn-ghost">Our Story</a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">47</div>
+        <div class="stat-label">Crafted Items</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">4.9★</div>
+        <div class="stat-label">612 Reviews</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">7yr</div>
+        <div class="stat-label">In Business</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Visual Side -->
+  <div class="hero-visual">
+    <div class="hero-plate">
+      <div class="ring ring-1"></div>
+      <div class="ring ring-2"></div>
+      <div class="ring ring-3"></div>
+
+      <div class="corner-deco corner-deco-tl"></div>
+      <div class="corner-deco corner-deco-tr"></div>
+      <div class="corner-deco corner-deco-bl"></div>
+      <div class="corner-deco corner-deco-br"></div>
+
+      <div class="burger-showcase">
+        <!-- SVG Burger Illustration -->
+        <svg class="burger-art" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Glow base -->
+          <ellipse cx="150" cy="250" rx="90" ry="12" fill="#FF4E3A" opacity="0.15"/>
+
+          <!-- Bottom bun -->
+          <ellipse cx="150" cy="225" rx="90" ry="18" fill="#C8762A"/>
+          <ellipse cx="150" cy="215" rx="90" ry="18" fill="#E8903A"/>
+          <ellipse cx="150" cy="213" rx="90" ry="6" fill="#D88030"/>
+
+          <!-- Lettuce frills -->
+          <path d="M60 198 Q80 188 100 196 Q120 184 140 194 Q160 182 180 192 Q200 182 220 192 Q235 185 240 196" stroke="#3DBE6A" stroke-width="6" stroke-linecap="round" fill="none"/>
+
+          <!-- Tomato slice -->
+          <ellipse cx="150" cy="188" rx="82" ry="10" fill="#CC2A1A" opacity="0.9"/>
+          <ellipse cx="150" cy="186" rx="82" ry="10" fill="#E8382A"/>
+          <!-- Tomato segments -->
+          <path d="M68 184 Q150 178 232 184" stroke="#CC2A1A" stroke-width="1.5" fill="none" opacity="0.5"/>
+
+          <!-- Cheese -->
+          <path d="M64 178 L62 162 L238 162 L236 178 Q200 190 150 186 Q100 190 64 178Z" fill="#FFB830"/>
+          <!-- Cheese drips -->
+          <path d="M80 178 Q78 190 82 195" stroke="#FFB830" stroke-width="4" stroke-linecap="round"/>
+          <path d="M220 176 Q222 188 218 193" stroke="#FFB830" stroke-width="3" stroke-linecap="round"/>
+          <path d="M130 182 Q128 194 132 200" stroke="#FFB830" stroke-width="3" stroke-linecap="round"/>
+
+          <!-- Patty -->
+          <ellipse cx="150" cy="158" rx="85" ry="14" fill="#5A2A12"/>
+          <ellipse cx="150" cy="153" rx="85" ry="14" fill="#7A3A1A"/>
+          <!-- Patty char marks -->
+          <path d="M90 148 Q105 143 120 148" stroke="#4A1A08" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+          <path d="M150 145 Q165 140 180 145" stroke="#4A1A08" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+
+          <!-- Top bun -->
+          <ellipse cx="150" cy="135" rx="85" ry="18" fill="#D88030"/>
+          <ellipse cx="150" cy="120" rx="85" ry="22" fill="#E8903A"/>
+          <path d="M65 125 Q150 90 235 125" fill="#D88030"/>
+          <!-- Bun dome -->
+          <ellipse cx="150" cy="105" rx="82" ry="28" fill="#F0A048"/>
+          <!-- Sesame seeds -->
+          <ellipse cx="120" cy="97" rx="5" ry="3" fill="#C07828" transform="rotate(-20 120 97)"/>
+          <ellipse cx="150" cy="88" rx="5" ry="3" fill="#C07828" transform="rotate(10 150 88)"/>
+          <ellipse cx="178" cy="96" rx="5" ry="3" fill="#C07828" transform="rotate(-10 178 96)"/>
+          <ellipse cx="135" cy="112" rx="4" ry="2.5" fill="#C07828" transform="rotate(15 135 112)"/>
+          <ellipse cx="163" cy="110" rx="4" ry="2.5" fill="#C07828" transform="rotate(-5 163 110)"/>
+
+          <!-- Shine on bun -->
+          <ellipse cx="130" cy="95" rx="20" ry="8" fill="white" opacity="0.07" transform="rotate(-20 130 95)"/>
+
+          <!-- Decorative teal lines (retro-futuristic) -->
+          <line x1="20" y1="155" x2="55" y2="155" stroke="#00E5C9" stroke-width="1" opacity="0.5"/>
+          <line x1="245" y1="155" x2="280" y2="155" stroke="#00E5C9" stroke-width="1" opacity="0.5"/>
+          <line x1="20" y1="162" x2="45" y2="162" stroke="#00E5C9" stroke-width="0.5" opacity="0.3"/>
+          <line x1="255" y1="162" x2="280" y2="162" stroke="#00E5C9" stroke-width="0.5" opacity="0.3"/>
+
+          <!-- Corner bracket decorations -->
+          <path d="M20 60 L20 40 L40 40" stroke="#00E5C9" stroke-width="1.5" fill="none" opacity="0.4"/>
+          <path d="M280 60 L280 40 L260 40" stroke="#FFB830" stroke-width="1.5" fill="none" opacity="0.4"/>
+          <path d="M20 240 L20 260 L40 260" stroke="#FF2D78" stroke-width="1.5" fill="none" opacity="0.4"/>
+          <path d="M280 240 L280 260 L260 260" stroke="#FF4E3A" stroke-width="1.5" fill="none" opacity="0.4"/>
+
+          <!-- Scanline overlay on burger (retro effect) -->
+          <rect x="65" y="90" width="170" height="148" fill="url(#scanlines)" opacity="0.04"/>
+
+          <defs>
+            <pattern id="scanlines" patternUnits="userSpaceOnUse" width="4" height="4">
+              <rect width="4" height="2" fill="black"/>
+            </pattern>
+          </defs>
+        </svg>
+      </div>
+
+      <div class="float-badge badge-1">House Special</div>
+      <div class="float-badge badge-2">Made Fresh Daily</div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-inner">
+    <span class="ticker-item">Handcrafted Daily</span>
+    <span class="ticker-item">Fresh Brioche Buns</span>
+    <span class="ticker-item">Local Ingredients</span>
+    <span class="ticker-item">East Side's Finest</span>
+    <span class="ticker-item">Smash Burgers</span>
+    <span class="ticker-item">Deli Sandwiches</span>
+    <span class="ticker-item">Open Late Friday</span>
+    <span class="ticker-item">Handcrafted Daily</span>
+    <span class="ticker-item">Fresh Brioche Buns</span>
+    <span class="ticker-item">Local Ingredients</span>
+    <span class="ticker-item">East Side's Finest</span>
+    <span class="ticker-item">Smash Burgers</span>
+    <span class="ticker-item">Deli Sandwiches</span>
+    <span class="ticker-item">Open Late Friday</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="section about" id="about">
+  <div class="about-text">
+    <div class="section-label reveal">Our Story</div>
+    <h2 class="section-title reveal reveal-delay-1">Food Made<br>By <em>Someone</em><br>Who Cares</h2>
+
+    <div class="reveal reveal-delay-2">
+      <p>Ricky started this place with a griddle, a notebook full of recipes, and a conviction that a <strong>great sandwich is a small act of love.</strong> Seven years later, nothing's changed — except the queue out the door.</p>
+      <p>Every bun is baked fresh. Every patty is hand-formed and pressed to order. The sauces are made in-house, the produce comes from suppliers Ricky knows by name, and no two days taste exactly the same.</p>
+      <p><strong>This isn't a franchise. It's a place.</strong> Come in, grab a stool, and stay a while.</p>
+    </div>
+
+    <div class="about-features reveal reveal-delay-3">
+      <div class="feature-chip">Fresh-baked brioche daily</div>
+      <div class="feature-chip">Hand-formed beef patties</div>
+      <div class="feature-chip">House-made sauces</div>
+      <div class="feature-chip">Seasonal produce sourcing</div>
+      <div class="feature-chip">No frozen ingredients</div>
+      <div class="feature-chip">Vegetarian options always</div>
+    </div>
+  </div>
+
+  <div class="about-visual reveal reveal-delay-2">
+    <div class="diner-art">
+      <!-- SVG Diner Illustration -->
+      <svg width="100%" viewBox="0 0 500 375" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Background -->
+        <rect width="500" height="375" fill="#1E1E32"/>
+
+        <!-- Floor grid (perspective) -->
+        <g opacity="0.35">
+          <line x1="0" y1="375" x2="250" y2="240" stroke="#00E5C9" stroke-width="0.5"/>
+          <line x1="62" y1="375" x2="270" y2="240" stroke="#00E5C9" stroke-width="0.5"/>
+          <line x1="125" y1="375" x2="290" y2="240" stroke="#00E5C9" stroke-width="0.5"/>
+          <line x1="187" y1="375" x2="310" y2="240" stroke="#00E5C9" stroke-width="0.5"/>
+          <line x1="250" y1="375" x2="330" y2="240" stroke="#00E5C9" stroke-width="0.5"/>
+          <line x1="312" y1="375" x2="350" y2="240" stroke="#00E5C9" stroke-width="0.5"/>
+          <line x1="375" y1="375" x2="370" y2="240" stroke="#00E5C9" stroke-width="0.5"/>
+          <line x1="437" y1="375" x2="390" y2="240" stroke="#00E5C9" stroke-width="0.5"/>
+          <line x1="500" y1="375" x2="410" y2="240" stroke="#00E5C9" stroke-width="0.5"/>
+
+          <line x1="0" y1="280" x2="500" y2="280" stroke="#00E5C9" stroke-width="0.5"/>
+          <line x1="0" y1="310" x2="500" y2="310" stroke="#00E5C9" stroke-width="0.5"/>
+          <line x1="0" y1="340" x2="500" y2="340" stroke="#00E5C9" stroke-width="0.5"/>
+          <line x1="0" y1="375" x2="500" y2="375" stroke="#00E5C9" stroke-width="0.5"/>
+        </g>
+
+        <!-- Diner counter -->
+        <rect x="50" y="200" width="400" height="25" rx="2" fill="#2A2A48"/>
+        <rect x="50" y="195" width="400" height="12" rx="2" fill="#38385A"/>
+        <rect x="50" y="195" width="400" height="4" rx="1" fill="#4A4A6A" opacity="0.7"/>
+        <!-- Counter chrome edge -->
+        <rect x="50" y="222" width="400" height="3" fill="#C8D8E8" opacity="0.3"/>
+
+        <!-- Stools -->
+        <g fill="#1A1A30">
+          <ellipse cx="110" cy="252" rx="22" ry="7" fill="#2E2E4E"/>
+          <rect x="108" y="252" width="4" height="30" fill="#1E1E38"/>
+          <rect x="95" y="278" width="30" height="4" rx="2" fill="#2A2A48"/>
+
+          <ellipse cx="185" cy="252" rx="22" ry="7" fill="#2E2E4E"/>
+          <rect x="183" y="252" width="4" height="30" fill="#1E1E38"/>
+          <rect x="170" y="278" width="30" height="4" rx="2" fill="#2A2A48"/>
+
+          <ellipse cx="260" cy="252" rx="22" ry="7" fill="#2E2E4E"/>
+          <rect x="258" y="252" width="4" height="30" fill="#1E1E38"/>
+          <rect x="245" y="278" width="30" height="4" rx="2" fill="#2A2A48"/>
+
+          <ellipse cx="335" cy="252" rx="22" ry="7" fill="#2E2E4E"/>
+          <rect x="333" y="252" width="4" height="30" fill="#1E1E38"/>
+          <rect x="320" y="278" width="30" height="4" rx="2" fill="#2A2A48"/>
+
+          <ellipse cx="410" cy="252" rx="22" ry="7" fill="#2E2E4E"/>
+          <rect x="408" y="252" width="4" height="30" fill="#1E1E38"/>
+          <rect x="395" y="278" width="30" height="4" rx="2" fill="#2A2A48"/>
+        </g>
+
+        <!-- Back wall / menu board -->
+        <rect x="50" y="40" width="400" height="150" rx="4" fill="#141428"/>
+        <rect x="55" y="45" width="390" height="140" rx="2" fill="#0E0E22"/>
+
+        <!-- Neon sign: RICKY'S -->
+        <text x="250" y="95" text-anchor="middle" font-family="'Barlow Condensed', sans-serif" font-size="42" font-weight="900" font-style="italic" fill="none" stroke="#00E5C9" stroke-width="1.5" opacity="0.9" letter-spacing="4">RICKY'S</text>
+        <text x="250" y="95" text-anchor="middle" font-family="'Barlow Condensed', sans-serif" font-size="42" font-weight="900" font-style="italic" fill="#00E5C9" opacity="0.2" letter-spacing="4">RICKY'S</text>
+
+        <!-- Menu items on board -->
+        <text x="100" y="125" font-family="monospace" font-size="9" fill="#8899A8" opacity="0.8">SMASH BURGER ......... 12.90</text>
+        <text x="100" y="140" font-family="monospace" font-size="9" fill="#8899A8" opacity="0.8">RICKY'S CLUB ......... 10.50</text>
+        <text x="100" y="155" font-family="monospace" font-size="9" fill="#8899A8" opacity="0.8">DOUBLE CHROME ........ 15.90</text>
+        <text x="290" y="125" font-family="monospace" font-size="9" fill="#8899A8" opacity="0.8">VEGGIE STACK ......... 11.50</text>
+        <text x="290" y="140" font-family="monospace" font-size="9" fill="#8899A8" opacity="0.8">CUBANO PRESS ......... 12.00</text>
+        <text x="290" y="155" font-family="monospace" font-size="9" fill="#8899A8" opacity="0.8">SIDES + SHAKES ........from 4</text>
+
+        <!-- Neon glow lines on counter -->
+        <rect x="50" y="193" width="400" height="2" fill="#FF2D78" opacity="0.5"/>
+        <rect x="52" y="193" width="396" height="1" fill="#FF2D78" opacity="0.4" filter="blur(2px)"/>
+
+        <!-- Coffee machine -->
+        <rect x="390" y="150" width="55" height="45" rx="3" fill="#252540"/>
+        <rect x="395" y="155" width="45" height="20" rx="2" fill="#1E1E38"/>
+        <rect x="405" y="160" width="25" height="10" rx="10" fill="#FFB830" opacity="0.8"/>
+        <circle cx="417" cy="165" r="4" fill="#FF8820" opacity="0.9"/>
+        <rect x="405" y="178" width="25" height="3" rx="1" fill="#333360"/>
+        <rect x="410" y="181" width="4" height="12" rx="1" fill="#333360"/>
+        <rect x="420" y="181" width="4" height="12" rx="1" fill="#333360"/>
+
+        <!-- Ketchup / condiments on counter -->
+        <rect x="70" y="175" width="12" height="22" rx="4" fill="#CC2A1A"/>
+        <rect x="72" y="173" width="8" height="5" rx="1" fill="#AA2010"/>
+        <rect x="90" y="177" width="10" height="20" rx="3" fill="#F0F0E8"/>
+        <rect x="92" y="175" width="6" height="5" rx="1" fill="#D8D8D0"/>
+
+        <!-- Small order ticket on counter -->
+        <rect x="230" y="180" width="50" height="18" rx="1" fill="#FFF5E0" opacity="0.9"/>
+        <text x="255" y="192" text-anchor="middle" font-family="monospace" font-size="7" fill="#333">ORDER #47</text>
+
+        <!-- Warm amber ceiling light -->
+        <ellipse cx="250" cy="30" rx="35" ry="12" fill="#FFB830" opacity="0.15"/>
+        <line x1="250" y1="0" x2="250" y2="30" stroke="#C8D8E8" stroke-width="1" opacity="0.3"/>
+        <ellipse cx="250" cy="32" rx="30" ry="8" fill="#FFB830" opacity="0.08" filter="url(#warmglow)"/>
+
+        <defs>
+          <filter id="warmglow">
+            <feGaussianBlur stdDeviation="5" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+      </svg>
+    </div>
+
+    <div class="about-quote">
+      <p>"I just wanted to make the best sandwich I'd ever had."</p>
+      <cite>— Ricky, Owner &amp; Head Cook</cite>
+    </div>
+  </div>
+</section>
+
+<!-- SPECIALS BAR -->
+<div class="specials-bar" aria-label="Today's specials">
+  <span class="specials-label">Today's Specials</span>
+  <div class="specials-divider"></div>
+  <div class="specials-scroll">
+    <div class="specials-inner" aria-hidden="true">
+      <span class="special-item">Tuesday: <strong>Smash Burger + Fries — £14.90</strong></span>
+      <span class="special-item">New: <strong>Miso-Glazed Portobello Sandwich</strong></span>
+      <span class="special-item">This Week: <strong>Kimchi Club on Sourdough</strong></span>
+      <span class="special-item">Daily: <strong>Soup of the Day with any order</strong></span>
+      <span class="special-item">Tuesday: <strong>Smash Burger + Fries — £14.90</strong></span>
+      <span class="special-item">New: <strong>Miso-Glazed Portobello Sandwich</strong></span>
+      <span class="special-item">This Week: <strong>Kimchi Club on Sourdough</strong></span>
+      <span class="special-item">Daily: <strong>Soup of the Day with any order</strong></span>
+    </div>
+  </div>
+</div>
+
+<!-- MENU -->
+<section class="section menu-section" id="menu">
+  <div class="menu-header">
+    <div>
+      <div class="section-label reveal">The Menu</div>
+      <h2 class="section-title reveal reveal-delay-1">Items From <em>The</em><br>Future, Made<br>Right Now</h2>
+    </div>
+
+    <div class="menu-tabs reveal reveal-delay-2" role="tablist">
+      <button class="menu-tab active" role="tab" aria-selected="true">Burgers</button>
+      <button class="menu-tab" role="tab">Sandwiches</button>
+      <button class="menu-tab" role="tab">Sides</button>
+    </div>
+  </div>
+
+  <div class="menu-grid">
+    <!-- Featured -->
+    <div class="menu-card featured reveal" style="--card-accent: #FFB830; --card-glow-color: rgba(255,184,48,0.07);">
+      <div class="card-glow"></div>
+      <div class="featured-badge">House Signature</div>
+      <div>
+        <div class="card-num">01 · SIGNATURE</div>
+        <div class="card-name">The Chrome<br>Double Smash</div>
+        <div class="card-desc">Two hand-pressed 100g beef patties, smashed crispy on a screaming-hot griddle. American cheese, caramelised onion jam, shredded iceberg, house pickles, and Ricky's own secret sauce on a toasted brioche crown.</div>
+        <div class="card-footer">
+          <div class="card-price">£15.90</div>
+          <div class="card-tag">Best Seller</div>
+        </div>
+      </div>
+      <div class="featured-img-placeholder">
+        <!-- Mini burger icon SVG -->
+        <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+          <ellipse cx="60" cy="98" rx="38" ry="8" fill="#E8903A"/>
+          <ellipse cx="60" cy="92" rx="38" ry="8" fill="#F0A048"/>
+          <path d="M22 80 Q40 73 60 78 Q80 73 98 80" stroke="#3DBE6A" stroke-width="5" stroke-linecap="round" fill="none"/>
+          <ellipse cx="60" cy="72" rx="36" ry="6" fill="#E8382A"/>
+          <path d="M24 66 L24 54 L96 54 L96 66 Q78 76 60 72 Q42 76 24 66Z" fill="#FFB830"/>
+          <ellipse cx="60" cy="52" rx="36" ry="7" fill="#7A3A1A"/>
+          <ellipse cx="60" cy="46" rx="36" ry="7" fill="#5A2A12"/>
+          <path d="M24 42 Q60 20 96 42" fill="#F0A048"/>
+          <ellipse cx="60" cy="32" rx="34" ry="16" fill="#F0A048"/>
+          <ellipse cx="50" cy="27" rx="4" ry="2.5" fill="#C07828" transform="rotate(-15 50 27)"/>
+          <ellipse cx="68" cy="24" rx="4" ry="2.5" fill="#C07828" transform="rotate(10 68 24)"/>
+          <ellipse cx="60" cy="36" rx="3.5" ry="2" fill="#C07828"/>
+          <!-- Glow -->
+          <ellipse cx="60" cy="98" rx="38" ry="8" fill="#FFB830" opacity="0.1" filter="blur(5px)"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="menu-card reveal reveal-delay-1" style="--card-accent: #00E5C9; --card-glow-color: rgba(0,229,201,0.06);">
+      <div class="card-glow"></div>
+      <div class="card-num">02 · CLASSIC</div>
+      <div class="card-name">The Teal<br>Cheeseburger</div>
+      <div class="card-desc">Single 140g patty, three-cheese melt (cheddar, gouda, gruyère), butter lettuce, heirloom tomato, house gherkins, and a swipe of wholegrain mustard mayo.</div>
+      <div class="card-footer">
+        <div class="card-price">£12.50</div>
+        <div class="card-tag">Classic</div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="menu-card reveal reveal-delay-2" style="--card-accent: #FF2D78; --card-glow-color: rgba(255,45,120,0.06);">
+      <div class="card-glow"></div>
+      <div class="card-num">03 · HOT BUILD</div>
+      <div class="card-name">Magenta<br>Fire Stack</div>
+      <div class="card-desc">Crispy fried chicken thigh, Nashville hot glaze, dill pickle, shredded cabbage slaw, pickled jalapeños, and chipotle crema on a milk bun.</div>
+      <div class="card-footer">
+        <div class="card-price">£13.90</div>
+        <div class="card-tag">Spicy</div>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="menu-card reveal" style="--card-accent: #FF4E3A; --card-glow-color: rgba(255,78,58,0.06);">
+      <div class="card-glow"></div>
+      <div class="card-num">04 · VEGGIE</div>
+      <div class="card-name">The Coral<br>Veggie Press</div>
+      <div class="card-desc">Smashed chickpea and roasted red pepper patty, whipped feta, sun-dried tomato relish, rocket, and lemon-herb aioli on toasted sourdough.</div>
+      <div class="card-footer">
+        <div class="card-price">£11.50</div>
+        <div class="card-tag">Vegetarian</div>
+      </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="menu-card reveal reveal-delay-1" style="--card-accent: #FFB830; --card-glow-color: rgba(255,184,48,0.06);">
+      <div class="card-glow"></div>
+      <div class="card-num">05 · SPECIAL</div>
+      <div class="card-name">Amber BBQ<br>Bacon Melt</div>
+      <div class="card-desc">Double patty, thick-cut smoked streaky bacon, smoked cheddar, house BBQ glaze, crispy onion strings, and garlic butter brioche. A proper one.</div>
+      <div class="card-footer">
+        <div class="card-price">£14.50</div>
+        <div class="card-tag">Weekend Only</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="section testimonials" id="reviews">
+  <div class="testimonials-header">
+    <div class="section-label reveal">Verified Reviews</div>
+    <h2 class="section-title reveal reveal-delay-1">The People<br>Have <em>Spoken</em></h2>
+    <p class="reveal reveal-delay-2" style="color: var(--chrome-dim); max-width: 40ch; margin: 0 auto; font-size: 0.9rem;">
+      612 reviews. 4.9 stars. We let the regulars do the talking.
+    </p>
+  </div>
+
+  <div class="reviews-grid">
+    <div class="review-card reveal">
+      <div class="review-stars">
+        <div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div>
+      </div>
+      <p class="review-text">The Chrome Double Smash is genuinely one of the best burgers I've had anywhere in this city. The onion jam is a stroke of genius. Came back three times this month.</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar" style="background: var(--teal); color: var(--dark);">MK</div>
+        <div>
+          <div class="reviewer-name">Marcus K.</div>
+          <div class="reviewer-loc">Shoreditch, London</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card highlight reveal reveal-delay-1">
+      <div class="review-stars">
+        <div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div>
+      </div>
+      <p class="review-text">I ordered the Coral Veggie Press not expecting much — I was wrong. It's the best vegetarian burger I've had full stop. The whipped feta alone is worth the visit.</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar" style="background: var(--magenta); color: var(--cream);">DF</div>
+        <div>
+          <div class="reviewer-name">Dani F.</div>
+          <div class="reviewer-loc">Hackney, London</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card reveal reveal-delay-2">
+      <div class="review-stars">
+        <div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div>
+      </div>
+      <p class="review-text">It feels like a place that actually cares. The counter, the staff, the fact that Ricky himself was in the kitchen at noon on a Saturday. The Cubano press is magnificent.</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar" style="background: var(--amber); color: var(--dark);">SN</div>
+        <div>
+          <div class="reviewer-name">Saoirse N.</div>
+          <div class="reviewer-loc">Bethnal Green, London</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card reveal">
+      <div class="review-stars">
+        <div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div>
+      </div>
+      <p class="review-text">Took my whole team here for lunch. Twelve people, twelve different orders, and every single one said it was the best thing they'd eaten in weeks. Ricky's is something special.</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar" style="background: var(--coral); color: var(--cream);">TW</div>
+        <div>
+          <div class="reviewer-name">Tom W.</div>
+          <div class="reviewer-loc">Spitalfields, London</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card reveal reveal-delay-1">
+      <div class="review-stars">
+        <div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div>
+      </div>
+      <p class="review-text">Hot tip: go on a Tuesday for the smash burger deal. 14.90 for a burger and fries of that quality is almost criminal. The fries are perfectly salted, just so you know.</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar" style="background: #4A4A8A; color: var(--cream);">RP</div>
+        <div>
+          <div class="reviewer-name">Roberta P.</div>
+          <div class="reviewer-loc">Whitechapel, London</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card reveal reveal-delay-2">
+      <div class="review-stars">
+        <div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div>
+      </div>
+      <p class="review-text">The vibe in here is like someone built a diner out of pure joy. Good music, good light, genuinely warm staff. The food is the reason you return but the place is the reason you stay.</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar" style="background: #2A6A4A; color: var(--cream);">AO</div>
+        <div>
+          <div class="reviewer-name">Adaeze O.</div>
+          <div class="reviewer-loc">Mile End, London</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="order">
+  <div class="cta-bg"></div>
+
+  <!-- Star field -->
+  <div class="stars" aria-hidden="true" id="stars"></div>
+
+  <!-- Horizontal scan lines decoration -->
+  <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--teal),transparent);opacity:0.3;"></div>
+  <div style="position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--amber),transparent);opacity:0.3;"></div>
+
+  <div class="cta-content">
+    <p class="cta-eyebrow reveal">You've Found Us</p>
+    <h2 class="cta-headline reveal reveal-delay-1">
+      Come In.<br><span class="accent">Eat Well.</span><br>Come Back.
+    </h2>
+    <p class="cta-sub reveal reveal-delay-2">
+      Walk-ins always welcome. No reservations, no fuss. Just great food made by people who mean it, waiting for you on the East Side.
+    </p>
+
+    <div class="cta-actions reveal reveal-delay-3">
+      <a href="tel:+442079460182" class="btn-large">Call to Order &rarr;</a>
+      <a href="#menu" class="btn-ghost" style="padding: 1rem 2rem;">Browse Full Menu</a>
+    </div>
+
+    <div class="cta-info reveal reveal-delay-4">
+      <div class="info-item">
+        <div class="info-value">Mon–Fri</div>
+        <div class="info-label">11am – 9pm</div>
+      </div>
+      <div class="info-item">
+        <div class="info-value">Sat–Sun</div>
+        <div class="info-label">10am – 10pm</div>
+      </div>
+      <div class="info-item">
+        <div class="info-value">East Side</div>
+        <div class="info-label">12 Waverly St, E2</div>
+      </div>
+      <div class="info-item">
+        <div class="info-value">+44 207 946 0182</div>
+        <div class="info-label">Takeaway Orders</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Ricky's<span>&</span>Beyond</div>
+  <p class="footer-text">© 2026 Ricky's Bread &amp; Beyond · 12 Waverly Street, London E2 · All food made with real ingredients by real people</p>
+  <ul class="footer-links">
+    <li><a href="#">Menu</a></li>
+    <li><a href="#">Find Us</a></li>
+    <li><a href="#">Instagram</a></li>
+    <li><a href="#">Allergens</a></li>
+  </ul>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => observer.observe(el));
+
+  // Star field
+  const starsEl = document.getElementById('stars');
+  if (starsEl) {
+    for (let i = 0; i < 80; i++) {
+      const s = document.createElement('div');
+      s.className = 'star-dot';
+      s.style.cssText = `
+        left: ${Math.random() * 100}%;
+        top: ${Math.random() * 100}%;
+        --d: ${2 + Math.random() * 4}s;
+        --delay: ${Math.random() * 4}s;
+        width: ${Math.random() > 0.7 ? 3 : 2}px;
+        height: ${Math.random() > 0.7 ? 3 : 2}px;
+      `;
+      starsEl.appendChild(s);
+    }
+  }
+
+  // Menu tabs (visual only)
+  const tabs = document.querySelectorAll('.menu-tab');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+    });
+  });
+
+  // Nav active state on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 100) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--teal)' : '';
+    });
+  }, { passive: true });
+</script>
+</body>
+</html>

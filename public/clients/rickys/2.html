@@ -1,0 +1,1425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ricky's Bread and Beyond</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,300;1,400&family=Barlow+Condensed:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0f0f0d;
+    --white: #f7f6f2;
+    --red: #d62b2b;
+    --red-dark: #a81f1f;
+    --grid: 8px;
+    --gap: calc(var(--grid) * 2);
+    --ff-body: 'Barlow', sans-serif;
+    --ff-cond: 'Barlow Condensed', sans-serif;
+    --rule: 1px solid var(--black);
+    --rule-light: 1px solid rgba(15,15,13,0.15);
+    --transition: 120ms cubic-bezier(0.25, 0, 0, 1);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--ff-body);
+    background: var(--white);
+    color: var(--black);
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: var(--white);
+    border-bottom: var(--rule);
+  }
+
+  .nav-inner {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 var(--gap);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+  }
+
+  .wordmark {
+    font-family: var(--ff-cond);
+    font-weight: 900;
+    font-size: 20px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--black);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .wordmark .dot {
+    display: inline-block;
+    width: 8px; height: 8px;
+    background: var(--red);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    list-style: none;
+  }
+
+  .nav-links a {
+    display: block;
+    padding: 0 20px;
+    height: 56px;
+    line-height: 56px;
+    font-family: var(--ff-cond);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--black);
+    border-left: var(--rule);
+    transition: background var(--transition), color var(--transition);
+  }
+
+  .nav-links a:hover { background: var(--black); color: var(--white); }
+
+  .nav-order {
+    background: var(--red);
+    color: var(--white) !important;
+    border-left: 1px solid var(--red-dark) !important;
+  }
+
+  .nav-order:hover { background: var(--red-dark) !important; }
+
+  /* ── HERO ── */
+  .hero {
+    margin-top: 56px;
+    border-bottom: var(--rule);
+    overflow: hidden;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 7fr 5fr;
+    min-height: calc(100vh - 56px);
+  }
+
+  .hero-left {
+    padding: 80px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-right: var(--rule);
+  }
+
+  .hero-eyebrow {
+    font-family: var(--ff-cond);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--red);
+  }
+
+  .hero-h1 {
+    font-family: var(--ff-cond);
+    font-size: clamp(80px, 10vw, 148px);
+    font-weight: 900;
+    line-height: 0.92;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    margin: 32px 0;
+  }
+
+  .hero-h1 em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--red);
+  }
+
+  .hero-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-top: var(--rule);
+    padding-top: 32px;
+  }
+
+  .hero-meta-item { padding-right: 24px; }
+
+  .hero-meta-item + .hero-meta-item {
+    padding-left: 24px;
+    border-left: var(--rule);
+    padding-right: 0;
+  }
+
+  .hero-meta-label {
+    font-family: var(--ff-cond);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(15,15,13,0.45);
+    margin-bottom: 6px;
+  }
+
+  .hero-meta-value {
+    font-family: var(--ff-cond);
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    line-height: 1.1;
+  }
+
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+    background: #1a1208;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero-img-wrap {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: saturate(1.15) contrast(1.05);
+    transition: transform 600ms cubic-bezier(0.25, 0, 0, 1);
+  }
+
+  .hero-img-wrap:hover img { transform: scale(1.03); }
+
+  .hero-badge {
+    position: absolute;
+    top: 24px; right: 24px;
+    background: var(--red);
+    color: var(--white);
+    font-family: var(--ff-cond);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 8px 14px;
+  }
+
+  .hero-stat-bar {
+    background: var(--black);
+    color: var(--white);
+    padding: 20px 32px;
+    display: flex;
+    align-items: center;
+    border-top: 2px solid var(--red);
+  }
+
+  .hero-stat {
+    flex: 1;
+    text-align: center;
+  }
+
+  .hero-stat + .hero-stat {
+    border-left: 1px solid rgba(247,246,242,0.15);
+  }
+
+  .hero-stat-num {
+    font-family: var(--ff-cond);
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--red);
+    line-height: 1;
+    display: block;
+  }
+
+  .hero-stat-lbl {
+    font-family: var(--ff-cond);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(247,246,242,0.5);
+    display: block;
+    margin-top: 4px;
+  }
+
+  /* ── TICKER ── */
+  .ticker {
+    background: var(--red);
+    color: var(--white);
+    overflow: hidden;
+    border-top: var(--rule);
+    border-bottom: var(--rule);
+    border-color: var(--red-dark);
+    padding: 14px 0;
+  }
+
+  .ticker-track {
+    display: flex;
+    animation: ticker 25s linear infinite;
+    width: max-content;
+  }
+
+  .ticker-item {
+    font-family: var(--ff-cond);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0 40px;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .ticker-item::before {
+    content: '●';
+    font-size: 6px;
+    opacity: 0.5;
+  }
+
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ── MANIFESTO ── */
+  .manifesto {
+    border-bottom: var(--rule);
+    background: var(--black);
+    color: var(--white);
+    padding: 64px 0;
+  }
+
+  .manifesto-inner {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 var(--gap);
+    display: grid;
+    grid-template-columns: 3fr 1fr 4fr;
+    gap: var(--gap);
+    align-items: start;
+  }
+
+  .manifesto-label {
+    font-family: var(--ff-cond);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .manifesto-label::before {
+    content: '';
+    display: block;
+    width: 24px; height: 1px;
+    background: var(--red);
+  }
+
+  .manifesto h2 {
+    font-family: var(--ff-cond);
+    font-size: clamp(40px, 5vw, 68px);
+    font-weight: 900;
+    line-height: 0.95;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+  }
+
+  .manifesto h2 em {
+    font-style: italic;
+    font-weight: 300;
+    color: rgba(247,246,242,0.4);
+  }
+
+  .manifesto-divider {
+    border-left: 1px solid rgba(247,246,242,0.15);
+    align-self: stretch;
+  }
+
+  .manifesto-text p {
+    font-size: 18px;
+    line-height: 1.7;
+    color: rgba(247,246,242,0.75);
+    font-weight: 300;
+    max-width: 52ch;
+  }
+
+  .manifesto-text p + p { margin-top: 20px; }
+
+  .manifesto-text strong {
+    color: var(--white);
+    font-weight: 600;
+  }
+
+  /* ── SECTION HEADER ── */
+  .section-head {
+    border-bottom: var(--rule);
+    padding: 24px 0;
+  }
+
+  .section-head-inner {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 var(--gap);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .section-index {
+    font-family: var(--ff-cond);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(15,15,13,0.35);
+  }
+
+  .section-title {
+    font-family: var(--ff-cond);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .section-rule {
+    flex: 1;
+    height: 1px;
+    background: rgba(15,15,13,0.12);
+    margin: 0 24px;
+  }
+
+  /* ── FEATURES ── */
+  .features { border-bottom: var(--rule); background: #f0ede5; }
+
+  .features-grid {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 var(--gap);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+  }
+
+  .feature-item {
+    padding: 56px 40px;
+    border-right: var(--rule);
+    transition: background var(--transition);
+  }
+
+  .feature-item:last-child { border-right: none; }
+  .feature-item:hover { background: rgba(15,15,13,0.04); }
+
+  .feature-number {
+    font-family: var(--ff-cond);
+    font-size: 72px;
+    font-weight: 900;
+    color: var(--red);
+    line-height: 1;
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  .feature-title {
+    font-family: var(--ff-cond);
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 12px;
+  }
+
+  .feature-desc {
+    font-size: 14px;
+    line-height: 1.65;
+    color: rgba(15,15,13,0.6);
+    font-weight: 300;
+  }
+
+  /* ── MENU ── */
+  .menu-section { padding: 80px 0; border-bottom: var(--rule); }
+
+  .menu-wrapper {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 var(--gap);
+  }
+
+  .menu-category { padding: 48px 0; border-top: var(--rule); }
+  .menu-category:first-child { border-top: none; padding-top: 0; }
+
+  .menu-cat-head {
+    display: grid;
+    grid-template-columns: 3fr 9fr;
+    gap: var(--gap);
+    margin-bottom: 40px;
+    align-items: baseline;
+  }
+
+  .menu-cat-label {
+    font-family: var(--ff-cond);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--red);
+  }
+
+  .menu-cat-title {
+    font-family: var(--ff-cond);
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .menu-items {
+    display: grid;
+    grid-template-columns: 3fr 9fr;
+    gap: var(--gap);
+  }
+
+  .menu-photo {
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    background: #e8e4da;
+  }
+
+  .menu-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: saturate(1.2);
+    transition: transform 500ms cubic-bezier(0.25, 0, 0, 1);
+  }
+
+  .menu-photo:hover img { transform: scale(1.05); }
+
+  .menu-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: baseline;
+    gap: 16px;
+    padding: 20px 0;
+    border-bottom: var(--rule-light);
+    cursor: pointer;
+    position: relative;
+  }
+
+  .menu-item:first-child { border-top: var(--rule); }
+
+  .menu-item-name {
+    font-family: var(--ff-cond);
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    line-height: 1.1;
+    transition: color var(--transition);
+  }
+
+  .menu-item:hover .menu-item-name { color: var(--red); }
+
+  .menu-item-desc {
+    font-size: 13px;
+    color: rgba(15,15,13,0.5);
+    margin-top: 4px;
+    font-weight: 300;
+  }
+
+  .menu-item-tags {
+    display: flex;
+    gap: 6px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-family: var(--ff-cond);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border: 1px solid rgba(15,15,13,0.2);
+    color: rgba(15,15,13,0.5);
+  }
+
+  .tag.hot { border-color: var(--red); color: var(--red); }
+  .tag.new { background: var(--red); border-color: var(--red); color: var(--white); }
+
+  .menu-item-price {
+    font-family: var(--ff-cond);
+    font-size: 20px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  /* ── PHOTO GRID ── */
+  .photo-section { border-bottom: var(--rule); }
+
+  .photo-grid {
+    display: grid;
+    grid-template-columns: 5fr 3fr 4fr;
+    grid-template-rows: 320px 320px;
+    gap: 0;
+  }
+
+  .photo-cell {
+    overflow: hidden;
+    position: relative;
+  }
+
+  .photo-cell img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: saturate(1.1);
+    transition: transform 600ms cubic-bezier(0.25, 0, 0, 1);
+  }
+
+  .photo-cell:hover img { transform: scale(1.04); }
+
+  .photo-cell-lg { grid-row: 1 / 3; }
+
+  .photo-cell-top { border-left: var(--rule); border-bottom: var(--rule); }
+
+  .photo-cell-mid { border-left: var(--rule); }
+
+  .photo-cell-right { border-left: var(--rule); grid-row: 1 / 3; }
+
+  .photo-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 40px 24px 24px;
+    background: linear-gradient(transparent, rgba(15,15,13,0.7));
+    color: var(--white);
+  }
+
+  .photo-cap-label {
+    font-family: var(--ff-cond);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(247,246,242,0.6);
+    margin-bottom: 4px;
+  }
+
+  .photo-cap-text {
+    font-family: var(--ff-cond);
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── INFO ── */
+  .info-section { padding: 80px 0; border-bottom: var(--rule); }
+
+  .info-grid {
+    max-width: 1320px;
+    margin: 56px auto 0;
+    padding: 0 var(--gap);
+    display: grid;
+    grid-template-columns: 4fr 1fr 7fr;
+    gap: var(--gap);
+    align-items: start;
+  }
+
+  .info-heading {
+    font-family: var(--ff-cond);
+    font-size: clamp(40px, 4vw, 60px);
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .info-divider { border-left: var(--rule); min-height: 200px; }
+
+  .hours-table { width: 100%; border-collapse: collapse; }
+
+  .hours-table tr { border-bottom: var(--rule-light); }
+
+  .hours-table td {
+    padding: 14px 0;
+    font-family: var(--ff-cond);
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+  }
+
+  .hours-table td:first-child {
+    font-weight: 400;
+    color: rgba(15,15,13,0.5);
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+  }
+
+  .hours-table td:last-child { text-align: right; }
+
+  .hours-table tr.today td { color: var(--red); font-weight: 700; }
+
+  .contact-block {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--gap);
+  }
+
+  .contact-item-label {
+    font-family: var(--ff-cond);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(15,15,13,0.4);
+    margin-bottom: 6px;
+  }
+
+  .contact-item-value {
+    font-family: var(--ff-cond);
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    line-height: 1.3;
+  }
+
+  .contact-item-value a {
+    color: var(--black);
+    text-decoration: none;
+    transition: color var(--transition);
+  }
+
+  .contact-item-value a:hover { color: var(--red); }
+
+  /* ── CTA ── */
+  .cta-section { background: var(--black); color: var(--white); }
+
+  .cta-inner {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 var(--gap);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 520px;
+  }
+
+  .cta-left {
+    padding: 80px 60px 80px 0;
+    border-right: 1px solid rgba(247,246,242,0.12);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .cta-label {
+    font-family: var(--ff-cond);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .cta-label::before { content: ''; display: block; width: 24px; height: 1px; background: var(--red); }
+
+  .cta-h2 {
+    font-family: var(--ff-cond);
+    font-size: clamp(48px, 6vw, 88px);
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+  }
+
+  .cta-h2 em {
+    font-style: italic;
+    font-weight: 300;
+    color: rgba(247,246,242,0.35);
+  }
+
+  .cta-actions {
+    display: flex;
+    gap: 0;
+    margin-top: 48px;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--red);
+    color: var(--white);
+    font-family: var(--ff-cond);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 18px 32px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background var(--transition), transform var(--transition);
+    border: none;
+  }
+
+  .btn-primary:hover { background: var(--red-dark); }
+  .btn-primary:active { transform: scale(0.98); }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    color: var(--white);
+    font-family: var(--ff-cond);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 18px 32px;
+    text-decoration: none;
+    border: 1px solid rgba(247,246,242,0.25);
+    cursor: pointer;
+    transition: border-color var(--transition), background var(--transition);
+  }
+
+  .btn-secondary:hover { border-color: var(--white); background: rgba(247,246,242,0.06); }
+
+  .cta-right {
+    padding: 80px 0 80px 60px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cta-right-label {
+    font-family: var(--ff-cond);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(247,246,242,0.35);
+    margin-bottom: 32px;
+  }
+
+  .testimonial-block {
+    padding: 32px 0;
+    border-top: 1px solid rgba(247,246,242,0.08);
+  }
+
+  .testimonial-text {
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 1.65;
+    color: rgba(247,246,242,0.85);
+    margin-bottom: 16px;
+    font-style: italic;
+  }
+
+  .testimonial-attr {
+    font-family: var(--ff-cond);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(247,246,242,0.35);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .testimonial-attr::before { content: '—'; color: var(--red); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--black);
+    color: rgba(247,246,242,0.4);
+    border-top: 1px solid rgba(247,246,242,0.08);
+    padding: 32px 0;
+  }
+
+  .footer-inner {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 var(--gap);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-copy {
+    font-family: var(--ff-cond);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+  }
+
+  .footer-links a {
+    font-family: var(--ff-cond);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(247,246,242,0.4);
+    text-decoration: none;
+    transition: color var(--transition);
+  }
+
+  .footer-links a:hover { color: var(--white); }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 500ms cubic-bezier(0.25, 0, 0, 1), transform 500ms cubic-bezier(0.25, 0, 0, 1);
+  }
+
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1100px) {
+    .hero-grid { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 48px 24px; }
+    .hero-right { min-height: 50vw; }
+    .hero-stat-bar { display: none; }
+    .manifesto-inner { grid-template-columns: 1fr; gap: 32px; }
+    .manifesto-divider { display: none; }
+    .features-grid { grid-template-columns: 1fr 1fr; }
+    .feature-item:nth-child(2) { border-right: none; }
+    .feature-item:nth-child(1),
+    .feature-item:nth-child(2) { border-bottom: var(--rule); }
+    .photo-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 240px 240px; }
+    .photo-cell-lg { grid-column: 1 / -1; grid-row: 1; }
+    .photo-cell-top { border-left: none; border-bottom: none; border-top: var(--rule); }
+    .photo-cell-mid { border-top: var(--rule); }
+    .photo-cell-right { border-left: var(--rule); grid-row: 2; }
+    .menu-cat-head,
+    .menu-items { grid-template-columns: 1fr; }
+    .menu-photo { aspect-ratio: 16/9; }
+    .info-grid { grid-template-columns: 1fr; }
+    .info-divider { display: none; }
+    .cta-inner { grid-template-columns: 1fr; }
+    .cta-left { padding: 56px 16px; border-right: none; border-bottom: 1px solid rgba(247,246,242,0.12); }
+    .cta-right { padding: 48px 16px; }
+    .nav-links { display: none; }
+  }
+
+  @media (max-width: 640px) {
+    .hero-left { padding: 40px 16px; }
+    .hero-h1 { font-size: 64px; }
+    .hero-meta { grid-template-columns: 1fr; }
+    .hero-meta-item + .hero-meta-item { border-left: none; border-top: var(--rule); padding-left: 0; padding-top: 16px; margin-top: 16px; }
+    .manifesto { padding: 48px 0; }
+    .manifesto-inner { padding: 0 16px; }
+    .features-grid { grid-template-columns: 1fr; }
+    .feature-item { border-right: none; border-bottom: var(--rule); }
+    .feature-item:last-child { border-bottom: none; }
+    .photo-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+    .photo-cell-lg,
+    .photo-cell-top,
+    .photo-cell-mid,
+    .photo-cell-right { grid-row: auto; grid-column: auto; min-height: 260px; border-left: none; border-top: var(--rule); border-bottom: none; }
+    .photo-cell-lg { border-top: none; }
+    .contact-block { grid-template-columns: 1fr; }
+    .cta-actions { flex-direction: column; gap: 8px; }
+    .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+    .footer-links { flex-wrap: wrap; justify-content: center; }
+    .section-head-inner { padding: 0 16px; }
+    .info-grid { padding: 0 16px; }
+    .menu-wrapper { padding: 0 16px; }
+    .features-grid { padding: 0 16px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="wordmark">
+      <span class="dot"></span>
+      Ricky's Bread &amp; Beyond
+    </a>
+    <ul class="nav-links">
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#hours">Hours</a></li>
+      <li><a href="#order" class="nav-order">Order Now</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-grid">
+    <div class="hero-left">
+      <div class="hero-eyebrow">Est. 2014 &middot; Local Craft Kitchen</div>
+      <h1 class="hero-h1">
+        Bread<br>
+        <em>Built</em><br>
+        Right.
+      </h1>
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <div class="hero-meta-label">Location</div>
+          <div class="hero-meta-value">14 Market St<br>Downtown</div>
+        </div>
+        <div class="hero-meta-item">
+          <div class="hero-meta-label">Open Today</div>
+          <div class="hero-meta-value">8 AM – 9 PM</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-img-wrap">
+        <img
+          src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=900&q=85&auto=format"
+          alt="A perfectly crafted burger from Ricky's Bread and Beyond"
+        >
+        <div class="hero-badge">Today's Special</div>
+      </div>
+      <div class="hero-stat-bar">
+        <div class="hero-stat">
+          <span class="hero-stat-num">12+</span>
+          <span class="hero-stat-lbl">Signature Builds</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">100%</span>
+          <span class="hero-stat-lbl">Fresh Daily</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">4.9&#9733;</span>
+          <span class="hero-stat-lbl">Over 800 Reviews</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <div class="ticker-item">Fresh Ingredients Daily</div>
+    <div class="ticker-item">Baked In-House Every Morning</div>
+    <div class="ticker-item">Local Suppliers Only</div>
+    <div class="ticker-item">12 Signature Sandwiches</div>
+    <div class="ticker-item">No Shortcuts. Ever.</div>
+    <div class="ticker-item">Burgers Done Properly</div>
+    <div class="ticker-item">Open 7 Days a Week</div>
+    <div class="ticker-item">Fresh Ingredients Daily</div>
+    <div class="ticker-item">Baked In-House Every Morning</div>
+    <div class="ticker-item">Local Suppliers Only</div>
+    <div class="ticker-item">12 Signature Sandwiches</div>
+    <div class="ticker-item">No Shortcuts. Ever.</div>
+    <div class="ticker-item">Burgers Done Properly</div>
+    <div class="ticker-item">Open 7 Days a Week</div>
+  </div>
+</div>
+
+<!-- MANIFESTO -->
+<section class="manifesto" id="about">
+  <div class="manifesto-inner">
+    <div>
+      <div class="manifesto-label">Our Philosophy</div>
+      <h2>Every<br>Detail<br><em>Matters.</em></h2>
+    </div>
+    <div class="manifesto-divider"></div>
+    <div class="manifesto-text">
+      <p>Ricky's started with a single conviction: that a great sandwich is not an accident. It is the result of <strong>deliberate choices</strong>, made at every step — from the flour in our buns to the crunch of our greens.</p>
+      <p>We source locally. We bake daily. We build every order with the same attention we'd give if you were watching. <strong>No shortcuts exist here.</strong> Our kitchen runs with the precision of a well-reasoned argument: premise, execution, conclusion — and the conclusion is always the same. You come back.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="section-head" style="background: #f0ede5;">
+    <div class="section-head-inner">
+      <span class="section-index">01</span>
+      <div class="section-rule"></div>
+      <span class="section-title">Why We're Different</span>
+    </div>
+  </div>
+  <div class="features-grid">
+    <div class="feature-item reveal">
+      <span class="feature-number">01</span>
+      <div class="feature-title">Bread Baked Here</div>
+      <p class="feature-desc">Every bun, roll, and slice starts from scratch each morning. The kitchen is warm before sunrise.</p>
+    </div>
+    <div class="feature-item reveal">
+      <span class="feature-number">02</span>
+      <div class="feature-title">Local Sourcing</div>
+      <p class="feature-desc">We know our farmers by name. Produce arrives at the door, not from a warehouse. Distance is measured in miles, not days.</p>
+    </div>
+    <div class="feature-item reveal">
+      <span class="feature-number">03</span>
+      <div class="feature-title">Built to Order</div>
+      <p class="feature-desc">Nothing sits under a heat lamp. Your order is constructed when you place it, assembled with intention.</p>
+    </div>
+    <div class="feature-item reveal">
+      <span class="feature-number">04</span>
+      <div class="feature-title">Precision + Care</div>
+      <p class="feature-desc">Every build follows a deliberate ratio of texture, fat, acid, and salt. This is methodology with warmth.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu-section" id="menu">
+  <div class="section-head">
+    <div class="section-head-inner">
+      <span class="section-index">02</span>
+      <div class="section-rule"></div>
+      <span class="section-title">The Menu</span>
+    </div>
+  </div>
+
+  <div class="menu-wrapper">
+
+    <!-- Burgers -->
+    <div class="menu-category reveal">
+      <div class="menu-cat-head">
+        <div>
+          <div class="menu-cat-label">Category 01</div>
+          <div class="menu-cat-title">Burgers</div>
+        </div>
+      </div>
+      <div class="menu-items">
+        <div class="menu-photo">
+          <img src="https://images.unsplash.com/photo-1553979459-d2229ba7433e?w=600&q=85&auto=format" alt="Classic Smash burger">
+        </div>
+        <div>
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">The Classic Smash</div>
+              <div class="menu-item-desc">Dry-aged beef, American cheese, house pickles, Ricky's sauce, toasted brioche</div>
+              <div class="menu-item-tags"><span class="tag hot">Best Seller</span></div>
+            </div>
+            <div class="menu-item-price">£10.50</div>
+          </div>
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Double Down</div>
+              <div class="menu-item-desc">Two smashed patties, aged cheddar, caramelised onion, mustard mayo, sesame bun</div>
+              <div class="menu-item-tags"><span class="tag hot">Hot</span></div>
+            </div>
+            <div class="menu-item-price">£13.50</div>
+          </div>
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">The Mushroom Melt</div>
+              <div class="menu-item-desc">Portobello, gruyère, truffle aioli, rocket, toasted sourdough</div>
+              <div class="menu-item-tags"><span class="tag">Vegetarian</span></div>
+            </div>
+            <div class="menu-item-price">£11.00</div>
+          </div>
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Ricky's Reserve</div>
+              <div class="menu-item-desc">35-day dry-aged beef, raclette, bone marrow butter, crispy shallots, brioche</div>
+              <div class="menu-item-tags"><span class="tag new">New</span></div>
+            </div>
+            <div class="menu-item-price">£16.00</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sandwiches -->
+    <div class="menu-category reveal">
+      <div class="menu-cat-head">
+        <div>
+          <div class="menu-cat-label">Category 02</div>
+          <div class="menu-cat-title">Sandwiches</div>
+        </div>
+      </div>
+      <div class="menu-items">
+        <div class="menu-photo">
+          <img src="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=600&q=85&auto=format" alt="Signature sandwich">
+        </div>
+        <div>
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">The Reuben</div>
+              <div class="menu-item-desc">Salt-beef, sauerkraut, Swiss cheese, Russian dressing, dark rye</div>
+              <div class="menu-item-tags"><span class="tag hot">Best Seller</span></div>
+            </div>
+            <div class="menu-item-price">£11.50</div>
+          </div>
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Market Club</div>
+              <div class="menu-item-desc">Roast chicken, crispy bacon, avocado, heirloom tomato, house mayo, toasted white</div>
+            </div>
+            <div class="menu-item-price">£12.00</div>
+          </div>
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">The Smoked No.7</div>
+              <div class="menu-item-desc">Smoked salmon, cream cheese, capers, red onion, cucumber, seeded bagel</div>
+              <div class="menu-item-tags"><span class="tag new">New</span></div>
+            </div>
+            <div class="menu-item-price">£12.50</div>
+          </div>
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Green Architecture</div>
+              <div class="menu-item-desc">Hummus, roasted red pepper, courgette, feta, pesto, charcoal sourdough</div>
+              <div class="menu-item-tags"><span class="tag">Vegetarian</span></div>
+            </div>
+            <div class="menu-item-price">£10.00</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sides -->
+    <div class="menu-category reveal">
+      <div class="menu-cat-head">
+        <div>
+          <div class="menu-cat-label">Category 03</div>
+          <div class="menu-cat-title">Sides &amp; Extras</div>
+        </div>
+      </div>
+      <div style="border-top: var(--rule);">
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Shoestring Fries</div>
+            <div class="menu-item-desc">Double-cooked, sea salt, house ketchup</div>
+          </div>
+          <div class="menu-item-price">£3.50</div>
+        </div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Loaded Fries</div>
+            <div class="menu-item-desc">Cheese sauce, jalapeño, spring onion, smoked paprika</div>
+          </div>
+          <div class="menu-item-price">£5.50</div>
+        </div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Seasonal Slaw</div>
+            <div class="menu-item-desc">Celeriac, carrot, fennel, apple, grain mustard dressing</div>
+            <div class="menu-item-tags"><span class="tag">Vegan</span></div>
+          </div>
+          <div class="menu-item-price">£3.50</div>
+        </div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Soup of the Day</div>
+            <div class="menu-item-desc">Changes daily, ask your server, served with sourdough</div>
+          </div>
+          <div class="menu-item-price">£5.00</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHOTO GRID -->
+<section class="photo-section">
+  <div class="section-head">
+    <div class="section-head-inner">
+      <span class="section-index">03</span>
+      <div class="section-rule"></div>
+      <span class="section-title">The Kitchen</span>
+    </div>
+  </div>
+  <div class="photo-grid">
+    <div class="photo-cell photo-cell-lg">
+      <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=900&q=80&auto=format" alt="Fresh ingredients arranged with care">
+      <div class="photo-caption">
+        <div class="photo-cap-label">Ingredients</div>
+        <div class="photo-cap-text">Sourced this morning</div>
+      </div>
+    </div>
+    <div class="photo-cell photo-cell-top">
+      <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=600&q=80&auto=format" alt="Burger precision">
+      <div class="photo-caption">
+        <div class="photo-cap-label">Craft</div>
+        <div class="photo-cap-text">Built by hand</div>
+      </div>
+    </div>
+    <div class="photo-cell photo-cell-mid">
+      <img src="https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=600&q=80&auto=format" alt="Fresh bread">
+      <div class="photo-caption">
+        <div class="photo-cap-label">Bread</div>
+        <div class="photo-cap-text">Baked before dawn</div>
+      </div>
+    </div>
+    <div class="photo-cell photo-cell-right">
+      <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&q=80&auto=format" alt="Seasonal vegetables">
+      <div class="photo-caption">
+        <div class="photo-cap-label">Fresh daily</div>
+        <div class="photo-cap-text">Local, seasonal, honest</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INFO -->
+<section class="info-section" id="hours">
+  <div class="section-head">
+    <div class="section-head-inner">
+      <span class="section-index">04</span>
+      <div class="section-rule"></div>
+      <span class="section-title">Find Us</span>
+    </div>
+  </div>
+  <div class="info-grid">
+    <div class="reveal">
+      <h2 class="info-heading">Hours<br>&amp; Info</h2>
+      <div class="contact-block">
+        <div>
+          <div class="contact-item-label">Address</div>
+          <div class="contact-item-value">14 Market Street<br>Downtown</div>
+        </div>
+        <div>
+          <div class="contact-item-label">Phone</div>
+          <div class="contact-item-value"><a href="tel:+441234567890">01234 567 890</a></div>
+        </div>
+        <div>
+          <div class="contact-item-label">Email</div>
+          <div class="contact-item-value"><a href="mailto:hello@rickysbread.co.uk">hello@rickysbread.co.uk</a></div>
+        </div>
+        <div>
+          <div class="contact-item-label">Parking</div>
+          <div class="contact-item-value">Free on Market St after 6pm</div>
+        </div>
+      </div>
+    </div>
+    <div class="info-divider"></div>
+    <div class="reveal">
+      <table class="hours-table">
+        <tbody>
+          <tr><td>Monday</td><td>8:00 AM – 8:00 PM</td></tr>
+          <tr><td>Tuesday</td><td>8:00 AM – 8:00 PM</td></tr>
+          <tr><td>Wednesday</td><td>8:00 AM – 8:00 PM</td></tr>
+          <tr class="today"><td>Thursday</td><td>8:00 AM – 9:00 PM &#8592;</td></tr>
+          <tr><td>Friday</td><td>8:00 AM – 10:00 PM</td></tr>
+          <tr><td>Saturday</td><td>9:00 AM – 10:00 PM</td></tr>
+          <tr><td>Sunday</td><td>10:00 AM – 6:00 PM</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top: 24px; font-size: 13px; color: rgba(15,15,13,0.45); font-style: italic; font-weight: 300;">Kitchen closes 30 minutes before closing time. Last orders taken promptly.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="order">
+  <div class="cta-inner">
+    <div class="cta-left">
+      <div>
+        <div class="cta-label">The Conclusion</div>
+        <h2 class="cta-h2">The Best<br>Sandwich<br><em>in Town.</em></h2>
+        <p style="margin-top: 32px; font-size: 17px; line-height: 1.65; color: rgba(247,246,242,0.6); font-weight: 300; max-width: 40ch;">You have reviewed the evidence. The verdict is straightforward. Come in, or order now.</p>
+      </div>
+      <div class="cta-actions">
+        <a href="#" class="btn-primary">Order Online &#8594;</a>
+        <a href="tel:+441234567890" class="btn-secondary">Call Us</a>
+      </div>
+    </div>
+    <div class="cta-right">
+      <div class="cta-right-label">What people say</div>
+      <div class="testimonial-block">
+        <p class="testimonial-text">"The Reuben changed my entire understanding of what a sandwich could be. I've been back every week for two years."</p>
+        <div class="testimonial-attr">Marcus T., Regular since 2022</div>
+      </div>
+      <div class="testimonial-block">
+        <p class="testimonial-text">"Clean, fast, and better than anything I've had in the city. The bread alone justifies the trip."</p>
+        <div class="testimonial-attr">Priya K., Google Review</div>
+      </div>
+      <div class="testimonial-block">
+        <p class="testimonial-text">"I've eaten at a lot of sandwich shops. Ricky's is in a different category entirely."</p>
+        <div class="testimonial-attr">James H., Food Critic</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-copy">&#169; 2024 Ricky's Bread and Beyond &middot; 14 Market Street</div>
+    <ul class="footer-links">
+      <li><a href="#">Menu</a></li>
+      <li><a href="#">Catering</a></li>
+      <li><a href="#">Instagram</a></li>
+      <li><a href="#">Privacy</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+const reveals = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+reveals.forEach(el => io.observe(el));
+</script>
+</body>
+</html>

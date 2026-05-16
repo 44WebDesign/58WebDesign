@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rickys Bread & Beyond</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    * {
+      scroll-behavior: smooth;
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #0f0f10;
+      color: #f4efe7;
+      overflow-x: hidden;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .editorial-title {
+      font-family: 'Oswald', sans-serif;
+      letter-spacing: -0.04em;
+      line-height: 0.92;
+    }
+
+    .city-grid {
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .glow {
+      box-shadow: 0 0 40px rgba(245, 158, 11, 0.18);
+    }
+
+    .grain::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 3px 3px;
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    .fade-up {
+      animation: fadeUp 1s ease forwards;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .float {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-12px);
+      }
+    }
+
+    .menu-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .menu-card img {
+      transition: transform 0.7s ease;
+    }
+
+    .menu-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .cta-btn {
+      transition: all 0.35s ease;
+    }
+
+    .cta-btn:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+
+  <section class="relative min-h-screen city-grid grain overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-[#0f0f10]"></div>
+
+    <div class="absolute top-0 right-0 w-[700px] h-[700px] opacity-30 blur-3xl"
+      style="background: radial-gradient(circle, rgba(245,158,11,0.45) 0%, rgba(245,158,11,0) 70%);">
+    </div>
+
+    <nav class="relative z-20 flex items-center justify-between px-8 md:px-14 py-8">
+      <div>
+        <div class="text-xs tracking-[0.4em] uppercase text-amber-500 mb-1">
+          EST. 2017
+        </div>
+        <div class="text-2xl font-semibold tracking-tight">
+          Ricky’s Bread & Beyond
+        </div>
+      </div>
+
+      <div class="hidden md:flex gap-10 text-sm uppercase tracking-[0.25em] text-white/70">
+        <a class="hover:text-amber-500 transition" href="#story">Story</a>
+        <a class="hover:text-amber-500 transition" href="#menu">Menu</a>
+        <a class="hover:text-amber-500 transition" href="#visit">Visit</a>
+      </div>
+    </nav>
+
+    <div class="relative z-10 grid lg:grid-cols-2 gap-10 items-center px-8 md:px-14 pt-10 pb-24 min-h-[85vh]">
+      <div class="fade-up">
+
+        <div class="flex items-center gap-4 mb-8">
+          <div class="h-px w-24 bg-amber-500"></div>
+          <span class="uppercase tracking-[0.35em] text-sm text-white/70">
+            Late-Night Sandwich Rituals
+          </span>
+        </div>
+
+        <h1 class="editorial-title text-[5rem] md:text-[8rem] lg:text-[9rem] leading-none max-w-4xl">
+          BIG<br>
+          CITY<br>
+          BREAD.
+        </h1>
+
+        <p class="text-lg md:text-xl text-white/70 mt-10 max-w-2xl leading-relaxed">
+          Smoky burgers. Toasted artisan rolls. Melted layers built for crowded sidewalks,
+          neon evenings, and conversations that stretch long after midnight.
+        </p>
+
+        <div class="flex flex-wrap gap-5 mt-12">
+          <button class="cta-btn bg-amber-500 text-black px-8 py-4 rounded-full font-semibold uppercase tracking-[0.2em] glow">
+            Order Tonight
+          </button>
+
+          <button class="border border-white/20 px-8 py-4 rounded-full uppercase tracking-[0.2em] hover:bg-white hover:text-black transition-all">
+            Explore Menu
+          </button>
+        </div>
+      </div>
+
+      <div class="relative flex justify-center lg:justify-end fade-up">
+
+        <div class="absolute -top-10 -left-10 bg-amber-500 text-black uppercase tracking-[0.3em] text-xs px-4 py-3 rounded-full z-20 float">
+          Neighborhood Favorite
+        </div>
+
+        <div class="relative max-w-[540px] rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl glow rotate-[-2deg] hover:rotate-0 transition-transform duration-700">
+
+          <img
+            src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=1200&auto=format&fit=crop"
+            alt="Signature burger"
+            class="w-full h-[680px] object-cover"
+          >
+
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent"></div>
+
+          <div class="absolute bottom-0 left-0 right-0 p-8">
+            <div class="flex justify-between items-end">
+              <div>
+                <div class="uppercase tracking-[0.3em] text-xs text-amber-500 mb-3">
+                  Signature Stack
+                </div>
+                <h3 class="text-3xl font-semibold">The Beyond Burger</h3>
+              </div>
+
+              <div class="text-4xl font-bold">£14</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/50 uppercase tracking-[0.4em] text-xs animate-pulse">
+      Scroll The Block
+    </div>
+  </section>
+
+  <section id="story" class="relative px-8 md:px-14 py-28 border-t border-white/10 bg-[#141416]">
+
+    <div class="grid lg:grid-cols-[1.2fr_0.8fr] gap-16 items-center">
+
+      <div>
+        <div class="uppercase tracking-[0.35em] text-amber-500 text-sm mb-6">
+          The Neighborhood Story
+        </div>
+
+        <h2 class="editorial-title text-[3.5rem] md:text-[5rem] max-w-4xl leading-[0.95]">
+          Built For The<br>
+          City Crowd.
+        </h2>
+
+        <p class="text-white/70 text-lg leading-relaxed mt-10 max-w-3xl">
+          Ricky’s Bread & Beyond began as a tiny after-hours sandwich counter hidden inside
+          a converted warehouse district. Word spread through musicians, chefs, students,
+          and late-shift locals searching for comfort food with real craft behind it.
+        </p>
+
+        <p class="text-white/60 text-lg leading-relaxed mt-6 max-w-3xl">
+          Today, the shop still carries that underground spirit — sizzling grills, butcher
+          paper wraps, warm light against exposed concrete, and recipes layered with smoky,
+          indulgent flavor that tastes like the city itself.
+        </p>
+      </div>
+
+      <div class="relative">
+
+        <div class="absolute -inset-6 border border-white/10 rounded-[2rem]"></div>
+
+        <img
+          src="https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=1200&auto=format&fit=crop"
+          alt="Urban cafe interior"
+          class="rounded-[2rem] h-[620px] w-full object-cover"
+        >
+
+      </div>
+    </div>
+  </section>
+
+  <section id="menu" class="relative px-8 md:px-14 py-28 bg-[#0d0d0e] overflow-hidden">
+
+    <div class="relative z-10 flex flex-col md:flex-row justify-between gap-10 items-end mb-20">
+
+      <div>
+        <div class="uppercase tracking-[0.35em] text-amber-500 text-sm mb-5">
+          Crowd Favorites
+        </div>
+
+        <h2 class="editorial-title text-[3.5rem] md:text-[5rem] leading-[0.95] max-w-3xl">
+          Flavor With<br>
+          Street Energy.
+        </h2>
+      </div>
+
+      <p class="text-white/60 max-w-xl text-lg leading-relaxed">
+        Every stack is layered with house sauces, charred textures, buttery toasted bread,
+        and the kind of indulgent detail that turns quick meals into neighborhood rituals.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+
+      <div class="menu-card bg-[#17171a] rounded-[2rem] overflow-hidden border border-white/10 transition-all duration-500">
+
+        <div class="overflow-hidden h-[380px]">
+          <img
+            src="https://images.unsplash.com/photo-1520072959219-c595dc870360?q=80&w=1200&auto=format&fit=crop"
+            alt="Brisket Melt"
+            class="w-full h-full object-cover"
+          >
+        </div>
+
+        <div class="p-8">
+          <div class="flex justify-between items-start gap-6">
+            <div>
+              <div class="uppercase tracking-[0.3em] text-xs text-amber-500 mb-3">
+                Signature Build
+              </div>
+              <h3 class="text-3xl font-semibold leading-tight">
+                Midnight Brisket Melt
+              </h3>
+            </div>
+
+            <div class="text-3xl font-bold text-amber-500">£16</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card bg-[#17171a] rounded-[2rem] overflow-hidden border border-white/10 transition-all duration-500">
+
+        <div class="overflow-hidden h-[380px]">
+          <img
+            src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?q=80&w=1200&auto=format&fit=crop"
+            alt="Double Smash"
+            class="w-full h-full object-cover"
+          >
+        </div>
+
+        <div class="p-8">
+          <div class="flex justify-between items-start gap-6">
+            <div>
+              <div class="uppercase tracking-[0.3em] text-xs text-amber-500 mb-3">
+                Signature Build
+              </div>
+              <h3 class="text-3xl font-semibold leading-tight">
+                Ricky’s Double Smash
+              </h3>
+            </div>
+
+            <div class="text-3xl font-bold text-amber-500">£14</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card bg-[#17171a] rounded-[2rem] overflow-hidden border border-white/10 transition-all duration-500">
+
+        <div class="overflow-hidden h-[380px]">
+          <img
+            src="https://images.unsplash.com/photo-1606755962773-d324e0a13086?q=80&w=1200&auto=format&fit=crop"
+            alt="Chicken Stack"
+            class="w-full h-full object-cover"
+          >
+        </div>
+
+        <div class="p-8">
+          <div class="flex justify-between items-start gap-6">
+            <div>
+              <div class="uppercase tracking-[0.3em] text-xs text-amber-500 mb-3">
+                Signature Build
+              </div>
+              <h3 class="text-3xl font-semibold leading-tight">
+                Fire Alley Chicken Stack
+              </h3>
+            </div>
+
+            <div class="text-3xl font-bold text-amber-500">£15</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="relative px-8 md:px-14 py-28 bg-[#111214] border-t border-white/10 overflow-hidden">
+
+    <div class="absolute inset-0 opacity-10"
+      style="background: radial-gradient(circle at top left, rgba(245,158,11,0.5), transparent 35%);">
+    </div>
+
+    <div class="relative z-10 text-center mb-20">
+      <div class="uppercase tracking-[0.35em] text-amber-500 text-sm mb-5">
+        Community Voices
+      </div>
+
+      <h2 class="editorial-title text-[3.5rem] md:text-[5rem] leading-[0.95]">
+        The City Talks
+        <br>
+        About Ricky’s.
+      </h2>
+
+      <p class="text-white/60 text-lg max-w-2xl mx-auto mt-8 leading-relaxed">
+        From artists and night-shift crews to students and food obsessives,
+        Ricky’s Bread & Beyond has become a local ritual woven into the rhythm of the city.
+      </p>
+    </div>
+
+    <div class="relative z-10 grid md:grid-cols-3 gap-8">
+
+      <div class="bg-[#1a1b1e] rounded-[2rem] p-8 border border-white/10 backdrop-blur-md hover:border-amber-500/40 transition-all duration-500">
+        <div class="text-amber-500 text-5xl mb-6">“</div>
+        <p class="text-white/70 text-lg leading-relaxed mb-8">
+          Best late-night burger spot in the district. Feels like a hidden cultural landmark.
+        </p>
+
+        <div>
+          <div class="font-semibold text-xl">Maya R.</div>
+          <div class="uppercase tracking-[0.25em] text-xs text-white/40 mt-2">
+            Music Producer
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-[#1a1b1e] rounded-[2rem] p-8 border border-white/10 backdrop-blur-md hover:border-amber-500/40 transition-all duration-500">
+        <div class="text-amber-500 text-5xl mb-6">“</div>
+        <p class="text-white/70 text-lg leading-relaxed mb-8">
+          The brisket melt tastes unreal. Warm lights, amazing people, incredible flavor.
+        </p>
+
+        <div>
+          <div class="font-semibold text-xl">Jordan K.</div>
+          <div class="uppercase tracking-[0.25em] text-xs text-white/40 mt-2">
+            Creative Director
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-[#1a1b1e] rounded-[2rem] p-8 border border-white/10 backdrop-blur-md hover:border-amber-500/40 transition-all duration-500">
+        <div class="text-amber-500 text-5xl mb-6">“</div>
+        <p class="text-white/70 text-lg leading-relaxed mb-8">
+          It’s not just food — it’s the whole atmosphere. The place feels alive after dark.
+        </p>
+
+        <div>
+          <div class="font-semibold text-xl">Elliot T.</div>
+          <div class="uppercase tracking-[0.25em] text-xs text-white/40 mt-2">
+            Photographer
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="relative px-8 md:px-14 py-28 bg-[#0c0c0d] border-t border-white/10 overflow-hidden">
+
+    <div class="absolute inset-0 opacity-20"
+      style="background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 60px 60px;">
+    </div>
+
+    <div class="relative z-10 max-w-4xl mx-auto text-center">
+
+      <div class="uppercase tracking-[0.35em] text-amber-500 text-sm mb-6">
+        Stay Connected
+      </div>
+
+      <h2 class="editorial-title text-[3.5rem] md:text-[5rem] leading-[0.95]">
+        Join The After-
+        <br>
+        Hours Crowd.
+      </h2>
+
+      <p class="text-white/60 text-lg leading-relaxed max-w-2xl mx-auto mt-8">
+        Get exclusive drops, new menu launches, neighborhood events, and late-night specials delivered straight to your inbox.
+      </p>
+
+      <form class="mt-14 flex flex-col md:flex-row gap-5 justify-center max-w-3xl mx-auto">
+        <input
+          type="email"
+          placeholder="Enter your email"
+          class="flex-1 bg-[#18191b] border border-white/10 rounded-full px-8 py-5 text-white placeholder:text-white/30 outline-none focus:border-amber-500 transition-all"
+        >
+
+        <button
+          type="submit"
+          class="cta-btn bg-amber-500 text-black px-10 py-5 rounded-full text-sm uppercase tracking-[0.3em] font-semibold glow"
+        >
+          Subscribe
+        </button>
+      </form>
+
+      <div class="mt-8 text-white/30 text-sm uppercase tracking-[0.2em]">
+        No spam • Just flavor, culture & city energy
+      </div>
+    </div>
+  </section>
+
+  <section id="visit" class="relative min-h-[85vh] flex items-center px-8 md:px-14 py-28 overflow-hidden">
+
+    <div class="absolute inset-0"
+      style="
+        background-image:
+          linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.85)),
+          url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1600&auto=format&fit=crop');
+        background-size: cover;
+        background-position: center;
+      ">
+    </div>
+
+    <div class="relative z-10 max-w-5xl mx-auto text-center">
+
+      <div class="uppercase tracking-[0.4em] text-amber-500 text-sm mb-8">
+        Tonight’s Destination
+      </div>
+
+      <h2 class="editorial-title text-[4rem] md:text-[7rem] leading-[0.9]">
+        COME HUNGRY.<br>
+        LEAVE TALKING<br>
+        ABOUT IT.
+      </h2>
+
+      <p class="text-white/70 text-lg md:text-xl leading-relaxed max-w-3xl mx-auto mt-10">
+        Find the glow of Ricky’s Bread & Beyond tucked between the noise of the city and
+        the comfort of your favorite neighborhood corner.
+      </p>
+
+      <div class="flex flex-wrap justify-center gap-6 mt-14">
+        <button class="cta-btn bg-amber-500 text-black px-10 py-5 rounded-full text-sm uppercase tracking-[0.3em] font-semibold glow">
+          Start Your Order
+        </button>
+
+        <button class="border border-white/20 backdrop-blur-md px-10 py-5 rounded-full text-sm uppercase tracking-[0.3em] hover:bg-white hover:text-black transition-all">
+          Visit The Shop
+        </button>
+      </div>
+
+      <div class="mt-20 pt-10 border-t border-white/10 flex flex-col md:flex-row justify-between gap-10 text-left text-white/60">
+
+        <div>
+          <div class="uppercase tracking-[0.3em] text-xs text-amber-500 mb-3">
+            Location
+          </div>
+          <div class="text-lg">Shoreditch District • London</div>
+        </div>
+
+        <div>
+          <div class="uppercase tracking-[0.3em] text-xs text-amber-500 mb-3">
+            Hours
+          </div>
+          <div class="text-lg">Open Daily • 11AM — 2AM</div>
+        </div>
+
+        <div>
+          <div class="uppercase tracking-[0.3em] text-xs text-amber-500 mb-3">
+            Follow The Flavor
+          </div>
+          <div class="text-lg">@rickysbreadandbeyond</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rickys Bread and Beyond</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #f5f3ef;
+      color: #000;
+      overflow-x: hidden;
+    }
+
+    .grid-overlay {
+      position: fixed;
+      inset: 0;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      opacity: 0.045;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .grid-overlay div {
+      border-right: 1px solid #000;
+    }
+
+    .hero-title,
+    .section-title,
+    .mega-title {
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.08em;
+      line-height: 0.88;
+    }
+
+    .hero-title {
+      font-size: clamp(4rem, 12vw, 8rem);
+    }
+
+    .section-title {
+      font-size: clamp(3rem, 7vw, 7rem);
+    }
+
+    .mega-title {
+      font-size: clamp(3rem, 10vw, 8rem);
+    }
+
+    .label {
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      opacity: 0.6;
+    }
+
+    .nav-link,
+    .cta-button,
+    .menu-row,
+    .principle-card {
+      transition: all 150ms ease;
+    }
+
+    .nav-link:hover,
+    .cta-button:hover,
+    .principle-card:hover,
+    .menu-row:hover {
+      background: #000;
+      color: #f5f3ef;
+    }
+
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      border: 1px solid #000;
+      padding: 18px 22px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      font-size: 11px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .menu-row:hover .arrow,
+    .cta-button:hover .arrow {
+      transform: translateX(4px);
+    }
+
+    .arrow {
+      transition: transform 150ms ease;
+    }
+
+    .hero-image,
+    .ingredient-image {
+      position: relative;
+      overflow: hidden;
+      min-height: 560px;
+    }
+
+    .hero-image img,
+    .ingredient-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      inset: 0;
+    }
+
+    .hero-image img {
+      transition: transform 300ms ease;
+    }
+
+    .hero-image:hover img {
+      transform: scale(1.02);
+    }
+
+    .overlay-grid {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      mix-blend-mode: screen;
+    }
+
+    .overlay-grid div {
+      border: 1px solid rgba(255,255,255,0.35);
+    }
+
+    .container-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+    }
+
+    .bordered {
+      border-bottom: 1px solid #000;
+    }
+
+    .border-right {
+      border-right: 1px solid #000;
+    }
+
+    .menu-row {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      border-bottom: 1px solid #000;
+    }
+
+    .menu-row > div {
+      padding: 32px 24px;
+    }
+
+    .menu-title {
+      font-size: 2rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.05em;
+    }
+
+    .menu-description {
+      line-height: 1.7;
+      opacity: 0.7;
+    }
+
+    .principles-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .principle-card {
+      border-right: 1px solid #000;
+      border-bottom: 1px solid #000;
+      min-height: 240px;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .principle-card:nth-child(2n) {
+      border-right: none;
+    }
+
+    .principle-title {
+      font-size: 2rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      line-height: 1.1;
+      letter-spacing: -0.05em;
+      max-width: 260px;
+    }
+
+    @media (max-width: 1024px) {
+      .container-grid,
+      .menu-row {
+        grid-template-columns: 1fr;
+      }
+
+      .border-right {
+        border-right: none;
+      }
+
+      .principles-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .principle-card {
+        border-right: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="grid-overlay">
+    <div></div><div></div><div></div><div></div><div></div><div></div>
+    <div></div><div></div><div></div><div></div><div></div><div></div>
+  </div>
+
+  <header class="bordered" style="position: relative; z-index: 10; padding: 24px 48px; display: flex; justify-content: space-between; align-items: center; text-transform: uppercase; letter-spacing: 0.18em; font-size: 11px;">
+    <div style="font-weight: 700;">Rickys Bread and Beyond</div>
+
+    <nav style="display: flex; gap: 40px;">
+      <a class="nav-link" href="#menu" style="padding: 8px 10px; text-decoration: none; color: inherit;">Menu</a>
+      <a class="nav-link" href="#principles" style="padding: 8px 10px; text-decoration: none; color: inherit;">Process</a>
+      <a class="nav-link" href="#visit" style="padding: 8px 10px; text-decoration: none; color: inherit;">Visit</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="bordered">
+    <div class="container-grid" style="min-height: 88vh; position: relative; z-index: 1;">
+      <div class="border-right" style="grid-column: span 5; padding: 60px 48px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div class="label" style="margin-bottom: 40px;">Sandwich & Burger Studio · Felixstowe</div>
+
+          <h1 class="hero-title">
+            Bread.<br>
+            Beyond.
+          </h1>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; align-items: end; margin-top: 60px;">
+          <p style="max-width: 320px; line-height: 1.8; opacity: 0.7;">
+            Precision-built sandwiches and burgers designed with uncompromising structure, fresh ingredients, and fast urban efficiency.
+          </p>
+
+          <div style="display: flex; justify-content: flex-end;">
+            <a href="#menu" class="cta-button">
+              Explore Menu
+              <span class="arrow">→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div style="grid-column: span 7;" class="hero-image">
+        <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=1600&auto=format&fit=crop" alt="Burger">
+
+        <div style="position: absolute; inset: 0; background: linear-gradient(to top right, rgba(0,0,0,0.45), rgba(0,0,0,0.05), transparent);"></div>
+
+        <div class="overlay-grid">
+          <div style="background: rgba(255,77,0,0.1);"></div>
+          <div style="background: rgba(255,225,0,0.1);"></div>
+          <div style="background: rgba(0,255,153,0.1);"></div>
+          <div style="background: rgba(255,0,76,0.1);"></div>
+        </div>
+
+        <div style="position: absolute; bottom: 0; left: 0; width: 100%; backdrop-filter: blur(10px); background: rgba(0,0,0,0.25); border-top: 1px solid rgba(255,255,255,0.25); color: #f5f3ef;">
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); text-transform: uppercase; letter-spacing: 0.18em; font-size: 11px;">
+            <div style="padding: 20px; border-right: 1px solid rgba(255,255,255,0.2);">Fresh Ingredients Daily</div>
+            <div style="padding: 20px; border-right: 1px solid rgba(255,255,255,0.2);">Built Fast. Served Hot.</div>
+            <div style="padding: 20px;">Architected Flavor Balance</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process Principles Section -->
+  <section id="principles" class="bordered container-grid">
+    <div class="border-right" style="grid-column: span 4; padding: 64px 48px;">
+      <div class="label" style="margin-bottom: 24px;">Operational Principles</div>
+
+      <h2 class="section-title" style="font-size: clamp(2.5rem, 5vw, 5rem); line-height: 0.92;">
+        Organized.<br>
+        Reliable.<br>
+        Exact.
+      </h2>
+    </div>
+
+    <div style="grid-column: span 8;" class="principles-grid">
+      <div class="principle-card">
+        <div class="label">01</div>
+        <div class="principle-title">Bread Baked Daily</div>
+      </div>
+
+      <div class="principle-card">
+        <div class="label">02</div>
+        <div class="principle-title">Ingredients Sourced Locally</div>
+      </div>
+
+      <div class="principle-card">
+        <div class="label">03</div>
+        <div class="principle-title">Built To Order</div>
+      </div>
+
+      <div class="principle-card">
+        <div class="label">04</div>
+        <div class="principle-title">Fast Without Compromise</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="bordered container-grid" style="position: relative; z-index: 1;">
+    <div class="border-right" style="grid-column: span 5; padding: 80px 48px;">
+      <div class="label" style="margin-bottom: 24px;">About The Studio</div>
+
+      <h2 class="section-title" style="font-size: clamp(2.5rem, 5vw, 5rem); margin-bottom: 36px;">
+        Built On<br>
+        Precision.
+      </h2>
+
+      <p style="line-height: 1.9; opacity: 0.72; max-width: 520px; font-size: 1.05rem; margin-bottom: 28px;">
+        Rickys Bread and Beyond was founded on a simple principle: every sandwich and burger should feel intentional. From bread texture to ingredient ratios, every component is calibrated for balance, consistency, and flavor clarity.
+      </p>
+
+      <p style="line-height: 1.9; opacity: 0.72; max-width: 520px; font-size: 1.05rem;">
+        Inspired by urban movement, modernist systems, and local craftsmanship, the space combines fast service with architectural discipline — delivering food that feels immediate, refined, and dependable.
+      </p>
+    </div>
+
+    <div style="grid-column: span 7; background: #000; color: #f5f3ef; padding: 80px 48px; display: flex; flex-direction: column; justify-content: center;">
+      <div class="label" style="margin-bottom: 24px; opacity: 0.7; color: #f5f3ef;">Our Vision</div>
+
+      <div style="display: grid; gap: 40px;">
+        <div>
+          <p style="font-size: clamp(1.6rem, 3vw, 2.6rem); line-height: 1.2; font-weight: 800; letter-spacing: -0.04em; max-width: 760px; margin-bottom: 14px;">
+            To transform standard street eats into flawless structural designs, proving speed and culinary mastery can exist together.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Menu Section -->
+  <section id="menu" class="bordered" style="padding: 80px 48px; position: relative; z-index: 1;">
+    <div class="container-grid" style="gap: 40px; margin-bottom: 60px;">
+      <div style="grid-column: span 4;">
+        <div class="label" style="margin-bottom: 24px;">Curated Selection</div>
+
+        <h2 class="section-title">
+          Structured<br>
+          Menu
+        </h2>
+      </div>
+
+      <div style="grid-column: span 8; display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; align-self: end;">
+        <p style="line-height: 1.8; opacity: 0.7;">
+          Every item is constructed around proportion, temperature, and texture. No clutter. No filler. Only combinations calibrated for maximum satisfaction.
+        </p>
+
+        <p style="line-height: 1.8; opacity: 0.7;">
+          Inspired by transit systems, architectural plans, and editorial hierarchy, the menu is designed for fast reading and confident decisions.
+        </p>
+      </div>
+    </div>
+
+    <div style="border-top: 1px solid #000;">
+      <div class="menu-row">
+        <div style="grid-column: span 2;" class="label">01</div>
+        <div style="grid-column: span 3; border-left: 1px solid #000;">
+          <div class="label" style="margin-bottom: 12px;">Signature</div>
+          <div class="menu-title">The Ricky Stack</div>
+        </div>
+        <div style="grid-column: span 5; border-left: 1px solid #000;" class="menu-description">
+          Double-seared beef, smoked cheddar, onion jam, pickles, precision-toasted brioche.
+        </div>
+        <div style="grid-column: span 2; border-left: 1px solid #000; display: flex; align-items: center; justify-content: flex-end;">
+          <span class="label">Build Order <span class="arrow">→</span></span>
+        </div>
+      </div>
+
+      <div class="menu-row">
+        <div style="grid-column: span 2;" class="label">02</div>
+        <div style="grid-column: span 3; border-left: 1px solid #000;">
+          <div class="label" style="margin-bottom: 12px;">Fresh Cut</div>
+          <div class="menu-title">Green District</div>
+        </div>
+        <div style="grid-column: span 5; border-left: 1px solid #000;" class="menu-description">
+          Avocado, cucumber ribbon, herb aioli, sprouts, sourdough architecture.
+        </div>
+        <div style="grid-column: span 2; border-left: 1px solid #000; display: flex; align-items: center; justify-content: flex-end;">
+          <span class="label">Build Order <span class="arrow">→</span></span>
+        </div>
+      </div>
+
+      <div class="menu-row">
+        <div style="grid-column: span 2;" class="label">03</div>
+        <div style="grid-column: span 3; border-left: 1px solid #000;">
+          <div class="label" style="margin-bottom: 12px;">Hot Press</div>
+          <div class="menu-title">Metro Melt</div>
+        </div>
+        <div style="grid-column: span 5; border-left: 1px solid #000;" class="menu-description">
+          Turkey, provolone, tomato confit, mustard butter, pressed to exact crispness.
+        </div>
+        <div style="grid-column: span 2; border-left: 1px solid #000; display: flex; align-items: center; justify-content: flex-end;">
+          <span class="label">Build Order <span class="arrow">→</span></span>
+        </div>
+      </div>
+
+      <div class="menu-row">
+        <div style="grid-column: span 2;" class="label">04</div>
+        <div style="grid-column: span 3; border-left: 1px solid #000;">
+          <div class="label" style="margin-bottom: 12px;">Classic Build</div>
+          <div class="menu-title">Studio Burger</div>
+        </div>
+        <div style="grid-column: span 5; border-left: 1px solid #000;" class="menu-description">
+          Dry-aged beef, iceberg, house sauce, raw onion, engineered balance.
+        </div>
+        <div style="grid-column: span 2; border-left: 1px solid #000; display: flex; align-items: center; justify-content: flex-end;">
+          <span class="label">Build Order <span class="arrow">→</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Route / Ingredient Highlights Section -->
+  <section class="bordered container-grid">
+    <div class="border-right ingredient-image" style="grid-column: span 7;">
+      <img src="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?q=80&w=1600&auto=format&fit=crop" alt="Fresh ingredients">
+
+      <div style="position: absolute; inset: 0; background: linear-gradient(to right, rgba(0,0,0,0.45), transparent);"></div>
+
+      <div style="position: absolute; bottom: 0; left: 0; padding: 48px; color: #f5f3ef; max-width: 500px;">
+        <div class="label" style="margin-bottom: 20px; opacity: 0.8;">Ingredient Integrity</div>
+
+        <div style="font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; line-height: 1; text-transform: uppercase; letter-spacing: -0.05em;">
+          Color.<br>
+          Texture.<br>
+          Freshness.
+        </div>
+      </div>
+    </div>
+
+    <div style="grid-column: span 5; padding: 80px 48px; display: flex; flex-direction: column; justify-content: space-between;">
+      <div>
+        <div class="label" style="margin-bottom: 24px;">Designed For Movement</div>
+
+        <h2 class="section-title" style="margin-bottom: 40px;">
+          The Fastest<br>
+          Route To<br>
+          Quality.
+        </h2>
+
+        <p style="line-height: 1.9; opacity: 0.7; max-width: 420px; font-size: 1.1rem;">
+          Rickys Bread and Beyond merges neighborhood warmth with systematic excellence — delivering food that feels both carefully engineered and deeply human.
+        </p>
+      </div>
+
+      <div style="margin-top: 60px; padding-top: 24px; border-top: 1px solid #000; display: flex; justify-content: space-between; text-transform: uppercase; letter-spacing: 0.18em; font-size: 11px;">
+        <span>Mon–Sat · 11:00–22:00</span>
+        <span>Walk-In + Pickup</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="bordered container-grid" style="position: relative; z-index: 1;">
+    <div class="border-right" style="grid-column: span 4; padding: 80px 48px;">
+      <div class="label" style="margin-bottom: 24px;">Verified Feed</div>
+      <h2 class="section-title" style="font-size: clamp(2.5rem, 5vw, 5rem); line-height: 0.92;">
+        Studio<br>Review.
+      </h2>
+    </div>
+
+    <div style="grid-column: span 8; background: #000; color: #f5f3ef; display: grid; grid-template-columns: repeat(2, 1fr);">
+      <div class="border-right" style="border-color: rgba(255,255,255,0.15); padding: 80px 48px; display: flex; flex-direction: column; justify-content: space-between; min-height: 380px;">
+        <p style="font-size: clamp(1.4rem, 2.5vw, 2.2rem); line-height: 1.25; font-weight: 800; letter-spacing: -0.04em;">
+          “The cleanest, most perfectly balanced burger in town. Everything tastes deliberate.”
+        </p>
+        <div class="label" style="color: #f5f3ef; opacity: 0.6; margin-top: 40px;">— Marcus H.</div>
+      </div>
+
+      <div style="padding: 80px 48px; display: flex; flex-direction: column; justify-content: space-between; min-height: 380px;">
+        <p style="font-size: clamp(1.4rem, 2.5vw, 2.2rem); line-height: 1.25; font-weight: 800; letter-spacing: -0.04em;">
+          “Fast without feeling rushed. The menu layout feels curated like an art exhibition.”
+        </p>
+        <div class="label" style="color: #f5f3ef; opacity: 0.6; margin-top: 40px;">— Sofia L.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter Section -->
+  <section class="bordered" style="padding: 90px 48px; position: relative; z-index: 1;">
+    <div class="container-grid" style="gap: 40px; align-items: center;">
+      <div style="grid-column: span 6;">
+        <div class="label" style="margin-bottom: 24px;">Newsletter</div>
+
+        <h2 class="section-title" style="font-size: clamp(2.5rem, 6vw, 6rem); margin-bottom: 28px;">
+          Stay In<br>
+          The Loop.
+        </h2>
+
+        <p style="line-height: 1.8; opacity: 0.72; max-width: 520px; font-size: 1.05rem;">
+          Receive menu launches, limited specials, and updates from Rickys Bread and Beyond directly to your inbox.
+        </p>
+      </div>
+
+      <div style="grid-column: span 6; border: 1px solid #000; padding: 40px; display: flex; flex-direction: column; gap: 24px; background: rgba(255,255,255,0.5);">
+        <input type="text" placeholder="Your Name" style="padding: 18px 20px; border: 1px solid #000; background: transparent; font-size: 14px; font-family: inherit;">
+
+        <input type="email" placeholder="Email Address" style="padding: 18px 20px; border: 1px solid #000; background: transparent; font-size: 14px; font-family: inherit;">
+
+        <button class="cta-button" style="justify-content: center; width: 100%; background: #000; color: #f5f3ef; cursor: pointer;">
+          Subscribe Now
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer / Contact Section -->
+  <section id="visit" class="container-grid bordered" style="position: relative; z-index: 1; min-height: 620px;">
+    <div class="border-right" style="grid-column: span 5; padding: 80px 48px; display: flex; flex-direction: column; justify-content: space-between;">
+      <div>
+        <div class="label" style="margin-bottom: 24px;">Contact & Location</div>
+
+        <h2 class="section-title" style="font-size: clamp(2.5rem, 5vw, 5rem); margin-bottom: 40px;">
+          Visit The<br>
+          Studio.
+        </h2>
+
+        <div style="display: grid; gap: 28px; font-size: 1rem; line-height: 1.8; opacity: 0.75;">
+          <div>
+            <strong style="display: block; opacity: 1; margin-bottom: 6px;">Address</strong>
+            Hamilton Road<br>
+            Felixstowe IP11 777
+          </div>
+
+          <div>
+            <strong style="display: block; opacity: 1; margin-bottom: 6px;">Phone</strong>
+            +44 (0)1394 555 0142
+          </div>
+
+          <div>
+            <strong style="display: block; opacity: 1; margin-bottom: 6px;">Opening Hours</strong>
+            Monday — Saturday<br>
+            11:00 — 22:00
+          </div>
+        </div>
+      </div>
+
+      <a href="#" class="cta-button" style="justify-content: center; max-width: 320px;">
+        Get Directions
+        <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <div style="grid-column: span 7; position: relative; overflow: hidden; min-height: 620px;">
+      <!-- Embedded map updated for Felixstowe Coordinates -->
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2452.880468962634!2d1.3482759!3d51.9634938!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47d9a3fedff09907%3A0x633afef13b91a9b4!2sHamilton+Rd%2C+Felixstowe!5e0!3m2!1sen!2suk!4v1710000000000!5m2!1sen!2suk"
+        width="100%"
+        height="100%"
+        style="border:0; position:absolute; inset:0;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+  </section>
+</body>
+</html>
