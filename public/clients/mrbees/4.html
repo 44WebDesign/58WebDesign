@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Hanken+Grotesk:wght@400;600&amp;family=Source+Serif+4:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error-container": "#93000a",
+                    "secondary-container": "#fec971",
+                    "primary-fixed": "#d7e7d3",
+                    "surface-variant": "#e5e2db",
+                    "on-primary-container": "#95a593",
+                    "inverse-on-surface": "#f3f0e9",
+                    "on-primary-fixed": "#111f12",
+                    "surface-bright": "#fcf9f2",
+                    "inverse-primary": "#bbcbb8",
+                    "inverse-surface": "#31312c",
+                    "primary-container": "#2d3b2d",
+                    "error-container": "#ffdad6",
+                    "on-primary-fixed-variant": "#3c4a3c",
+                    "surface-container": "#f1eee7",
+                    "surface-container-highest": "#e5e2db",
+                    "tertiary-fixed": "#ffdbd0",
+                    "primary": "#182519",
+                    "on-primary": "#ffffff",
+                    "on-surface-variant": "#444842",
+                    "outline": "#747872",
+                    "on-secondary": "#ffffff",
+                    "surface-container-low": "#f6f3ec",
+                    "outline-variant": "#c4c8c0",
+                    "on-surface": "#1c1c18",
+                    "error": "#ba1a1a",
+                    "surface": "#fcf9f2",
+                    "secondary": "#7e5703",
+                    "on-secondary-fixed": "#281900",
+                    "background": "#fcf9f2",
+                    "surface-container-high": "#ebe8e1",
+                    "tertiary": "#341c15",
+                    "on-tertiary-fixed-variant": "#5d4037",
+                    "on-secondary-fixed-variant": "#604100",
+                    "on-secondary-container": "#785300",
+                    "surface-tint": "#536252",
+                    "primary-fixed-dim": "#bbcbb8",
+                    "on-error": "#ffffff",
+                    "tertiary-container": "#4c3129",
+                    "secondary-fixed": "#ffdeac",
+                    "on-tertiary": "#ffffff",
+                    "on-tertiary-container": "#be988d",
+                    "surface-container-lowest": "#ffffff",
+                    "on-background": "#1c1c18",
+                    "on-tertiary-fixed": "#2c160e",
+                    "surface-dim": "#dcdad3",
+                    "secondary-fixed-dim": "#f2be67",
+                    "tertiary-fixed-dim": "#e7bdb1"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-mobile": "16px",
+                    "unit": "8px",
+                    "gutter": "24px",
+                    "margin-desktop": "64px",
+                    "max-width": "1280px",
+                    "ornamental-padding": "24px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Bebas Neue"],
+                    "headline-lg-mobile": ["Bebas Neue"],
+                    "headline-lg": ["Bebas Neue"],
+                    "label-md": ["Hanken Grotesk"],
+                    "body-lg": ["Source Serif 4"],
+                    "display-lg": ["Bebas Neue"],
+                    "body-md": ["Source Serif 4"]
+            },
+            "fontSize": {
+                    "headline-md": ["32px", {"lineHeight": "32px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["36px", {"lineHeight": "36px", "fontWeight": "400"}],
+                    "headline-lg": ["48px", {"lineHeight": "48px", "letterSpacing": "0.03em", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "display-lg": ["80px", {"lineHeight": "80px", "letterSpacing": "0.02em", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .ornamental-border {
+            border: 2px solid #182519;
+            outline: 4px double #182519;
+            outline-offset: -8px;
+            padding: 24px;
+        }
+        .stippled-shadow {
+            box-shadow: 8px 8px 0 0 #182519;
+        }
+        .ink-texture {
+            background-size: 4px 4px;
+        }
+        .distressed-surface {
+            background-color: #fcf9f2;
+            position: relative;
+        }
+        .distressed-surface::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuBCuOv9gGXSH0-Y9KvM6DQlkpldeoVa9AIFLhO5rFR_EGfkFdwf1falb3WjQ7W-JzeX3goeowqzpQrsRqfqrmyGxI7KT9dchLYmIrg3xSoHp5NsVPTUvJEDwRSje45j2OMA7QXY_JwmbMlANgOvrncBFQKiDKp46OlKBh5sF71aMa_M-g9FQHQx3Wtz-rZwhghwyCDBm6WwULLkfR03I27IyZm6UIhJ7kB24RzRYCrn0dx8y4ZogM8Mmqi7hk9oWbnisZdXX9i4Kdw);
+            opacity: 0.4;
+            pointer-events: none;
+        }
+    </style>
+    <title>Mr Bees Brewery</title>
+</head>
+<body class="bg-background text-on-background distressed-surface font-body-md overflow-x-hidden">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 sticky top-0 z-50 bg-background border-b-2 border-primary">
+<div class="font-display-lg text-headline-md md:text-headline-lg text-on-background tracking-tighter uppercase">MR. BEES BREWERY</div>
+<nav class="hidden md:flex gap-gutter items-center">
+<a class="font-display-lg text-label-md text-secondary border-b-2 border-secondary pb-1 hover:text-secondary transition-colors duration-150" href="#">Our Ales</a>
+<a class="font-display-lg text-label-md text-on-background opacity-90 hover:text-secondary transition-colors duration-150" href="#">The Apiary</a>
+<a class="font-display-lg text-label-md text-on-background opacity-90 hover:text-secondary transition-colors duration-150" href="#">Events</a>
+<a class="font-display-lg text-label-md text-on-background opacity-90 hover:text-secondary transition-colors duration-150" href="#">Heritage</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-background hover:text-secondary transition-colors">shopping_cart</button>
+<button class="hidden md:block bg-secondary text-on-secondary px-6 py-2 border-2 border-primary font-label-md uppercase active:translate-y-[2px] transition-all duration-75">Order Now</button>
+</div>
+</header>
+<main class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop py-12 space-y-24">
+<!-- Hero Section -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center border-4 border-primary p-gutter relative bg-surface-container-low overflow-hidden">
+<div class="md:col-span-7 z-10 space-y-6">
+<div class="inline-block px-4 py-1 border-2 border-primary bg-secondary text-on-secondary font-label-md uppercase">ESTD 1894</div>
+<h1 class="font-display-lg text-headline-lg-mobile md:text-display-lg leading-none uppercase max-w-xl">
+                    TRADITIONAL ALES,<br/>
+<span class="text-secondary">NEW HIVE MIND</span>
+</h1>
+<p class="font-body-lg text-body-lg max-w-lg">
+                    Hand-crafted in small batches using heirloom honey and hops gathered from our own Victorian apiary. We brew with the patience of a craftsman and the soul of the swarm.
+                </p>
+<div class="flex flex-col sm:flex-row gap-4">
+<button class="bg-secondary text-on-secondary px-8 py-4 border-2 border-primary font-display-lg text-headline-md uppercase stippled-shadow hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all">Explore the Vault</button>
+<button class="bg-surface-container-highest text-primary px-8 py-4 border-2 border-primary font-display-lg text-headline-md uppercase hover:bg-surface-variant transition-all">Tour the Works</button>
+</div>
+</div>
+<div class="md:col-span-5 relative min-h-[400px] flex justify-center items-center">
+<div class="absolute inset-0 border-[12px] border-double border-outline-variant opacity-20"></div>
+<img class="w-full h-full object-cover grayscale brightness-90 sepia-[.3] border-2 border-primary" data-alt="A vintage-style vector illustration of a bearded beekeeper in a traditional 19th-century canvas outfit holding a tall pint of amber ale." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyayaEa9iTslr_7uL4bC_lwywiR9nfjaqLfTXbU8n4A28NDg2bIVTg49cfrppS0Hc6ouaQye0x8PVe3n5-9igFySBktQg9DkwBBHZJHLL9Qev0zfCfF2q-TlCfAHackUU3MMyuPpKy2CefVNCYUCQl5LGRoiLhYJATLzUFApRq1oFg1z-kg1PbhXp9L8WrGtWTYEv5jpiNC2LFMw6-V-qcs1KZRsnbF0IObfqGrvQ_x8tYYOYvI-PTvQUwsL1ni-T145gBm98h2SM"/>
+</div>
+</section>
+<!-- About Section: A Century of the Swarm (Moved Here) -->
+<section class="border-4 border-primary bg-surface-container-low overflow-hidden">
+<div class="grid grid-cols-1 md:grid-cols-2">
+<div class="p-margin-mobile md:p-16 space-y-8 flex flex-col justify-center border-b-4 md:border-b-0 md:border-r-4 border-primary">
+<div class="space-y-4">
+<span class="font-label-md text-label-md text-secondary uppercase tracking-widest">Our Sacred Ritual</span>
+<h2 class="font-display-lg text-headline-lg-mobile md:text-display-lg uppercase leading-none">A Century of the Swarm</h2>
+</div>
+<div class="space-y-6 font-body-lg text-body-lg leading-relaxed">
+<p>Founded in 1894 by Silas "Mr. Bees" Beauregard, our brewery began as a modest apiary on the outskirts of the city. Silas believed that the secret to a superior ale lay not just in the grain, but in the alchemy of the nectar gathered by his loyal swarms.</p>
+<p>Today, we maintain the same Victorian methods. We harvest our own heirloom honey, fire our kettles with coal-fed determination, and age our barrels in the very vaults where Silas first struck his first cask. We do not rush the process; we brew with the steady, rhythmic pulse of the hive.</p>
+<p>Each batch is a tribute to our heritage—a connection to the land, the bees, and the craftsmanship of a bygone era that we refuse to let fade into history.</p>
+</div>
+<div class="pt-4">
+<div class="inline-block border-2 border-primary px-8 py-4 font-display-lg text-headline-md uppercase bg-surface hover:bg-surface-container transition-all cursor-pointer">Read the Archives</div>
+</div>
+</div>
+<div class="relative min-h-[500px]">
+<div class="absolute inset-0 bg-primary opacity-5 z-10 pointer-events-none ink-texture"></div>
+<img class="w-full h-full object-cover grayscale sepia-[0.2] brightness-90" data-alt="A vintage photograph of a group of brewery workers in 19th-century attire, standing proudly in front of large wooden barrels and brick architecture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDApSTs_fOwfpKicRKfg-7HceayooiwsQfnFht3M7ZlQ4zIRRollDlkMVgs9AxkLiLh8YLWRD1QlNnIMESuHlJUfrHzAOl1Px7iMTaBYrV9Vr8I5ZZ4svZhzk9liFvxQMNYgyghKVu7JNmuXWLYPPgvgNKt83nilcp2340IelWR5IZYTm-E3BWrDEK87SWCEsyGk8Fj2D1QOhoo9eCWvlPlGwxVvHuGB-pvhq0XoBth9UbCEhn1IeYq-XWoBYDm-wxsRSuTs5w7XXY"/>
+<div class="absolute inset-8 border-4 border-white/20 pointer-events-none"></div>
+</div>
+</div>
+</section>
+<!-- Product Grid (Barrels) -->
+<section class="space-y-12">
+<div class="flex flex-col items-center text-center space-y-4">
+<span class="font-label-md text-label-md text-secondary uppercase tracking-widest">Seasonal Releases</span>
+<h2 class="font-display-lg text-headline-md md:text-headline-lg uppercase">From the Cask</h2>
+<div class="w-24 h-1 bg-secondary"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Product 1 -->
+<div class="group flex flex-col border-2 border-primary bg-surface-container p-ornamental-padding space-y-4 relative hover:bg-surface-container-high transition-colors">
+<div class="relative h-[450px] border-2 border-primary overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A macro shot of a weathered wooden ale barrel in a dark cellar, featuring a highly detailed vintage paper label for THE QUEEN'S SHARE." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCQ-kHCVf076mbX1mrrgTdYW5V00CCBaq22q4LppwsdoC3nIlqr0fd7DLYrwwMaEeMkVbHUdIlK1o0o3r8cSsQQn9NjlQeYKJ-ghmjL3Wi5ja3taAYEu2Fgf_KjnjasqFQ4PfbeSycVj5SCkxluCkqQKWNq8HMHRJhG4o-jqbO2XB026fWj4V4HsIGfb4qb6AfNXWzBx92qyHzVw7orbjV7I033lZwFm0t4hQDFuXILKB6kbJ28LZP54wtPDignoEknzNoyYepVyY"/>
+<div class="absolute top-4 left-4 bg-secondary text-white font-label-md px-3 py-1 uppercase text-[12px]">8.2% ABV</div>
+</div>
+<div class="text-center p-4 ornamental-border flex-grow">
+<h3 class="font-display-lg text-headline-md md:text-headline-lg uppercase">THE QUEEN'S SHARE</h3>
+<p class="font-label-md text-label-md uppercase text-secondary mb-4">Royal Honey Stout</p>
+<p class="font-body-md text-body-md mb-6 italic">Deep, decadent, and dangerously smooth.</p>
+<button class="w-full border-2 border-primary py-2 font-label-md uppercase hover:bg-secondary hover:text-white transition-all">Order Barrel</button>
+</div>
+</div>
+<!-- Product 2 -->
+<div class="group flex flex-col border-2 border-primary bg-surface-container p-ornamental-padding space-y-4 relative hover:bg-surface-container-high transition-colors">
+<div class="relative h-[450px] border-2 border-primary overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A vertical product shot of a rustic beer barrel standing on a stone floor with a WORKER'S BITTER label." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0aO7RtQSGTRsx-M1MhOp-lMeePmNBtWvhTjlzJynShhpdyHAW7MHs2JRuhGbxkEHvhMmOGR4GqkLWtE2bmWOXZtz48n6NVUgAilUw3UlB-wBXTwNQeLwZPwAGFSAr-d0WOR6x1z8u5s3TCvfdeuhIJSaPBaiSDgK62TlGuz86-f4FfXxY9k6sPnZpxJpDPS-PB3bz1uv95rdX7ZwsZtkK4HwMf1ncmMuITRk9Xv5OyXgyU0Qdp_RCLPmdo9tr7EgAnjyaWSAvpPg"/>
+<div class="absolute top-4 left-4 bg-secondary text-white font-label-md px-3 py-1 uppercase text-[12px]">4.5% ABV</div>
+</div>
+<div class="text-center p-4 ornamental-border flex-grow">
+<h3 class="font-display-lg text-headline-md md:text-headline-lg uppercase">WORKER'S BITTER</h3>
+<p class="font-label-md text-label-md uppercase text-secondary mb-4">The Daily Grind Ale</p>
+<p class="font-body-md text-body-md mb-6 italic">Sharp, floral, and perfect for the sundown.</p>
+<button class="w-full border-2 border-primary py-2 font-label-md uppercase hover:bg-secondary hover:text-white transition-all">Order Barrel</button>
+</div>
+</div>
+<!-- Product 3 -->
+<div class="group flex flex-col border-2 border-primary bg-surface-container p-ornamental-padding space-y-4 relative hover:bg-surface-container-high transition-colors">
+<div class="relative h-[450px] border-2 border-primary overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A cinematic photo of a beer barrel with a large HIVE MIND IPA label." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdxpHRjmF0hu7ujXuBycfmZHwELinLEHZ1-3Y5Taw-D5CVQhpZZKJp4oPWyf3_YZBE5N4PAjVEFKkXtTyRgp4e5cNY2P-0FF2bSySuCzZjqyA2GTPtWspQoloQIaLTwg9x1egOU_JECJ7AMDbHJOeketWCFRagqMxL4hGjb19ZSLPLNVLFIjMegXWmVD5olJyE0Hw1Cn-hn-Gn4IB_AemRbZK5pqy6S5KrJTaQtMaIBeD-AEpK1gS7umY4PGM7hoGKKStlYKf9oGc"/>
+<div class="absolute top-4 left-4 bg-secondary text-white font-label-md px-3 py-1 uppercase text-[12px]">6.8% ABV</div>
+</div>
+<div class="text-center p-4 ornamental-border flex-grow">
+<h3 class="font-display-lg text-headline-md md:text-headline-lg uppercase">HIVE MIND IPA</h3>
+<p class="font-label-md text-label-md uppercase text-secondary mb-4">West Coast Apiary Style</p>
+<p class="font-body-md text-body-md mb-6 italic">A complex swarm of citrus and pine notes.</p>
+<button class="w-full border-2 border-primary py-2 font-label-md uppercase hover:bg-secondary hover:text-white transition-all">Order Barrel</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Events Calendar -->
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start bg-surface-container-low border-2 border-primary p-gutter">
+<div class="space-y-8">
+<div class="space-y-2">
+<h2 class="font-display-lg text-headline-lg-mobile md:text-headline-lg uppercase leading-none">The Monthly Ledger</h2>
+<p class="font-label-md text-label-md text-secondary uppercase tracking-widest">Happenings at the Brewhouse</p>
+</div>
+<div class="divide-y-2 divide-primary border-y-2 border-primary">
+<div class="py-6 flex justify-between items-center group cursor-pointer">
+<div class="flex gap-6 items-center">
+<div class="text-center w-16">
+<span class="block font-label-md text-label-md">OCT</span>
+<span class="block font-display-lg text-headline-md md:text-headline-lg leading-none">12</span>
+</div>
+<div>
+<h4 class="font-display-lg text-headline-md uppercase group-hover:text-secondary transition-colors">Smokers &amp; Stouts Night</h4>
+<p class="font-body-md text-on-surface-variant">Live blues and barrel-aged pairings.</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-primary group-hover:translate-x-2 transition-transform">arrow_forward_ios</span>
+</div>
+<div class="py-6 flex justify-between items-center group cursor-pointer">
+<div class="flex gap-6 items-center">
+<div class="text-center w-16">
+<span class="block font-label-md text-label-md">OCT</span>
+<span class="block font-display-lg text-headline-md md:text-headline-lg leading-none">24</span>
+</div>
+<div>
+<h4 class="font-display-lg text-headline-md uppercase group-hover:text-secondary transition-colors">Beekeeping for Brewers</h4>
+<p class="font-body-md text-on-surface-variant">An afternoon with our head Apiarist.</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-primary group-hover:translate-x-2 transition-transform">arrow_forward_ios</span>
+</div>
+<div class="py-6 flex justify-between items-center group cursor-pointer">
+<div class="flex gap-6 items-center">
+<div class="text-center w-16">
+<span class="block font-label-md text-label-md">NOV</span>
+<span class="block font-display-lg text-headline-md md:text-headline-lg leading-none">05</span>
+</div>
+<div>
+<h4 class="font-display-lg text-headline-md uppercase group-hover:text-secondary transition-colors">The Great Honey Harvest</h4>
+<p class="font-body-md text-on-surface-variant">Release of the annual Queen’s Reserve.</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-primary group-hover:translate-x-2 transition-transform">arrow_forward_ios</span>
+</div>
+</div>
+<button class="font-label-md uppercase underline decoration-2 underline-offset-4 hover:text-secondary transition-colors">View Full Registry</button>
+</div>
+<div class="relative h-full min-h-[400px] border-4 border-primary p-2">
+<div class="w-full h-full border-2 border-outline-variant ink-texture p-gutter flex flex-col justify-center items-center text-center space-y-6">
+<span class="material-symbols-outlined text-[64px] text-secondary" style="font-variation-settings: 'FILL' 1;">calendar_month</span>
+<h3 class="font-display-lg text-headline-md md:text-headline-lg uppercase">Visit the Vaults</h3>
+<p class="font-body-lg max-w-sm">Tours are held every Saturday at high noon. Strictly limited to those with a thirst for history.</p>
+<div class="font-label-md text-label-md border-2 border-primary px-6 py-2 uppercase">124 Cobblestone Mews, London, E1 6QL</div>
+<img class="absolute inset-0 w-full h-full object-cover -z-10 opacity-30 brightness-50" data-alt="An atmospheric black and white photograph of an old Victorian brewery building at dusk." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD86vc7_sY8pSqfgJWZVPCA09f5y3pTlraP-cd15pEaPCXU8LnxarwbujGxOYuetFL2CkxDwpFfmCwmpY18S543ICxuVHzIz76iNZ5y04TrcFYPQOJWzDhKqmFxdotZl6XBoS6aN-CDJr-7b3TIf7XWRz94pOYg_0TOG9m0UQJ3tBkbbKjpOVxj9WQP0h-zxvShOBORWxhyfbT2rkVeo3MtvR65s8q2tIj0PpjZeSkyl0xWV2qG-A9ib6RWXPBCQ_fBg4Eg5xCDWk0"/>
+</div>
+</div>
+</section>
+<!-- Testimonials Section: Letters from the Hive -->
+<section class="space-y-12">
+<div class="flex flex-col items-center text-center space-y-4">
+<span class="font-label-md text-label-md text-secondary uppercase tracking-widest">Public Testimony</span>
+<h2 class="font-display-lg text-headline-lg-mobile md:text-display-lg uppercase">Letters from the Hive</h2>
+<div class="w-24 h-1 bg-secondary"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Testimonial 1 -->
+<div class="border-2 border-primary p-ornamental-padding bg-surface-container flex flex-col space-y-6 stippled-shadow">
+<div class="flex items-center gap-4 border-b-2 border-primary pb-4">
+<div class="w-16 h-16 border-2 border-primary grayscale bg-surface-container-high overflow-hidden">
+<img alt="Avatar" class="w-full h-full object-cover opacity-80" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvM4KW4b4VM65LBiNOrflE0j4kk3P8fwD_0MUZeV7u0zYt5wogWxC3_Efs6tQ_yt403iUveowKdktzQyMzwu-V4nriGDnEfzbb8sGdr8MMEx0GgBTlm1C24rUHYbl2UfEbugKA0gU2wV20HIvnAHYbOYMKnMNtlOSSn5PiQ3CQFlKvsdA4E1IG4TyrjS2oQY0mpDgiiPwB74mMDozgOx3NDFA10QYpgii0oEf0vvwPJZnH8WKZDMj0fYF4Ww-QO_tSraOAiLnCh7E"/>
+</div>
+<div>
+<p class="font-display-lg text-headline-md leading-none uppercase">Archibald Finch</p>
+<p class="font-label-md uppercase text-secondary">Merchant of Fine Goods</p>
+</div>
+</div>
+<p class="font-body-md italic text-body-lg">"The Queen's Share is unlike any stout I have tasted. The honey gives it a depth that lingers like a well-kept secret. Truly a triumph of the old ways."</p>
+<div class="text-secondary font-display-lg text-headline-md">★★★★★</div>
+</div>
+<!-- Testimonial 2 -->
+<div class="border-2 border-primary p-ornamental-padding bg-surface-container flex flex-col space-y-6 stippled-shadow">
+<div class="flex items-center gap-4 border-b-2 border-primary pb-4">
+<div class="w-16 h-16 border-2 border-primary grayscale bg-surface-container-high overflow-hidden">
+<img alt="Avatar" class="w-full h-full object-cover opacity-80" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMh32lm8rXIpgiZW2OTSUE6MrD-WiFkDwznZbGx-X-YhC64m2puFZG6E_ZqCpitJ1h-CIQFTKvJ49XlWPYNfiZTV14vSQaFXdcbRP4hOQeql5vHg-endEHtoMepF9_fzCdOjZKM_uivQm-RVI2sVVLQknUKamU70CCIBW6lWVW0ZmEgM6lUHOq6myUjpTkQQ9H9tsoE70yKxsNCdv2SURskJm2CddpcEh9vsSHRyxIaUU6loQ2J0WTH5JSvZ_lnjKPTyJ16FWsJ5A"/>
+</div>
+<div>
+<p class="font-display-lg text-headline-md leading-none uppercase">Eliza Thorne</p>
+<p class="font-label-md uppercase text-secondary">Botanist &amp; Scholar</p>
+</div>
+</div>
+<p class="font-body-md italic text-body-lg">"One can taste the garden in every sip of the Worker's Bitter. The floral notes are delicate yet purposeful. A remarkable achievement in brewing."</p>
+<div class="text-secondary font-display-lg text-headline-md">★★★★★</div>
+</div>
+<!-- Testimonial 3 -->
+<div class="border-2 border-primary p-ornamental-padding bg-surface-container flex flex-col space-y-6 stippled-shadow">
+<div class="flex items-center gap-4 border-b-2 border-primary pb-4">
+<div class="w-16 h-16 border-2 border-primary grayscale bg-surface-container-high overflow-hidden">
+<img alt="Avatar" class="w-full h-full object-cover opacity-80" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8eJ7Y9nnaF83VkcjhQkDzsVcUVrAxwon3NEnacimMgpj7WIQ9IwmNsqXTBx3kmTUyMCiZNOqQKoJmX6pU_IZEUv-ZO38jwUoiXE9j31xQA74n-WK4OkQs3ZQ7LbKSAsjtLu4OTUgBeRpLoFLB8231PObw7Q5aWlvyUyp1tkAEqcckUQ3ByyNYjcomfvEMAO95YMv2HdRcKRdZtRDtL6F0baw4M1QvNena1aeIsjCow-8vGcQBU2L263GhxEVwCTdIkWMCvFFojoc"/>
+</div>
+<div>
+<p class="font-display-lg text-headline-md leading-none uppercase">Arthur Vance</p>
+<p class="font-label-md uppercase text-secondary">Master Lithographer</p>
+</div>
+</div>
+<p class="font-body-md italic text-body-lg">"The Hive Mind IPA is a masterclass in balance. I've traversed the continent and haven't found a brew with such integrity and spirit."</p>
+<div class="text-secondary font-display-lg text-headline-md">★★★★★</div>
+</div>
+</div>
+</section>
+<!-- Contact Section: Send a Dispatch -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-12 border-2 border-primary p-margin-mobile md:p-16 bg-surface">
+<div class="lg:col-span-7 space-y-8">
+<div class="space-y-2">
+<h2 class="font-display-lg text-headline-lg-mobile md:text-display-lg uppercase leading-none">Send a Dispatch</h2>
+<p class="font-label-md text-label-md text-secondary uppercase tracking-widest">Inquiries &amp; Stockists</p>
+</div>
+<form class="space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="font-label-md uppercase text-label-md block">Full Name</label>
+<input class="w-full bg-surface-container-low border-2 border-primary px-4 py-3 font-body-md focus:outline-none focus:ring-0 focus:border-secondary transition-colors" placeholder="e.g. John Doe" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="font-label-md uppercase text-label-md block">Courier Address (Email)</label>
+<input class="w-full bg-surface-container-low border-2 border-primary px-4 py-3 font-body-md focus:outline-none focus:ring-0 focus:border-secondary transition-colors" placeholder="yourname@domain.com" type="email"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="font-label-md uppercase text-label-md block">Your Message</label>
+<textarea class="w-full bg-surface-container-low border-2 border-primary px-4 py-3 font-body-md focus:outline-none focus:ring-0 focus:border-secondary transition-colors" placeholder="Pray, tell us your thoughts..." rows="5"></textarea>
+</div>
+<button class="bg-primary text-on-primary px-12 py-4 border-2 border-primary font-display-lg text-headline-md uppercase stippled-shadow hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all" type="submit">Deliver Message</button>
+</form>
+</div>
+<div class="lg:col-span-5 flex flex-col space-y-12 lg:pl-12 lg:border-l-2 border-primary/20">
+<div class="space-y-6">
+<h3 class="font-display-lg text-headline-md md:text-headline-lg uppercase">The Brewery Office</h3>
+<div class="space-y-4">
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-secondary">location_on</span>
+<p class="font-body-lg">124 Cobblestone Mews,<br/>Old Foundry District,<br/>London, E1 6QL</p>
+</div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-secondary">phone_in_talk</span>
+<p class="font-body-lg">WHitehall 4-2900</p>
+</div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-secondary">mail</span>
+<p class="font-body-lg">dispatch@mrbeesbrewery.co.uk</p>
+</div>
+</div>
+</div>
+<div class="space-y-6 pt-6 border-t-2 border-primary/10">
+<h3 class="font-display-lg text-headline-md md:text-headline-lg uppercase">Follow the Swarm</h3>
+<div class="flex flex-col gap-3">
+<a class="font-body-lg italic hover:text-secondary transition-colors" href="#">Telegram: @mrbeesvault</a>
+<a class="font-body-lg italic hover:text-secondary transition-colors" href="#">Instagram: /mrbeesbrewery</a>
+<a class="font-body-lg italic hover:text-secondary transition-colors" href="#">The Royal Ledger (Newsletter)</a>
+</div>
+</div>
+<div class="mt-auto opacity-20 hidden lg:block">
+<span class="material-symbols-outlined text-[120px]">hive</span>
+</div>
+</div>
+</section>
+<!-- Newsletter / Dispatch Section -->
+<section class="bg-primary text-on-primary py-24 px-margin-mobile flex flex-col items-center text-center space-y-8">
+<div class="max-w-2xl space-y-4">
+<h2 class="font-display-lg text-headline-lg-mobile md:text-display-lg uppercase leading-none">The Weekly Dispatch</h2>
+<p class="font-body-lg text-surface-variant">News from the hive, taproom updates, and exclusive first-fills. No spam, only nectar.</p>
+</div>
+<form class="flex flex-col md:flex-row gap-4 w-full max-w-md">
+<input class="flex-grow bg-transparent border-2 border-white/50 px-4 py-3 font-label-md text-white placeholder:text-white/50 focus:outline-none focus:border-secondary" placeholder="Your Courier Address..." type="email"/>
+<button class="bg-secondary text-on-secondary px-8 py-3 border-2 border-primary font-label-md uppercase hover:bg-secondary/90 transition-all" type="submit">Subscribe</button>
+</form>
+<div class="flex gap-8 opacity-60">
+<a class="font-label-md uppercase text-label-md" href="#">Instagram</a>
+<a class="font-label-md uppercase text-label-md" href="#">Telegram</a>
+<a class="font-label-md uppercase text-label-md" href="#">Letterboxd</a>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="flex flex-col items-center justify-center w-full py-12 px-margin-desktop gap-gutter border-t-2 border-primary bg-surface-container">
+<div class="font-display-lg text-headline-md md:text-headline-lg text-on-surface uppercase">MR. BEES BREWERY</div>
+<div class="flex flex-wrap justify-center gap-8 md:gap-16">
+<a class="font-label-md text-secondary hover:text-secondary-container underline decoration-1 transition-all duration-200" href="#">Privacy Policy</a>
+<a class="font-label-md text-secondary hover:text-secondary-container underline decoration-1 transition-all duration-200" href="#">Distribution</a>
+<a class="font-label-md text-secondary hover:text-secondary-container underline decoration-1 transition-all duration-200" href="#">Contact</a>
+<a class="font-label-md text-secondary hover:text-secondary-container underline decoration-1 transition-all duration-200" href="#">Sustainability</a>
+</div>
+<p class="font-label-md text-label-md text-on-surface-variant max-w-2xl text-center">
+            © 1894 MR. BEES BREWERY — CRAFTED WITH TRADITION AND THE SLOW MOVEMENT. THE CONSUMPTION OF ALCOHOL IMPAIRS YOUR ABILITY TO DRIVE A HORSE AND CARRIAGE. DRINK RESPONSIBLY.
+        </p>
+<div class="mt-8 flex gap-4">
+<span class="material-symbols-outlined text-secondary opacity-40">hive</span>
+<span class="material-symbols-outlined text-secondary opacity-40">liquor</span>
+<span class="material-symbols-outlined text-secondary opacity-40">precision_manufacturing</span>
+</div>
+</footer>
+</body></html>

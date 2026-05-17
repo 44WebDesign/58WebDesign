@@ -1,301 +1,2428 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mr. Bee's Brewery — Liquid Nature</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400;1,9..144,600&display=swap" rel="stylesheet">
 
-<html class="dark" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Playfair+Display:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#ffc105",
-                        "background-light": "#f8f8f5",
-                        "background-dark": "#1a1608",
-                    },
-                    fontFamily: {
-                        "display": ["Space Grotesk", "sans-serif"],
-                        "serif": ["Playfair Display", "serif"]
-                    },
-                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
-                },
-            },
-        }
-    </script>
 <style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-    </style>
+/* ─── TOKENS ─── */
+:root {
+  --sun:        #F2C14E;
+  --sun-light:  #FAE08A;
+  --sun-pale:   #FDF3CC;
+  --honey:      #D4922A;
+  --honey-mid:  #C47B18;
+  --moss:       #6B8C4F;
+  --moss-light: #8FB06A;
+  --moss-pale:  #C9DFB5;
+  --forest:     #2B4A2F;
+  --forest-mid: #3D6642;
+  --forest-deep:#1A2F1C;
+  --bark:       #5C3A1E;
+  --bark-light: #7A5235;
+  --bark-warm:  #9B6B40;
+  --cream:      #FAF6ED;
+  --cream-warm: #F4ECD8;
+  --warm-white: #FDFAF4;
+  --charcoal:   #2A241C;
+  --text-body:  #3D3328;
+  --text-muted: #7A6B56;
+}
+
+/* ─── RESET ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+
+body {
+  font-family: 'Nunito', system-ui, sans-serif;
+  background: var(--warm-white);
+  color: var(--text-body);
+  overflow-x: hidden;
+}
+
+/* ─── GRAIN OVERLAY ─── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.028;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ─── FLOATING NAV ─── */
+.nav {
+  position: fixed;
+  top: 1.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  background: rgba(250, 246, 237, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(107, 140, 79, 0.18);
+  border-radius: 100px;
+  padding: 0.7rem 1.8rem;
+  box-shadow: 0 8px 32px rgba(43, 74, 47, 0.1);
+  transition: box-shadow 0.3s ease;
+  white-space: nowrap;
+}
+.nav:hover { box-shadow: 0 12px 40px rgba(43, 74, 47, 0.15); }
+
+.nav-logo {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--forest);
+  text-decoration: none;
+  letter-spacing: -0.01em;
+  font-style: italic;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.8rem;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+.nav-links a:hover { color: var(--forest); }
+
+.nav-pill {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--warm-white);
+  background: var(--forest);
+  padding: 0.5rem 1.2rem;
+  border-radius: 100px;
+  text-decoration: none;
+  transition: background 0.25s ease, transform 0.2s ease;
+}
+.nav-pill:hover { background: var(--forest-mid); transform: translateY(-1px); }
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100dvh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: linear-gradient(165deg, var(--sun-pale) 0%, var(--cream) 45%, #E8F4DC 100%);
+}
+
+/* Animated blob backgrounds */
+.blob-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.55;
+  animation: blobDrift 18s ease-in-out infinite alternate;
+}
+.blob-1 {
+  width: 560px; height: 480px;
+  background: radial-gradient(ellipse, var(--sun-light), transparent 70%);
+  top: -15%; right: -8%;
+  animation-duration: 20s;
+}
+.blob-2 {
+  width: 420px; height: 380px;
+  background: radial-gradient(ellipse, var(--moss-pale), transparent 70%);
+  bottom: 5%; left: -10%;
+  animation-duration: 16s;
+  animation-delay: -5s;
+}
+.blob-3 {
+  width: 300px; height: 340px;
+  background: radial-gradient(ellipse, rgba(242,193,78,0.45), transparent 70%);
+  top: 30%; left: 30%;
+  animation-duration: 24s;
+  animation-delay: -8s;
+}
+
+@keyframes blobDrift {
+  0%   { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(30px, -20px) scale(1.04); }
+  66%  { transform: translate(-20px, 15px) scale(0.97); }
+  100% { transform: translate(15px, -8px) scale(1.02); }
+}
+
+/* Flowing wave divider */
+.hero-wave {
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 5;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  padding-top: 6rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.hero-text {}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(43, 74, 47, 0.08);
+  border: 1px solid rgba(43, 74, 47, 0.15);
+  border-radius: 100px;
+  padding: 0.35rem 0.9rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--forest);
+  letter-spacing: 0.04em;
+  margin-bottom: 1.6rem;
+}
+.hero-badge-dot {
+  width: 6px; height: 6px;
+  background: var(--moss);
+  border-radius: 50%;
+  animation: pulse 2.5s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.5); opacity: 0.6; }
+}
+
+.hero-h1 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--forest-deep);
+  margin-bottom: 1.4rem;
+}
+.hero-h1 em {
+  font-style: italic;
+  color: var(--honey-mid);
+}
+.hero-h1 .wavy {
+  display: inline-block;
+  position: relative;
+}
+.hero-h1 .wavy::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='6'%3E%3Cpath d='M0 3 Q25 0 50 3 Q75 6 100 3 Q125 0 150 3 Q175 6 200 3' stroke='%236B8C4F' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") repeat-x center;
+  background-size: 100px 6px;
+}
+
+.hero-body {
+  font-size: 1.1rem;
+  line-height: 1.75;
+  color: var(--text-muted);
+  font-weight: 400;
+  max-width: 420px;
+  margin-bottom: 2.2rem;
+}
+
+.hero-ctas {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--forest);
+  color: var(--warm-white);
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 0.85rem 1.8rem;
+  border-radius: 100px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+  box-shadow: 0 6px 24px rgba(43, 74, 47, 0.28);
+}
+.btn-primary:hover {
+  background: var(--forest-mid);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 32px rgba(43, 74, 47, 0.35);
+}
+.btn-primary:active { transform: scale(0.98); }
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--forest);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: gap 0.25s ease;
+}
+.btn-ghost:hover { gap: 0.7rem; }
+.btn-arrow { font-size: 1.1rem; transition: transform 0.25s ease; }
+.btn-ghost:hover .btn-arrow { transform: translateX(3px); }
+
+.hero-trust {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.trust-avatars {
+  display: flex;
+}
+.trust-av {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  border: 2px solid var(--warm-white);
+  overflow: hidden;
+  margin-left: -8px;
+  background: var(--moss-pale);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: var(--forest);
+}
+.trust-av:first-child { margin-left: 0; }
+.trust-text {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+.trust-text strong { color: var(--text-body); font-weight: 700; }
+
+/* Hero visual — organic glass bottle illustration */
+.hero-visual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-bottle-wrap {
+  position: relative;
+  width: 320px;
+  height: 480px;
+}
+
+/* Blob behind bottle */
+.bottle-blob {
+  position: absolute;
+  inset: -15%;
+  background: radial-gradient(ellipse at 40% 50%, rgba(107,140,79,0.22) 0%, rgba(242,193,78,0.18) 50%, transparent 75%);
+  border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%;
+  animation: blobMorph 10s ease-in-out infinite alternate;
+  filter: blur(20px);
+}
+@keyframes blobMorph {
+  0%   { border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%; }
+  25%  { border-radius: 40% 60% 50% 50% / 60% 40% 60% 40%; }
+  50%  { border-radius: 70% 30% 40% 60% / 40% 70% 30% 60%; }
+  75%  { border-radius: 50% 50% 60% 40% / 70% 30% 70% 30%; }
+  100% { border-radius: 35% 65% 55% 45% / 55% 45% 65% 35%; }
+}
+
+/* Floating ingredient chips */
+.float-chip {
+  position: absolute;
+  background: rgba(250,246,237,0.9);
+  border: 1px solid rgba(107,140,79,0.2);
+  border-radius: 100px;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--forest);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 16px rgba(43,74,47,0.1);
+  white-space: nowrap;
+  animation: chipFloat 6s ease-in-out infinite alternate;
+}
+.chip-1 { top: 12%; left: -15%; animation-delay: 0s; }
+.chip-2 { top: 38%; right: -18%; animation-delay: -2s; animation-duration: 7s; }
+.chip-3 { bottom: 18%; left: -8%; animation-delay: -4s; animation-duration: 5.5s; }
+@keyframes chipFloat {
+  0%   { transform: translateY(0) rotate(-1deg); }
+  100% { transform: translateY(-10px) rotate(1deg); }
+}
+
+/* ─── SECTION TRANSITION WAVE ─── */
+.wave-sep {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+/* ─── REVEAL ANIMATION ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.in { opacity: 1; transform: translateY(0); }
+.reveal-d1 { transition-delay: 0.1s; }
+.reveal-d2 { transition-delay: 0.2s; }
+.reveal-d3 { transition-delay: 0.3s; }
+.reveal-d4 { transition-delay: 0.4s; }
+.reveal-d5 { transition-delay: 0.5s; }
+
+/* ─── ABOUT / STORY SECTION ─── */
+.story {
+  background: var(--cream-warm);
+  position: relative;
+  padding: 7rem 0 8rem;
+  overflow: hidden;
+}
+
+/* Organic blob accent */
+.story::before {
+  content: '';
+  position: absolute;
+  width: 500px; height: 500px;
+  background: radial-gradient(ellipse, rgba(107,140,79,0.12), transparent 70%);
+  right: -100px; top: -100px;
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  animation: blobDrift 22s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+.story-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--moss);
+  margin-bottom: 1rem;
+}
+.section-tag::before {
+  content: '';
+  display: block;
+  width: 24px; height: 2px;
+  background: var(--moss);
+  border-radius: 2px;
+}
+
+.section-h2 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--forest-deep);
+}
+.section-h2 em {
+  font-style: italic;
+  color: var(--honey-mid);
+}
+
+.story-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: start;
+  margin-top: 4rem;
+}
+
+.story-left {}
+
+.story-lead {
+  font-family: 'Fraunces', serif;
+  font-size: 1.35rem;
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--bark-warm);
+  margin-bottom: 1.5rem;
+}
+
+.story-body {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.story-body + .story-body { margin-top: 0.8rem; }
+
+/* Organic stat cards — flowing shapes */
+.stat-cluster {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+
+.stat-card {
+  background: var(--warm-white);
+  border-radius: 24px;
+  padding: 1.5rem;
+  border: 1px solid rgba(107,140,79,0.12);
+  box-shadow: 0 4px 24px rgba(43,74,47,0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(43,74,47,0.1);
+}
+.stat-card:nth-child(2) { margin-top: 1.5rem; }
+.stat-card:nth-child(4) { margin-top: -1.5rem; }
+
+.stat-num {
+  font-family: 'Fraunces', serif;
+  font-size: 2.6rem;
+  font-weight: 500;
+  color: var(--forest);
+  line-height: 1;
+  margin-bottom: 0.3rem;
+  letter-spacing: -0.03em;
+}
+.stat-num sup { font-size: 1.1rem; font-weight: 300; }
+
+.stat-label {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.35;
+}
+
+/* Right side — estate visual */
+.story-right {
+  position: relative;
+}
+
+.estate-card {
+  background: var(--forest);
+  border-radius: 32px;
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 3/4;
+  max-height: 560px;
+}
+
+.estate-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(242,193,78,0.25), transparent 55%),
+    radial-gradient(ellipse at 75% 80%, rgba(107,140,79,0.3), transparent 55%),
+    var(--forest-deep);
+}
+
+/* Organic botanical SVG illustration inside card */
+.estate-art {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.estate-label {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  right: 1.5rem;
+  background: rgba(250,246,237,0.1);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(250,246,237,0.2);
+  border-radius: 16px;
+  padding: 1rem 1.2rem;
+}
+.estate-label-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--moss-light);
+  margin-bottom: 0.2rem;
+}
+.estate-label-name {
+  font-family: 'Fraunces', serif;
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--warm-white);
+  font-weight: 400;
+}
+
+/* Floating badge on estate card */
+.estate-badge {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: var(--sun);
+  border-radius: 100px;
+  padding: 0.4rem 0.85rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--bark);
+}
+
+/* ─── INGREDIENTS / PROVENANCE ─── */
+.provenance {
+  background: var(--forest-deep);
+  position: relative;
+  padding: 8rem 0;
+  overflow: hidden;
+}
+
+.prov-blobs {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.prov-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.3;
+}
+.prov-blob-1 {
+  width: 400px; height: 350px;
+  background: radial-gradient(ellipse, var(--moss-light), transparent 70%);
+  top: -10%; left: 20%;
+  animation: blobDrift 18s ease-in-out infinite alternate;
+}
+.prov-blob-2 {
+  width: 350px; height: 400px;
+  background: radial-gradient(ellipse, var(--honey), transparent 70%);
+  bottom: -5%; right: 15%;
+  animation: blobDrift 22s ease-in-out infinite alternate;
+  animation-delay: -7s;
+}
+
+.prov-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.prov-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: end;
+  margin-bottom: 5rem;
+}
+
+.prov-header .section-tag { color: var(--moss-light); }
+.prov-header .section-tag::before { background: var(--moss-light); }
+.prov-header .section-h2 { color: var(--warm-white); }
+
+.prov-intro {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: rgba(250,246,237,0.6);
+  align-self: end;
+}
+
+/* Ingredient flow — organic asymmetric layout */
+.ingredient-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ing-row {
+  display: grid;
+  gap: 2px;
+}
+.ing-row-1 { grid-template-columns: 2fr 1fr; }
+.ing-row-2 { grid-template-columns: 1fr 1.5fr 1fr; }
+
+.ing-card {
+  background: rgba(250,246,237,0.05);
+  border: 1px solid rgba(250,246,237,0.08);
+  border-radius: 24px;
+  padding: 2rem 2rem 2.2rem;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.35s ease, border-color 0.35s ease, transform 0.3s ease;
+  cursor: default;
+}
+.ing-card:hover {
+  background: rgba(250,246,237,0.09);
+  border-color: rgba(107,140,79,0.35);
+  transform: translateY(-3px);
+}
+
+.ing-card-glow {
+  position: absolute;
+  top: 0; left: 0;
+  width: 160px; height: 160px;
+  border-radius: 50%;
+  filter: blur(40px);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+.ing-card:hover .ing-card-glow { opacity: 0.4; }
+
+.ing-icon {
+  width: 48px; height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.2rem;
+  font-size: 1.5rem;
+}
+.ing-icon-honey  { background: rgba(242,193,78,0.2); }
+.ing-icon-hops   { background: rgba(107,140,79,0.2); }
+.ing-icon-water  { background: rgba(91,154,200,0.2); }
+.ing-icon-malt   { background: rgba(156,107,64,0.2); }
+.ing-icon-yeast  { background: rgba(230,168,80,0.2); }
+
+.ing-origin {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--moss-light);
+  margin-bottom: 0.4rem;
+}
+
+.ing-name {
+  font-family: 'Fraunces', serif;
+  font-size: 1.3rem;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--warm-white);
+  margin-bottom: 0.6rem;
+}
+
+.ing-desc {
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: rgba(250,246,237,0.5);
+}
+
+.ing-large .ing-name { font-size: 1.7rem; }
+
+/* ─── BEERS / THE FLOW ─── */
+.beers {
+  background: var(--cream-warm);
+  padding: 8rem 0;
+  position: relative;
+  overflow: hidden;
+}
+.beers::after {
+  content: '';
+  position: absolute;
+  width: 600px; height: 600px;
+  background: radial-gradient(ellipse, rgba(242,193,78,0.12), transparent 70%);
+  bottom: -150px; right: -100px;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.beers-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.beers-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 4rem;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.beers-header-text {}
+
+.beers-all-link {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--moss);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  white-space: nowrap;
+  transition: gap 0.25s ease;
+  flex-shrink: 0;
+}
+.beers-all-link:hover { gap: 0.7rem; }
+
+/* Asymmetric beer layout */
+.beers-layout {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 1.2rem;
+}
+
+.beer-card {
+  border-radius: 28px;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.35s ease;
+}
+.beer-card:hover { transform: translateY(-5px); }
+
+.beer-card-main {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  min-height: 500px;
+  background: var(--forest);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2.5rem;
+}
+
+.beer-card-b {
+  background: var(--bark);
+  padding: 2rem;
+  min-height: 230px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.beer-card-c {
+  background: var(--honey-mid);
+  padding: 2rem;
+  min-height: 254px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+/* Beer card art bg */
+.beer-art-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.bc-main-art {
+  background:
+    radial-gradient(ellipse at 70% 20%, rgba(107,140,79,0.3), transparent 50%),
+    radial-gradient(ellipse at 20% 80%, rgba(242,193,78,0.2), transparent 50%),
+    var(--forest-deep);
+}
+
+.bc-b-art {
+  background:
+    radial-gradient(ellipse at 80% 30%, rgba(212,146,42,0.25), transparent 55%),
+    var(--bark);
+}
+
+.bc-c-art {
+  background:
+    radial-gradient(ellipse at 20% 70%, rgba(43,74,47,0.25), transparent 55%),
+    var(--honey-mid);
+}
+
+.beer-tag {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.28rem 0.7rem;
+  border-radius: 100px;
+  margin-bottom: 0.7rem;
+}
+.beer-tag-light {
+  background: rgba(250,246,237,0.15);
+  color: rgba(250,246,237,0.7);
+}
+.beer-tag-dark {
+  background: rgba(43,74,47,0.2);
+  color: var(--forest-deep);
+}
+
+.beer-name {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--warm-white);
+  margin-bottom: 0.4rem;
+  line-height: 1.15;
+}
+.beer-name-lg { font-size: 2.4rem; }
+.beer-name-sm { font-size: 1.5rem; }
+
+.beer-name-dark { color: var(--forest-deep); }
+
+.beer-meta {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: rgba(250,246,237,0.5);
+  margin-bottom: 1rem;
+}
+.beer-meta-dark { color: rgba(43,74,47,0.6); }
+
+.beer-desc {
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: rgba(250,246,237,0.65);
+  max-width: 340px;
+}
+.beer-desc-dark { color: rgba(43,74,47,0.7); }
+
+.beer-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(250,246,237,0.12);
+  border: 1px solid rgba(250,246,237,0.2);
+  border-radius: 100px;
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--warm-white);
+  text-decoration: none;
+  margin-top: 1.5rem;
+  transition: background 0.25s ease;
+  cursor: pointer;
+  width: fit-content;
+}
+.beer-pill:hover { background: rgba(250,246,237,0.2); }
+
+/* ─── LIQUID NATURE MEMBERSHIP ─── */
+.membership {
+  background: linear-gradient(180deg, var(--cream-warm) 0%, #E8F0DF 100%);
+  padding: 8rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.membership::before {
+  content: '';
+  position: absolute;
+  width: 700px; height: 600px;
+  background: radial-gradient(ellipse, rgba(107,140,79,0.1), transparent 70%);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.mem-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.mem-top {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 5rem;
+}
+.mem-top .section-tag { justify-content: center; }
+.mem-top .section-tag::before { display: none; }
+.mem-top .section-h2 { margin-top: 0.8rem; margin-bottom: 1rem; }
+.mem-top p {
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--text-muted);
+}
+
+/* Three tiers — organic card shapes */
+.tier-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.tier-card {
+  border-radius: 32px;
+  padding: 2.5rem 2rem;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+.tier-card:hover { transform: translateY(-6px); }
+
+.tier-card-meadow {
+  background: var(--warm-white);
+  border: 1.5px solid rgba(107,140,79,0.18);
+  box-shadow: 0 8px 40px rgba(43,74,47,0.07);
+}
+
+.tier-card-grove {
+  background: var(--forest);
+  border: 1.5px solid rgba(107,140,79,0.3);
+  box-shadow: 0 16px 60px rgba(43,74,47,0.25);
+  margin-top: -1.5rem;
+  padding-top: 3rem;
+}
+
+.tier-card-canopy {
+  background: var(--bark);
+  border: 1.5px solid rgba(188,130,80,0.2);
+  box-shadow: 0 8px 40px rgba(92,58,30,0.15);
+}
+
+.tier-badge {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.75rem;
+  border-radius: 100px;
+  margin-bottom: 1.2rem;
+}
+.tier-badge-green  { background: rgba(107,140,79,0.15); color: var(--forest-mid); }
+.tier-badge-light  { background: rgba(250,246,237,0.2); color: var(--moss-light); }
+.tier-badge-honey  { background: rgba(242,193,78,0.2); color: var(--sun); }
+
+.tier-name {
+  font-family: 'Fraunces', serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--forest-deep);
+  margin-bottom: 0.3rem;
+}
+.tier-name-light { color: var(--warm-white); }
+.tier-name-warm  { color: var(--sun-pale); }
+
+.tier-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.3rem;
+  margin-bottom: 0.2rem;
+}
+.tier-price {
+  font-family: 'Fraunces', serif;
+  font-size: 2.8rem;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  color: var(--forest);
+  line-height: 1;
+}
+.tier-price-curr { font-size: 1.4rem; font-weight: 300; align-self: flex-start; padding-top: 0.4rem; }
+.tier-price-light { color: var(--sun-light); }
+
+.tier-freq {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+.tier-freq-light { color: rgba(250,246,237,0.45); }
+
+.tier-divider {
+  height: 1px;
+  background: rgba(107,140,79,0.12);
+  margin: 1.2rem 0;
+}
+.tier-divider-light { background: rgba(250,246,237,0.12); }
+
+.tier-perks {
+  list-style: none;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+.tier-perks li {
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: var(--text-muted);
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+}
+.tier-perks li::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--moss);
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 0.38rem;
+}
+.perk-light { color: rgba(250,246,237,0.65) !important; }
+.perk-light-dot::before { background: var(--moss-light) !important; }
+.perk-warm { color: rgba(250,246,237,0.6) !important; }
+.perk-warm-dot::before { background: var(--sun) !important; }
+
+.tier-cta {
+  display: block;
+  width: 100%;
+  padding: 0.9rem 1.5rem;
+  border-radius: 100px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: all 0.25s ease;
+}
+.tier-cta-outline {
+  background: transparent;
+  border: 1.5px solid var(--moss);
+  color: var(--forest);
+}
+.tier-cta-outline:hover { background: var(--moss); color: var(--warm-white); }
+
+.tier-cta-solid {
+  background: var(--sun);
+  color: var(--bark);
+  box-shadow: 0 6px 24px rgba(212,146,42,0.3);
+}
+.tier-cta-solid:hover {
+  background: var(--sun-light);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 32px rgba(212,146,42,0.4);
+}
+
+.tier-cta-warm {
+  background: rgba(250,246,237,0.15);
+  border: 1.5px solid rgba(250,246,237,0.25);
+  color: var(--warm-white);
+}
+.tier-cta-warm:hover { background: rgba(250,246,237,0.25); }
+
+/* ─── TESTIMONIALS / COMMUNITY ─── */
+.community {
+  background: var(--warm-white);
+  padding: 7rem 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.community::before {
+  content: '';
+  position: absolute;
+  width: 500px; height: 400px;
+  background: radial-gradient(ellipse, rgba(107,140,79,0.08), transparent 70%);
+  top: 10%; left: -100px;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.comm-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.comm-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: end;
+  margin-bottom: 4rem;
+}
+
+.comm-sub {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--text-muted);
+}
+
+/* Masonry-style testimonial layout */
+.testi-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.2rem;
+  align-items: start;
+}
+
+.testi-card {
+  background: var(--cream-warm);
+  border-radius: 24px;
+  padding: 1.8rem;
+  border: 1px solid rgba(107,140,79,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.testi-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(43,74,47,0.08);
+}
+.testi-card:nth-child(2) { margin-top: 2rem; }
+.testi-card:nth-child(5) { margin-top: -1.5rem; }
+
+.testi-quote {
+  font-family: 'Fraunces', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--text-body);
+  line-height: 1.65;
+  margin-bottom: 1.2rem;
+}
+
+.testi-author {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.testi-av {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.av-moss   { background: rgba(107,140,79,0.2); color: var(--forest); }
+.av-honey  { background: rgba(242,193,78,0.3); color: var(--bark); }
+.av-bark   { background: rgba(92,58,30,0.15); color: var(--bark); }
+.av-green  { background: rgba(43,74,47,0.15); color: var(--forest); }
+.av-sun    { background: rgba(250,224,138,0.5); color: var(--bark); }
+
+.testi-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-body);
+}
+.testi-since {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.testi-stars {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 0.8rem;
+}
+.star {
+  width: 14px; height: 14px;
+  color: var(--sun);
+  font-size: 12px;
+  line-height: 1;
+}
+
+/* ─── VISIT TAPROOM ─── */
+.taproom {
+  background: var(--forest-deep);
+  padding: 8rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.tap-blobs {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.tap-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.25;
+}
+.tap-blob-1 {
+  width: 400px; height: 350px;
+  background: radial-gradient(ellipse, var(--sun-light), transparent);
+  top: -15%; right: 10%;
+}
+.tap-blob-2 {
+  width: 350px; height: 300px;
+  background: radial-gradient(ellipse, var(--moss-light), transparent);
+  bottom: -10%; left: 5%;
+}
+
+.tap-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: center;
+}
+
+.tap-left .section-tag  { color: var(--moss-light); }
+.tap-left .section-tag::before { background: var(--moss-light); }
+.tap-left .section-h2   { color: var(--warm-white); margin-top: 0.8rem; margin-bottom: 1.2rem; }
+
+.tap-body {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: rgba(250,246,237,0.6);
+  margin-bottom: 2rem;
+}
+
+.tap-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.tap-info-item {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.tap-info-icon {
+  width: 36px; height: 36px;
+  background: rgba(250,246,237,0.07);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 1rem;
+}
+
+.tap-info-text {}
+.tap-info-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--moss-light);
+  margin-bottom: 0.15rem;
+}
+.tap-info-val {
+  font-size: 0.92rem;
+  color: rgba(250,246,237,0.65);
+  line-height: 1.45;
+}
+
+/* Map / visual right side */
+.tap-right {
+  position: relative;
+}
+
+.tap-map-card {
+  background: rgba(250,246,237,0.05);
+  border: 1px solid rgba(250,246,237,0.1);
+  border-radius: 32px;
+  overflow: hidden;
+  aspect-ratio: 1;
+  position: relative;
+  max-height: 480px;
+}
+
+/* ─── CTA / JOIN SECTION ─── */
+.join {
+  background: linear-gradient(135deg, #E8F0DF 0%, var(--sun-pale) 50%, #E8F0DF 100%);
+  padding: 8rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.join::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(107,140,79,0.15), transparent 55%),
+    radial-gradient(ellipse at 80% 50%, rgba(242,193,78,0.15), transparent 55%);
+  pointer-events: none;
+}
+
+.join-inner {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.join .section-tag { justify-content: center; }
+.join .section-tag::before { display: none; }
+
+.join-h2 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2.4rem, 5vw, 3.8rem);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--forest-deep);
+  margin: 0.8rem 0 1.2rem;
+}
+.join-h2 em { color: var(--honey-mid); font-style: normal; }
+
+.join-sub {
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--text-muted);
+  margin-bottom: 2.5rem;
+}
+
+.join-form {
+  display: flex;
+  gap: 0.6rem;
+  max-width: 480px;
+  margin: 0 auto 1.2rem;
+  background: var(--warm-white);
+  border: 1.5px solid rgba(107,140,79,0.2);
+  border-radius: 100px;
+  padding: 0.4rem 0.4rem 0.4rem 1.4rem;
+  box-shadow: 0 8px 32px rgba(43,74,47,0.1);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.join-form:focus-within {
+  border-color: var(--moss);
+  box-shadow: 0 8px 40px rgba(43,74,47,0.16);
+}
+
+.join-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.92rem;
+  color: var(--text-body);
+  outline: none;
+  min-width: 0;
+}
+.join-input::placeholder { color: var(--text-muted); opacity: 0.6; }
+
+.join-submit {
+  background: var(--forest);
+  color: var(--warm-white);
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.75rem 1.5rem;
+  border-radius: 100px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.2s ease;
+  white-space: nowrap;
+}
+.join-submit:hover { background: var(--forest-mid); transform: scale(1.02); }
+.join-submit:active { transform: scale(0.98); }
+
+.join-note {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+.join-note a { color: var(--moss); text-decoration: underline; }
+
+/* Floating social proof below */
+.join-proof {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+  flex-wrap: wrap;
+}
+.proof-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+.proof-dot {
+  width: 5px; height: 5px;
+  background: var(--moss);
+  border-radius: 50%;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--forest-deep);
+  padding: 5rem 0 3rem;
+}
+
+.foot-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.foot-top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 4rem;
+  padding-bottom: 4rem;
+  border-bottom: 1px solid rgba(250,246,237,0.08);
+  margin-bottom: 2.5rem;
+}
+
+.foot-brand {
+  font-family: 'Fraunces', serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--warm-white);
+  margin-bottom: 0.8rem;
+}
+.foot-tagline {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: rgba(250,246,237,0.4);
+  margin-bottom: 1.5rem;
+}
+
+.foot-social {
+  display: flex;
+  gap: 0.6rem;
+}
+.foot-social-btn {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  background: rgba(250,246,237,0.07);
+  border: 1px solid rgba(250,246,237,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(250,246,237,0.5);
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 700;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+.foot-social-btn:hover { background: rgba(250,246,237,0.12); color: var(--warm-white); }
+
+.foot-col h5 {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--moss-light);
+  margin-bottom: 1rem;
+}
+.foot-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+.foot-col li a {
+  font-size: 0.88rem;
+  color: rgba(250,246,237,0.4);
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+.foot-col li a:hover { color: rgba(250,246,237,0.75); }
+
+.foot-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.foot-copy {
+  font-size: 0.78rem;
+  color: rgba(250,246,237,0.25);
+}
+.foot-legal {
+  display: flex;
+  gap: 1.5rem;
+}
+.foot-legal a {
+  font-size: 0.78rem;
+  color: rgba(250,246,237,0.25);
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+.foot-legal a:hover { color: rgba(250,246,237,0.5); }
+
+/* ─── MOBILE ─── */
+@media (max-width: 900px) {
+  .nav-links { display: none; }
+  .hero-inner {
+    grid-template-columns: 1fr;
+    text-align: left;
+    padding-top: 8rem;
+    padding-bottom: 3rem;
+  }
+  .hero-visual { display: none; }
+  .hero-body { max-width: 100%; }
+  .story-grid { grid-template-columns: 1fr; }
+  .stat-cluster { margin-top: 2rem; }
+  .stat-card:nth-child(2), .stat-card:nth-child(4) { margin-top: 0; }
+  .prov-header { grid-template-columns: 1fr; }
+  .ing-row-1 { grid-template-columns: 1fr; }
+  .ing-row-2 { grid-template-columns: 1fr 1fr; }
+  .beers-layout { grid-template-columns: 1fr; }
+  .beer-card-main { min-height: 300px; }
+  .beer-card-b, .beer-card-c { min-height: 180px; }
+  .tier-grid { grid-template-columns: 1fr; }
+  .tier-card-grove { margin-top: 0; }
+  .comm-header { grid-template-columns: 1fr; }
+  .testi-grid { grid-template-columns: 1fr 1fr; }
+  .testi-card:nth-child(5) { display: none; }
+  .tap-inner { grid-template-columns: 1fr; }
+  .tap-right { display: none; }
+  .foot-top { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+  .foot-bottom { flex-direction: column; text-align: center; }
+}
+
+@media (max-width: 580px) {
+  .testi-grid { grid-template-columns: 1fr; }
+  .ing-row-2 { grid-template-columns: 1fr; }
+  .stat-cluster { grid-template-columns: 1fr 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</style>
 </head>
-<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
-<!-- Top Navigation -->
-<header class="sticky top-0 z-50 border-b border-primary/10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md px-6 lg:px-20 py-4">
-<div class="max-w-7xl mx-auto flex items-center justify-between">
-<div class="flex items-center gap-3">
-<div class="text-primary">
-<span class="material-symbols-outlined text-4xl">hexagon</span>
-</div>
-<h1 class="text-xl font-bold tracking-tight uppercase">Mr Bees Brewery</h1>
-</div>
-<nav class="hidden md:flex items-center gap-10">
-<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Our Process</a>
-<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Small Batch</a>
-<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Product Lineup</a>
-<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Shop</a>
+<body>
+
+<!-- FLOATING NAV -->
+<nav class="nav">
+  <a class="nav-logo" href="#">Mr. Bee's</a>
+  <ul class="nav-links">
+    <li><a href="#story">Our Fields</a></li>
+    <li><a href="#beers">The Brews</a></li>
+    <li><a href="#membership">Liquid Nature</a></li>
+    <li><a href="#taproom">Visit</a></li>
+  </ul>
+  <a class="nav-pill" href="#join">Join the Flow</a>
 </nav>
-<div class="flex items-center gap-4">
-<button class="p-2 rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
-<span class="material-symbols-outlined">shopping_bag</span>
-</button>
-<button class="md:hidden p-2 text-slate-100">
-<span class="material-symbols-outlined">menu</span>
-</button>
-</div>
-</div>
-</header>
-<main>
-<!-- Hero Section -->
-<section class="relative h-[819px] flex items-end px-6 lg:px-20 pb-20 overflow-hidden">
-<div class="absolute inset-0 z-0">
-<div class="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/40 to-transparent"></div>
-<img alt="Craft brewing process macro shot" class="w-full h-full object-cover" data-alt="Macro shot of golden beer bubbles in a glass" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvr5459rFMm83ERCpwqAnpwhL_xZEY_4dAmhHgxlVjYdL0rg7FeWh6zyy4LT16ovZ-314AQqVQiGvLui8CVhGCBINhhCOWzr2lu4q2tybp9NTwz5VHClA4wFGgCs2-Pru-Lf0D_41cwhVMuGnzIwBgNdns2EK1De-1ykmyWBGSdMd40q0L3LG68DKdsPsvv9MWOMsTofCnp_k0mav4XxlVYFPeDh8E-s2YVDwra0ebv7tMtObXDAztJCmisDljdrtv3oFa3L8RrVHP"/>
-</div>
-<div class="relative z-10 max-w-4xl">
-<span class="inline-block px-4 py-1 rounded-full bg-primary/20 text-primary text-xs font-bold uppercase tracking-widest mb-6">Established 2012</span>
-<h2 class="font-serif italic text-5xl md:text-7xl lg:text-8xl leading-none mb-6">The Art of <br/><span class="not-italic font-display font-black text-primary">Craft &amp; Process</span></h2>
-<p class="text-lg md:text-xl text-slate-300 max-w-2xl leading-relaxed">
-                    Elevating the traditional brewing ritual through scientific precision and the pure essence of local honey. Every bottle tells a story of patience.
-                </p>
-</div>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <div class="blob-bg" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <div class="hero-inner">
+    <!-- LEFT TEXT -->
+    <div class="hero-text">
+      <div class="hero-badge">
+        <div class="hero-badge-dot"></div>
+        Now accepting members · Kent, England
+      </div>
+
+      <h1 class="hero-h1">
+        Brewed from<br>
+        <em>living land,</em><br>
+        <span class="wavy">flowing water</span>
+      </h1>
+
+      <p class="hero-body">
+        Mr. Bee's Brewery sits on seventeen meadow acres in the North Downs, where chalk springs, wildflower honey, and centuries-old hop gardens meet in every bottle. Bring the countryside to your door with a <strong>Liquid Nature</strong> subscription.
+      </p>
+
+      <div class="hero-ctas">
+        <a href="#membership" class="btn-primary">
+          Start your subscription
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#beers" class="btn-ghost">
+          Explore the brews <span class="btn-arrow">→</span>
+        </a>
+      </div>
+
+      <div class="hero-trust">
+        <div class="trust-avatars">
+          <div class="trust-av">SR</div>
+          <div class="trust-av">MH</div>
+          <div class="trust-av">PW</div>
+          <div class="trust-av">TG</div>
+        </div>
+        <div class="trust-text">
+          <strong>847 subscribers</strong> already flowing<br>
+          with their first delivery
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT VISUAL -->
+    <div class="hero-visual">
+      <div class="hero-bottle-wrap">
+        <div class="bottle-blob"></div>
+
+        <!-- Floating ingredient chips -->
+        <div class="float-chip chip-1">
+          <svg width="10" height="10" viewBox="0 0 10 10"><circle cx="5" cy="5" r="4" fill="#6B8C4F"/></svg>
+          East Kent Goldings
+        </div>
+        <div class="float-chip chip-2">
+          <svg width="10" height="10" viewBox="0 0 10 10"><circle cx="5" cy="5" r="4" fill="#D4922A"/></svg>
+          Wildflower Honey
+        </div>
+        <div class="float-chip chip-3">
+          <svg width="10" height="10" viewBox="0 0 10 10"><circle cx="5" cy="5" r="4" fill="#3D6642"/></svg>
+          Chalk Spring Water
+        </div>
+
+        <!-- Bottle SVG illustration -->
+        <svg width="220" height="440" viewBox="0 0 220 440" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:relative;z-index:2;margin:auto;display:block;margin-top:20px;">
+          <!-- Bottle body -->
+          <path d="M68 160 Q55 190 50 240 Q45 290 48 330 Q52 390 80 420 Q95 432 110 432 Q125 432 140 420 Q168 390 172 330 Q175 290 170 240 Q165 190 152 160 Z" fill="url(#bottle-fill)" stroke="rgba(43,74,47,0.15)" stroke-width="1.5"/>
+          <!-- Bottle neck -->
+          <path d="M80 160 Q82 140 84 120 L85 95 Q87 85 110 85 Q133 85 135 95 L136 120 Q138 140 140 160 Z" fill="url(#neck-fill)" stroke="rgba(43,74,47,0.12)" stroke-width="1"/>
+          <!-- Bottle mouth / crown -->
+          <rect x="95" y="68" width="30" height="20" rx="4" fill="url(#crown-fill)"/>
+          <rect x="92" y="84" width="36" height="6" rx="3" fill="rgba(43,74,47,0.25)"/>
+          <!-- Label area -->
+          <rect x="62" y="215" width="96" height="130" rx="16" fill="url(#label-fill)"/>
+          <!-- Label content -->
+          <text x="110" y="248" text-anchor="middle" font-family="Fraunces,serif" font-size="10" font-style="italic" font-weight="400" fill="rgba(43,74,47,0.5)" letter-spacing="1">MR. BEE'S</text>
+          <text x="110" y="270" text-anchor="middle" font-family="Fraunces,serif" font-size="16" font-style="italic" font-weight="500" fill="#2B4A2F">Golden Hour</text>
+          <text x="110" y="286" text-anchor="middle" font-family="Fraunces,serif" font-size="8" fill="rgba(43,74,47,0.4)" letter-spacing="2">BEST BITTER · 4.2%</text>
+          <!-- Honey bee SVG detail on label -->
+          <ellipse cx="110" cy="310" rx="10" ry="7" fill="rgba(212,146,42,0.18)" stroke="rgba(212,146,42,0.4)" stroke-width="0.8"/>
+          <text x="110" y="313" text-anchor="middle" font-size="8" fill="rgba(212,146,42,0.7)">◆</text>
+          <!-- Glass shine -->
+          <path d="M75 200 Q70 240 72 290" stroke="rgba(255,255,255,0.35)" stroke-width="4" stroke-linecap="round" fill="none"/>
+          <path d="M85 175 Q81 195 82 215" stroke="rgba(255,255,255,0.2)" stroke-width="2" stroke-linecap="round" fill="none"/>
+          <!-- Liquid swirl -->
+          <path d="M70 310 Q110 295 150 310 Q140 335 110 340 Q80 335 70 310Z" fill="rgba(212,146,42,0.12)"/>
+
+          <defs>
+            <linearGradient id="bottle-fill" x1="50" y1="160" x2="172" y2="432" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="rgba(107,140,79,0.35)"/>
+              <stop offset="50%" stop-color="rgba(43,74,47,0.55)"/>
+              <stop offset="100%" stop-color="rgba(26,47,28,0.7)"/>
+            </linearGradient>
+            <linearGradient id="neck-fill" x1="84" y1="85" x2="136" y2="160" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="rgba(107,140,79,0.3)"/>
+              <stop offset="100%" stop-color="rgba(43,74,47,0.5)"/>
+            </linearGradient>
+            <linearGradient id="crown-fill" x1="95" y1="68" x2="125" y2="88" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#D4922A"/>
+              <stop offset="100%" stop-color="#A06A10"/>
+            </linearGradient>
+            <linearGradient id="label-fill" x1="62" y1="215" x2="158" y2="345" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#FDFAF4"/>
+              <stop offset="100%" stop-color="#F0E8D0"/>
+            </linearGradient>
+          </defs>
+        </svg>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Wave divider -->
+  <svg class="hero-wave" viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0 40 Q180 0 360 40 Q540 80 720 40 Q900 0 1080 40 Q1260 80 1440 40 L1440 80 L0 80 Z" fill="#F4ECD8"/>
+  </svg>
 </section>
-<!-- Process Timeline: From Hive to Glass -->
-<section class="py-24 px-6 lg:px-20 bg-background-light dark:bg-background-dark">
-<div class="max-w-7xl mx-auto">
-<div class="mb-16">
-<h3 class="text-primary font-bold uppercase tracking-widest text-sm mb-2">Our Methodology</h3>
-<h2 class="text-4xl md:text-5xl font-serif">From Hive to Glass</h2>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-<!-- Step 1 -->
-<div class="group">
-<div class="mb-6 relative">
-<div class="text-6xl font-black text-primary/10 absolute -top-8 -left-4">01</div>
-<span class="material-symbols-outlined text-primary text-4xl mb-4">nest_eco_leaf</span>
-<h4 class="text-xl font-bold mb-3 group-hover:text-primary transition-colors">Sourcing Nectar</h4>
-<p class="text-slate-400 leading-relaxed">We partner with local apiaries to select the finest seasonal wildflower honey, ensuring a complex floral profile in every batch.</p>
-</div>
-<div class="h-1 w-full bg-slate-800 rounded-full overflow-hidden">
-<div class="h-full bg-primary w-1/4"></div>
-</div>
-</div>
-<!-- Step 2 -->
-<div class="group">
-<div class="mb-6 relative">
-<div class="text-6xl font-black text-primary/10 absolute -top-8 -left-4">02</div>
-<span class="material-symbols-outlined text-primary text-4xl mb-4">grain</span>
-<h4 class="text-xl font-bold mb-3 group-hover:text-primary transition-colors">Precision Malting</h4>
-<p class="text-slate-400 leading-relaxed">Our grains are slow-roasted to specific temperatures to develop deep, caramel undertones that complement our honey's sweetness.</p>
-</div>
-<div class="h-1 w-full bg-slate-800 rounded-full overflow-hidden">
-<div class="h-full bg-primary w-1/2"></div>
-</div>
-</div>
-<!-- Step 3 -->
-<div class="group">
-<div class="mb-6 relative">
-<div class="text-6xl font-black text-primary/10 absolute -top-8 -left-4">03</div>
-<span class="material-symbols-outlined text-primary text-4xl mb-4">skillet</span>
-<h4 class="text-xl font-bold mb-3 group-hover:text-primary transition-colors">Artisanal Brewing</h4>
-<p class="text-slate-400 leading-relaxed">Copper kettles and small-batch techniques allow us to monitor the delicate chemical balance required for our signature finish.</p>
-</div>
-<div class="h-1 w-full bg-slate-800 rounded-full overflow-hidden">
-<div class="h-full bg-primary w-3/4"></div>
-</div>
-</div>
-<!-- Step 4 -->
-<div class="group">
-<div class="mb-6 relative">
-<div class="text-6xl font-black text-primary/10 absolute -top-8 -left-4">04</div>
-<span class="material-symbols-outlined text-primary text-4xl mb-4">ac_unit</span>
-<h4 class="text-xl font-bold mb-3 group-hover:text-primary transition-colors">Cold Conditioning</h4>
-<p class="text-slate-400 leading-relaxed">Weeks of low-temperature maturation clarify the brew and refine the carbonation for a velvety, sophisticated mouthfeel.</p>
-</div>
-<div class="h-1 w-full bg-slate-800 rounded-full overflow-hidden">
-<div class="h-full bg-primary w-full"></div>
-</div>
-</div>
-</div>
-</div>
+
+<!-- ─── STORY ─── -->
+<section class="story" id="story">
+  <div class="story-inner">
+    <div class="story-grid">
+      <div class="story-left reveal">
+        <span class="section-tag">Our Fields</span>
+        <h2 class="section-h2" style="margin-top:0.8rem;margin-bottom:1.5rem;">
+          Seventeen acres<br>of <em>living brewery</em>
+        </h2>
+
+        <p class="story-lead">
+          "Every ingredient on this estate has a root system. We don't import flavour — we cultivate it."
+        </p>
+        <p class="story-body">
+          Founded in 1994 in a converted grain barn on the edge of Faversham, Mr. Bee's has never treated craft brewing as a performance. The chalk aquifer beneath the meadow gives our water a mineral softness no filtration plant can replicate. Our six Langstroth hives supply raw wildflower honey in a narrow August harvest window that lasts, at most, eleven days.
+        </p>
+        <p class="story-body">
+          The result is beer with a genuine postcode — flavours that shift subtly year to year as the meadow does, as the seasons do. That's not inconsistency. That's honesty.
+        </p>
+
+        <div class="stat-cluster">
+          <div class="stat-card reveal reveal-d1">
+            <div class="stat-num">17<sup>ac</sup></div>
+            <div class="stat-label">of working meadowland in the North Downs</div>
+          </div>
+          <div class="stat-card reveal reveal-d2">
+            <div class="stat-num">31</div>
+            <div class="stat-label">years in continuous craft brewing</div>
+          </div>
+          <div class="stat-card reveal reveal-d3">
+            <div class="stat-num">6</div>
+            <div class="stat-label">on-estate honeybee hives</div>
+          </div>
+          <div class="stat-card reveal reveal-d4">
+            <div class="stat-num">47</div>
+            <div class="stat-label">small-batch releases each year</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="story-right reveal reveal-d2">
+        <div class="estate-card">
+          <div class="estate-bg"></div>
+          <div class="estate-art">
+            <!-- Botanical estate illustration SVG -->
+            <svg width="100%" height="100%" viewBox="0 0 380 520" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+              <!-- Background atmosphere -->
+              <rect width="380" height="520" fill="url(#estate-bg)"/>
+              <!-- Ground layer -->
+              <ellipse cx="190" cy="490" rx="200" ry="40" fill="rgba(43,74,47,0.5)"/>
+              <!-- Main hop bine - flowing organic vine -->
+              <path d="M190 480 Q185 420 195 370 Q205 320 190 270 Q175 220 190 170 Q205 120 188 70 Q184 50 190 30" stroke="rgba(107,140,79,0.6)" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <!-- Hop bine left branches -->
+              <path d="M195 370 Q160 355 140 340 Q120 325 105 305" stroke="rgba(107,140,79,0.4)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              <path d="M190 270 Q155 255 130 250 Q105 245 85 230" stroke="rgba(107,140,79,0.4)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              <path d="M190 170 Q162 158 145 155 Q128 152 112 140" stroke="rgba(107,140,79,0.35)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              <!-- Hop bine right branches -->
+              <path d="M195 340 Q225 325 245 310 Q265 295 280 275" stroke="rgba(107,140,79,0.4)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              <path d="M190 245 Q218 232 238 228 Q258 224 275 212" stroke="rgba(107,140,79,0.35)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              <!-- Hop cones - organic ellipses -->
+              <ellipse cx="105" cy="305" rx="12" ry="18" fill="rgba(107,140,79,0.45)" transform="rotate(-15 105 305)"/>
+              <ellipse cx="85" cy="232" rx="10" ry="16" fill="rgba(107,140,79,0.4)" transform="rotate(10 85 232)"/>
+              <ellipse cx="112" cy="142" rx="9" ry="15" fill="rgba(107,140,79,0.35)" transform="rotate(-8 112 142)"/>
+              <ellipse cx="280" cy="275" rx="11" ry="17" fill="rgba(107,140,79,0.4)" transform="rotate(12 280 275)"/>
+              <ellipse cx="276" cy="213" rx="10" ry="15" fill="rgba(107,140,79,0.38)" transform="rotate(-10 276 213)"/>
+              <!-- Barley stalks left -->
+              <line x1="60" y1="480" x2="55" y2="340" stroke="rgba(188,150,80,0.4)" stroke-width="2"/>
+              <line x1="80" y1="480" x2="78" y2="360" stroke="rgba(188,150,80,0.35)" stroke-width="1.5"/>
+              <ellipse cx="55" cy="330" rx="8" ry="22" fill="rgba(212,146,42,0.4)" transform="rotate(5 55 330)"/>
+              <ellipse cx="78" cy="350" rx="7" ry="18" fill="rgba(212,146,42,0.3)" transform="rotate(-3 78 350)"/>
+              <!-- Barley stalks right -->
+              <line x1="310" y1="480" x2="315" y2="340" stroke="rgba(188,150,80,0.4)" stroke-width="2"/>
+              <line x1="330" y1="480" x2="328" y2="360" stroke="rgba(188,150,80,0.35)" stroke-width="1.5"/>
+              <ellipse cx="315" cy="330" rx="8" ry="22" fill="rgba(212,146,42,0.4)" transform="rotate(-5 315 330)"/>
+              <ellipse cx="328" cy="352" rx="7" ry="18" fill="rgba(212,146,42,0.3)" transform="rotate(3 328 352)"/>
+              <!-- Central honeycomb -->
+              <path d="M190 390 L207 399 L207 417 L190 426 L173 417 L173 399 Z" fill="rgba(242,193,78,0.25)" stroke="rgba(242,193,78,0.6)" stroke-width="1.5"/>
+              <path d="M190 400 L202 407 L202 420 L190 427 L178 420 L178 407 Z" fill="rgba(242,193,78,0.15)" stroke="rgba(242,193,78,0.4)" stroke-width="0.8"/>
+              <!-- Floating particles / spores -->
+              <circle cx="150" cy="180" r="2.5" fill="rgba(242,193,78,0.5)"/>
+              <circle cx="235" cy="150" r="2" fill="rgba(242,193,78,0.4)"/>
+              <circle cx="130" cy="260" r="1.8" fill="rgba(107,140,79,0.6)"/>
+              <circle cx="255" cy="295" r="2.2" fill="rgba(107,140,79,0.45)"/>
+              <circle cx="165" cy="100" r="1.5" fill="rgba(250,246,237,0.4)"/>
+              <circle cx="220" cy="80" r="1.8" fill="rgba(250,246,237,0.3)"/>
+              <!-- Light rays from top -->
+              <path d="M190 0 L190 80" stroke="rgba(242,193,78,0.15)" stroke-width="30" stroke-linecap="round"/>
+
+              <defs>
+                <radialGradient id="estate-bg" cx="50%" cy="30%" r="70%" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#3D6642"/>
+                  <stop offset="60%" stop-color="#2B4A2F"/>
+                  <stop offset="100%" stop-color="#1A2F1C"/>
+                </radialGradient>
+              </defs>
+            </svg>
+          </div>
+          <div class="estate-badge">Est. 1994</div>
+          <div class="estate-label">
+            <div class="estate-label-tag">The Home Meadow</div>
+            <div class="estate-label-name">Orchard Lane, Faversham, Kent</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
-<!-- Small Batch Excellence Feature -->
-<section class="py-24 px-6 lg:px-20 bg-slate-900/30">
-<div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
-<div class="relative order-2 lg:order-1">
-<div class="aspect-[4/5] rounded-xl overflow-hidden shadow-2xl">
-<img alt="Brewer inspecting quality" class="w-full h-full object-cover" data-alt="Close up of amber liquid in a copper kettle" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHTQgptHs3m6vUBXIVosoch4skAaD-fQ6EM4rv9M4EQFSbnAK5no8uu8l3EbmJFG6P1lafgIaHvg7g6Mx9yE058x0cTd6mP70KtkpLtPD1VWOvdEkUOK0-QVLmGifNjp5BIxNOwvF75qJpET0aUoTNP0PH5LTny_Qa6VVZ4Y8EGZvCbujTaQSppax-OO9Dxap1RLouh1GEZc-tbb9jC4batTCDGyCykIq8J7qAa9oE4Pln72gmeSpbd6EMJ2UKMzt_RRbNGDebLOjP"/>
-</div>
-<div class="absolute -bottom-8 -right-8 w-64 p-6 bg-primary rounded-xl text-background-dark shadow-xl hidden md:block">
-<p class="font-bold text-2xl mb-1">Batch #402</p>
-<p class="text-sm opacity-80 mb-4">Limited Edition Release</p>
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined">verified</span>
-<span class="text-xs font-bold uppercase">Certified Master Brewer</span>
-</div>
-</div>
-</div>
-<div class="order-1 lg:order-2">
-<h3 class="text-primary font-bold uppercase tracking-widest text-sm mb-4">The Pursuit of Perfection</h3>
-<h2 class="text-4xl md:text-5xl font-serif mb-8 leading-tight">Small Batch <br/><span class="italic">Excellence</span></h2>
-<div class="space-y-6">
-<div class="flex gap-4 p-4 rounded-lg hover:bg-white/5 transition-colors">
-<div class="flex-shrink-0 w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary">
-<span class="material-symbols-outlined">temp_preferences_custom</span>
-</div>
-<div>
-<h4 class="text-lg font-bold mb-1">Strict Temperature Control</h4>
-<p class="text-slate-400">Fluctuations of even one degree are rejected. We maintain absolute thermal stability throughout the 21-day fermentation cycle.</p>
-</div>
-</div>
-<div class="flex gap-4 p-4 rounded-lg hover:bg-white/5 transition-colors">
-<div class="flex-shrink-0 w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary">
-<span class="material-symbols-outlined">filter_vintage</span>
-</div>
-<div>
-<h4 class="text-lg font-bold mb-1">Single-Origin Ingredients</h4>
-<p class="text-slate-400">We never blend harvests. Each batch reflects the unique environmental conditions of the season it was conceived.</p>
-</div>
-</div>
-<div class="flex gap-4 p-4 rounded-lg hover:bg-white/5 transition-colors">
-<div class="flex-shrink-0 w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary">
-<span class="material-symbols-outlined">ink_pen</span>
-</div>
-<div>
-<h4 class="text-lg font-bold mb-1">Hand-Signed Quality</h4>
-<p class="text-slate-400">Every bottle is inspected by our head brewer and hand-labeled with its unique batch and bottle number.</p>
-</div>
-</div>
-</div>
-</div>
-</div>
+
+<!-- Wave -->
+<svg class="wave-sep" viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="background:#F4ECD8;">
+  <path d="M0 30 Q360 60 720 30 Q1080 0 1440 30 L1440 60 L0 60Z" fill="#1A2F1C"/>
+</svg>
+
+<!-- ─── PROVENANCE ─── -->
+<section class="provenance" id="ingredients">
+  <div class="prov-blobs" aria-hidden="true">
+    <div class="prov-blob prov-blob-1"></div>
+    <div class="prov-blob prov-blob-2"></div>
+  </div>
+
+  <div class="prov-inner">
+    <div class="prov-header reveal">
+      <div>
+        <span class="section-tag">What goes in</span>
+        <h2 class="section-h2" style="margin-top:0.8rem;">
+          Five ingredients,<br><em>all with roots</em>
+        </h2>
+      </div>
+      <p class="prov-intro">
+        We don't buy flavour concentrate or shortcut the natural processes that give each brew its character. Every ingredient is traceable to a specific field, spring, or apiary — most within twelve miles of the brewery.
+      </p>
+    </div>
+
+    <div class="ingredient-flow reveal">
+      <!-- Row 1 -->
+      <div class="ing-row ing-row-1">
+        <div class="ing-card ing-large">
+          <div class="ing-card-glow" style="background:radial-gradient(circle, rgba(242,193,78,0.6), transparent);"></div>
+          <div class="ing-icon ing-icon-honey">🍯</div>
+          <div class="ing-origin">Estate Apiary · August Harvest</div>
+          <div class="ing-name">Raw Wildflower Honey</div>
+          <div class="ing-desc">From six Langstroth hives at the wood's edge, where clover, borage, and bramble flower in succession. Harvested across an eleven-day window when the nectar is at its most complex. Folded into the boil at flame-out, never before — preserving the volatile aromatics that make each batch unique.</div>
+        </div>
+        <div class="ing-card">
+          <div class="ing-card-glow" style="background:radial-gradient(circle, rgba(107,140,79,0.6), transparent);"></div>
+          <div class="ing-icon ing-icon-hops">🌿</div>
+          <div class="ing-origin">Faversham · Neighbouring Estate</div>
+          <div class="ing-name">East Kent Goldings</div>
+          <div class="ing-desc">Grown under the same family for four generations. Resinous, softly floral, irreducibly English. Whole-cone only — never pelletised.</div>
+        </div>
+      </div>
+
+      <!-- Row 2 -->
+      <div class="ing-row ing-row-2" style="margin-top:2px;">
+        <div class="ing-card">
+          <div class="ing-card-glow" style="background:radial-gradient(circle, rgba(91,154,200,0.6), transparent);"></div>
+          <div class="ing-icon ing-icon-water">💧</div>
+          <div class="ing-origin">On-Estate · Chalk Aquifer</div>
+          <div class="ing-name">Spring Water</div>
+          <div class="ing-desc">Drawn from a chalk aquifer beneath the meadow. Mineral-soft and naturally filtered over centuries — the invisible architecture of every brew.</div>
+        </div>
+        <div class="ing-card">
+          <div class="ing-card-glow" style="background:radial-gradient(circle, rgba(156,107,64,0.6), transparent);"></div>
+          <div class="ing-icon ing-icon-malt">🌾</div>
+          <div class="ing-origin">Crisp Malting · Great Ryburgh</div>
+          <div class="ing-name">Maris Otter Barley</div>
+          <div class="ing-desc">The oldest barley variety in continuous commercial production. Biscuit warmth, slight nuttiness, and a clean backbone that lets the honey speak. Malted at Crisp's Victorian floor maltings.</div>
+        </div>
+        <div class="ing-card">
+          <div class="ing-card-glow" style="background:radial-gradient(circle, rgba(230,168,80,0.6), transparent);"></div>
+          <div class="ing-icon ing-icon-yeast">✦</div>
+          <div class="ing-origin">Maintained Since · 1994</div>
+          <div class="ing-name">Heritage Yeast</div>
+          <div class="ing-desc">A house strain kept in continuous propagation since the brewery's founding. It carries the estate's microbial fingerprint — the closest thing we have to terroir.</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
-<!-- Product Lineup -->
-<section class="py-24 px-6 lg:px-20 bg-background-light dark:bg-background-dark">
-<div class="max-w-7xl mx-auto text-center mb-16">
-<h3 class="text-primary font-bold uppercase tracking-widest text-sm mb-2">Current Selection</h3>
-<h2 class="text-4xl md:text-5xl font-serif">The Seasonal Lineup</h2>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-<!-- Product 1 -->
-<div class="flex flex-col items-center">
-<div class="w-full aspect-[3/4] rounded-xl bg-slate-900/50 mb-6 flex items-center justify-center relative overflow-hidden group">
-<img alt="Golden Nectar Ale" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Cold bottle of amber beer with condensation" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzRC6JDuBimDNf2NnLqPKmGRFI-GGeAF5GE2qvMR5Biqw0DvVLU8p_hFaj-HIKnCbdD_4DYveYY6zRAAkDhaqPiqgIWYFLkdCvVCdRYzqR0m3xCEhtAPXkno-G_bN7CTV76kaR4O4Tr_RHXgS1c88QeQ2yZmUzZsTFVpbCHZP0MUz-kRF3mlUwXBb-3HW7vmn359C5694E4ub8jwSNHC2bL-UlCUiKHE3l-NvKF88o0Ms3U489RIE6XFs8WZoZWgYne86vLpIFac0s"/>
-<div class="absolute inset-0 bg-gradient-to-t from-background-dark to-transparent opacity-60"></div>
-<button class="absolute bottom-6 bg-primary text-background-dark px-6 py-2 rounded-full font-bold text-sm uppercase opacity-0 group-hover:opacity-100 transition-opacity">Add to Cart</button>
-</div>
-<div class="text-center">
-<p class="text-primary text-xs font-bold uppercase tracking-tighter mb-1">6.5% ABV • Honey Ale</p>
-<h4 class="text-2xl font-serif mb-2">Golden Nectar</h4>
-<p class="text-slate-400 text-sm max-w-[250px]">Notes of wildflower, sun-drenched hay, and light citrus zest.</p>
-</div>
-</div>
-<!-- Product 2 -->
-<div class="flex flex-col items-center">
-<div class="w-full aspect-[3/4] rounded-xl bg-slate-900/50 mb-6 flex items-center justify-center relative overflow-hidden group">
-<img alt="Smoked Malt Porter" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Glass of dark stout beer with thick head" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4vqvdf3wplfyrQelzeAa8s18l9Izk9ERdi_3apjSXP2KRWkt6ND6o68jCDvLYCGZMmVlCWdi-kDtKgXoMtfYlna4elRA81Hz8FR75LKTYPuA2TqB5HqQOuLXj2_RJOpHpRfUJInHUYpFrN7xjqMlzRrbQJXv1kIeplIkZ4LHixzSjQscaUdPzGCfOPwMA0iBL5t7dhQBpi0Cz_vZ0R2ICb--0wt0anVFr9OtpljJmChnMDnv3kf5PUVG6EpRiGRAWeuQH3oGLm5Py"/>
-<div class="absolute inset-0 bg-gradient-to-t from-background-dark to-transparent opacity-60"></div>
-<button class="absolute bottom-6 bg-primary text-background-dark px-6 py-2 rounded-full font-bold text-sm uppercase opacity-0 group-hover:opacity-100 transition-opacity">Add to Cart</button>
-</div>
-<div class="text-center">
-<p class="text-primary text-xs font-bold uppercase tracking-tighter mb-1">8.2% ABV • Imperial Stout</p>
-<h4 class="text-2xl font-serif mb-2">Midnight Hive</h4>
-<p class="text-slate-400 text-sm max-w-[250px]">Deep roasted cocoa, burnt honey, and velvet smooth finish.</p>
-</div>
-</div>
-<!-- Product 3 -->
-<div class="flex flex-col items-center">
-<div class="w-full aspect-[3/4] rounded-xl bg-slate-900/50 mb-6 flex items-center justify-center relative overflow-hidden group">
-<img alt="Dry Hopped Mead" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Light colored beer in a tall elegant glass" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9zlIRLaRag96C0_vxbn-w2gXV6gQqkk5S0nB290MIqQK1KNCAJYxN1WEVg11nfqtxufRghjOlLNPf1FHFma8Q1gvs9cWOAQDwUMGTxetKhPs9IzX47TXUfMvdfv10pAYVoJOoK1QufFFWgGZErN9tHQtABVUXLmjByvocaV0xRC9AzzEkLDMFePkkvhHUOU_Ap6QE-ZvMXyqpswrZcEE8YBoPFLNsQgX5BdB0CQcAD77teo07QcFfr85W6T2OOdH9oLHfK5ipegxZ"/>
-<div class="absolute inset-0 bg-gradient-to-t from-background-dark to-transparent opacity-60"></div>
-<button class="absolute bottom-6 bg-primary text-background-dark px-6 py-2 rounded-full font-bold text-sm uppercase opacity-0 group-hover:opacity-100 transition-opacity">Add to Cart</button>
-</div>
-<div class="text-center">
-<p class="text-primary text-xs font-bold uppercase tracking-tighter mb-1">5.4% ABV • Session IPA</p>
-<h4 class="text-2xl font-serif mb-2">Hopped Pollen</h4>
-<p class="text-slate-400 text-sm max-w-[250px]">Crisp resinous pine balanced by a delicate sweetness of young clover.</p>
-</div>
-</div>
-</div>
+
+<!-- Wave -->
+<svg class="wave-sep" viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="background:#1A2F1C;">
+  <path d="M0 20 Q360 60 720 20 Q1080 -20 1440 20 L1440 60 L0 60Z" fill="#F4ECD8"/>
+</svg>
+
+<!-- ─── BEERS ─── -->
+<section class="beers" id="beers">
+  <div class="beers-inner">
+    <div class="beers-header">
+      <div class="beers-header-text reveal">
+        <span class="section-tag">The Brews</span>
+        <h2 class="section-h2" style="margin-top:0.8rem;">
+          What's flowing<br><em>right now</em>
+        </h2>
+      </div>
+      <a class="beers-all-link reveal reveal-d2" href="#">
+        Full cellar list →
+      </a>
+    </div>
+
+    <div class="beers-layout reveal">
+      <!-- Main featured card -->
+      <div class="beer-card beer-card-main">
+        <div class="beer-art-bg bc-main-art"></div>
+        <!-- Swirl decoration -->
+        <svg style="position:absolute;top:0;left:0;right:0;width:100%;height:60%;opacity:0.15;" viewBox="0 0 400 300" fill="none" preserveAspectRatio="xMidYMid slice">
+          <path d="M-50 150 Q50 50 150 150 Q250 250 350 150 Q450 50 550 150" stroke="#8FB06A" stroke-width="80" fill="none" stroke-linecap="round"/>
+        </svg>
+        <div style="position:relative;z-index:2;">
+          <span class="beer-tag beer-tag-light">Best Bitter · Cask</span>
+          <div class="beer-name beer-name-lg">Golden Hour</div>
+          <div class="beer-meta">4.2% ABV · Available year-round</div>
+          <p class="beer-desc">Our founding ale. Honey-kissed amber with the quiet warmth of a North Downs summer evening. Dry-finished, easy-drinking, and reliably itself across thirty-one years of consecutive brewing.</p>
+          <div class="beer-pill">Learn more →</div>
+        </div>
+      </div>
+
+      <!-- Top right -->
+      <div class="beer-card beer-card-b">
+        <div class="beer-art-bg bc-b-art"></div>
+        <div style="position:relative;z-index:2;">
+          <span class="beer-tag beer-tag-light">Porter · Cask</span>
+          <div class="beer-name beer-name-sm">Bark &amp; Ember</div>
+          <div class="beer-meta">5.8% ABV</div>
+          <p class="beer-desc" style="font-size:0.82rem;">Roasted chocolate malt, dried fig, and a thread of oak smoke from our oldest copper vessel.</p>
+        </div>
+      </div>
+
+      <!-- Bottom right -->
+      <div class="beer-card beer-card-c">
+        <div class="beer-art-bg bc-c-art"></div>
+        <div style="position:relative;z-index:2;">
+          <span class="beer-tag beer-tag-dark">Pale Ale · Bottle</span>
+          <div class="beer-name beer-name-sm beer-name-dark">Warden's Reserve</div>
+          <div class="beer-meta beer-meta-dark">5.1% ABV · Members only</div>
+          <p class="beer-desc beer-desc-dark" style="font-size:0.82rem;">Dry-hopped whole-cone Goldings. Herbaceous and quietly bitter. Exclusive to Liquid Nature subscribers.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
-<!-- Newsletter CTA -->
-<section class="py-20 px-6 lg:px-20 border-t border-primary/10">
-<div class="max-w-4xl mx-auto text-center">
-<span class="material-symbols-outlined text-primary text-5xl mb-6">mark_as_unread</span>
-<h2 class="text-3xl md:text-4xl font-serif mb-4">Join the Inner Circle</h2>
-<p class="text-slate-400 mb-8 max-w-xl mx-auto">Receive early access to limited release batches, brewing workshops, and our annual hive harvesting festival.</p>
-<form class="flex flex-col md:flex-row gap-4 max-w-md mx-auto">
-<input class="flex-grow bg-slate-900 border border-slate-700 rounded-lg px-6 py-3 focus:outline-none focus:border-primary transition-colors text-slate-100" placeholder="Your email address" type="email"/>
-<button class="bg-primary text-background-dark font-bold px-8 py-3 rounded-lg hover:bg-primary/90 transition-colors uppercase text-sm tracking-widest" type="submit">Subscribe</button>
-</form>
-</div>
+
+<!-- ─── LIQUID NATURE MEMBERSHIP ─── -->
+<section class="membership" id="membership">
+  <div class="mem-inner">
+    <div class="mem-top reveal">
+      <span class="section-tag">Liquid Nature</span>
+      <h2 class="section-h2">
+        The countryside,<br><em>delivered monthly</em>
+      </h2>
+      <p>Three subscription tiers. Each one a different relationship with the land. Cancel freely — but most people don't.</p>
+    </div>
+
+    <div class="tier-grid">
+
+      <!-- Meadow -->
+      <div class="tier-card tier-card-meadow reveal">
+        <span class="tier-badge tier-badge-green">Meadow</span>
+        <div class="tier-name">The Meadow</div>
+        <div class="tier-price-row">
+          <span class="tier-price-curr tier-price" style="font-size:1.4rem;font-weight:300;">£</span>
+          <span class="tier-price">14</span>
+        </div>
+        <div class="tier-freq">per month, pause any time</div>
+        <div class="tier-divider"></div>
+        <ul class="tier-perks">
+          <li>4 seasonal ales, carefully chosen</li>
+          <li>Monthly tasting card from the brewer</li>
+          <li>10% discount in the taproom and shop</li>
+          <li>Early access to new release announcements</li>
+          <li>Members-only newsletter, eight times yearly</li>
+        </ul>
+        <a class="tier-cta tier-cta-outline" href="#join">Start with Meadow</a>
+      </div>
+
+      <!-- Grove (featured) -->
+      <div class="tier-card tier-card-grove reveal reveal-d1">
+        <span class="tier-badge tier-badge-light">Most popular</span>
+        <div class="tier-name tier-name-light">The Grove</div>
+        <div class="tier-price-row">
+          <span class="tier-price tier-price-light" style="font-size:1.4rem;font-weight:300;">£</span>
+          <span class="tier-price tier-price-light">36</span>
+        </div>
+        <div class="tier-freq tier-freq-light">per month, cancel any time</div>
+        <div class="tier-divider tier-divider-light"></div>
+        <ul class="tier-perks">
+          <li class="perk-light perk-light-dot">6 bottles including Warden's Reserve exclusives</li>
+          <li class="perk-light perk-light-dot">20% discount, taproom and online</li>
+          <li class="perk-light perk-light-dot">Two complimentary brewery tour tickets yearly</li>
+          <li class="perk-light perk-light-dot">Named on the Grove Register in the taproom</li>
+          <li class="perk-light perk-light-dot">Invitation to the annual Harvest Supper</li>
+          <li class="perk-light perk-light-dot">Hand-written seasonal notes from the Head Brewer</li>
+        </ul>
+        <a class="tier-cta tier-cta-solid" href="#join">Join the Grove</a>
+      </div>
+
+      <!-- Canopy -->
+      <div class="tier-card tier-card-canopy reveal reveal-d2">
+        <span class="tier-badge tier-badge-honey">Canopy</span>
+        <div class="tier-name tier-name-warm">The Canopy</div>
+        <div class="tier-price-row">
+          <span class="tier-price tier-price-light" style="font-size:1.4rem;font-weight:300;">£</span>
+          <span class="tier-price tier-price-light">78</span>
+        </div>
+        <div class="tier-freq tier-freq-light">per month</div>
+        <div class="tier-divider tier-divider-light"></div>
+        <ul class="tier-perks">
+          <li class="perk-warm perk-warm-dot">All Grove benefits, unrestricted</li>
+          <li class="perk-warm perk-warm-dot">Quarterly private tasting with the Head Brewer</li>
+          <li class="perk-warm perk-warm-dot">Your name on a dedicated barrel in the cooperage</li>
+          <li class="perk-warm perk-warm-dot">Bespoke anniversary blend, named and numbered</li>
+          <li class="perk-warm perk-warm-dot">Priority allocation of all vintage releases</li>
+          <li class="perk-warm perk-warm-dot">Unlimited complimentary taproom entry</li>
+        </ul>
+        <a class="tier-cta tier-cta-warm" href="#join">Reach the Canopy</a>
+      </div>
+    </div>
+  </div>
 </section>
-</main>
-<footer class="bg-slate-950 text-slate-400 py-16 px-6 lg:px-20">
-<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
-<div class="col-span-1 md:col-span-1">
-<div class="flex items-center gap-3 text-slate-100 mb-6">
-<span class="material-symbols-outlined text-primary text-3xl">hexagon</span>
-<h1 class="text-lg font-bold tracking-tight uppercase">Mr Bees</h1>
-</div>
-<p class="text-sm leading-relaxed mb-6">Crafting liquid gold through the fusion of nature's purity and human ingenuity since 2012.</p>
-<div class="flex gap-4">
-<a class="hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">public</span></a>
-<a class="hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">alternate_email</span></a>
-<a class="hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">location_on</span></a>
-</div>
-</div>
-<div>
-<h4 class="text-slate-100 font-bold mb-6 uppercase text-xs tracking-widest">Explore</h4>
-<ul class="space-y-3 text-sm">
-<li><a class="hover:text-primary transition-colors" href="#">Our Story</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">Brewing Process</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">Apiary Partners</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">Sustainability</a></li>
-</ul>
-</div>
-<div>
-<h4 class="text-slate-100 font-bold mb-6 uppercase text-xs tracking-widest">Shop</h4>
-<ul class="space-y-3 text-sm">
-<li><a class="hover:text-primary transition-colors" href="#">Year-Round</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">Limited Releases</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">Merchandise</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">Gift Cards</a></li>
-</ul>
-</div>
-<div>
-<h4 class="text-slate-100 font-bold mb-6 uppercase text-xs tracking-widest">Contact</h4>
-<ul class="space-y-3 text-sm">
-<li class="flex items-start gap-2">
-<span class="material-symbols-outlined text-primary text-lg">location_on</span>
-<span>123 Pollen Way, Honey District<br/>Beetown, BT 45210</span>
-</li>
-<li class="flex items-center gap-2">
-<span class="material-symbols-outlined text-primary text-lg">mail</span>
-<span>hello@mrbees.com</span>
-</li>
-</ul>
-</div>
-</div>
-<div class="max-w-7xl mx-auto pt-12 mt-12 border-t border-slate-900 text-xs flex flex-col md:flex-row justify-between items-center gap-4">
-<p>© 2024 Mr Bees Brewery. Please drink responsibly. 21+ only.</p>
-<div class="flex gap-6">
-<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
-<a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
-</div>
-</div>
+
+<!-- ─── COMMUNITY / TESTIMONIALS ─── -->
+<section class="community" id="community">
+  <div class="comm-inner">
+    <div class="comm-header">
+      <div class="reveal">
+        <span class="section-tag">In their words</span>
+        <h2 class="section-h2" style="margin-top:0.8rem;">
+          The people<br><em>already flowing</em>
+        </h2>
+      </div>
+      <div class="comm-sub reveal reveal-d2">
+        <p>From Brixton flats to Birmingham terraces — urban folk reconnecting with the countryside one monthly box at a time.</p>
+      </div>
+    </div>
+
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <div class="testi-stars">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        <p class="testi-quote">"I grew up on the Kent coast and somehow forgot what real British ale tasted like until the first Grove box arrived. The Warden's Reserve made me sit down and just be quiet for a minute."</p>
+        <div class="testi-author">
+          <div class="testi-av av-moss">SR</div>
+          <div>
+            <div class="testi-name">Saoirse R.</div>
+            <div class="testi-since">Grove member · London SE1</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card reveal reveal-d1">
+        <div class="testi-stars">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        <p class="testi-quote">"The tasting notes actually taught me to taste beer rather than just drink it. Didn't expect that from a subscription box. Three months in and the brewer's notes are as good as the beer."</p>
+        <div class="testi-author">
+          <div class="testi-av av-honey">MH</div>
+          <div>
+            <div class="testi-name">Marcus H.</div>
+            <div class="testi-since">Meadow member · Bristol BS8</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card reveal reveal-d2">
+        <div class="testi-stars">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        <p class="testi-quote">"Visited the taproom on a Saturday in October. The meadow was still green, the hops had just been cut, and someone handed me a pint of Bark &amp; Ember. I upgraded to Canopy that evening."</p>
+        <div class="testi-author">
+          <div class="testi-av av-bark">PW</div>
+          <div>
+            <div class="testi-name">Priya W.</div>
+            <div class="testi-since">Canopy member · Manchester M1</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card reveal">
+        <div class="testi-stars">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        <p class="testi-quote">"The Harvest Supper was genuinely one of the best evenings I've had in years. Long table, open barn, a dozen people I'd never met — all brought there by good beer."</p>
+        <div class="testi-author">
+          <div class="testi-av av-green">TG</div>
+          <div>
+            <div class="testi-name">Tom G.</div>
+            <div class="testi-since">Grove member · Cambridge CB2</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card reveal reveal-d2" style="margin-top:-1.5rem;">
+        <div class="testi-stars">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        <p class="testi-quote">"My partner and I have it on the coffee table as a ritual — Saturday evening, unbox, read the card together. It's the nicest thirty minutes of our week."</p>
+        <div class="testi-author">
+          <div class="testi-av av-sun">AF</div>
+          <div>
+            <div class="testi-name">Amara F.</div>
+            <div class="testi-since">Meadow member · Edinburgh EH4</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TAPROOM / VISIT ─── -->
+<section class="taproom" id="taproom">
+  <div class="tap-blobs" aria-hidden="true">
+    <div class="tap-blob tap-blob-1"></div>
+    <div class="tap-blob tap-blob-2"></div>
+  </div>
+
+  <div class="tap-inner">
+    <div class="tap-left reveal">
+      <span class="section-tag">Come find us</span>
+      <h2 class="section-h2">
+        The taproom is<br><em>always on</em>
+      </h2>
+      <p class="tap-body">
+        The original 1902 grain barn, flagstone floors intact, six hand-pulled casks at any time, and the meadow just beyond the open door. You don't need to be a member to visit — but members drink better.
+      </p>
+
+      <div class="tap-info">
+        <div class="tap-info-item">
+          <div class="tap-info-icon">📍</div>
+          <div class="tap-info-text">
+            <div class="tap-info-label">Address</div>
+            <div class="tap-info-val">Orchard Lane, Faversham, Kent ME13 7RT</div>
+          </div>
+        </div>
+        <div class="tap-info-item">
+          <div class="tap-info-icon">🕐</div>
+          <div class="tap-info-text">
+            <div class="tap-info-label">Opening Hours</div>
+            <div class="tap-info-val">Wed–Fri 4–10pm · Sat 12–10pm · Sun 12–7pm</div>
+          </div>
+        </div>
+        <div class="tap-info-item">
+          <div class="tap-info-icon">🧭</div>
+          <div class="tap-info-text">
+            <div class="tap-info-label">Brewery Tours</div>
+            <div class="tap-info-val">Saturdays at 2pm · Booking required · Grove &amp; Canopy members always have priority</div>
+          </div>
+        </div>
+        <div class="tap-info-item">
+          <div class="tap-info-icon">📞</div>
+          <div class="tap-info-text">
+            <div class="tap-info-label">Telephone</div>
+            <div class="tap-info-val">01795 847 293</div>
+          </div>
+        </div>
+      </div>
+
+      <a class="btn-primary" href="#join">
+        Join to book a tour
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+
+    <div class="tap-right reveal reveal-d2">
+      <div class="tap-map-card">
+        <!-- Stylised estate map SVG -->
+        <svg width="100%" height="100%" viewBox="0 0 480 480" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <rect width="480" height="480" fill="url(#map-bg)"/>
+          <!-- Meadow areas -->
+          <path d="M80 120 Q160 100 240 120 Q320 140 380 120 L400 280 Q320 320 240 300 Q160 280 80 300 Z" fill="rgba(107,140,79,0.15)" stroke="rgba(107,140,79,0.25)" stroke-width="1"/>
+          <!-- Winding path / lane -->
+          <path d="M240 480 Q230 420 235 380 Q240 340 230 300 Q220 260 240 220 Q260 180 240 140 Q230 110 240 80" stroke="rgba(212,146,42,0.4)" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="12,6"/>
+          <!-- Brewery building -->
+          <rect x="190" y="195" width="100" height="70" rx="8" fill="rgba(43,74,47,0.8)" stroke="rgba(107,140,79,0.6)" stroke-width="1.5"/>
+          <path d="M185 195 L240 165 L295 195" fill="rgba(43,74,47,0.6)" stroke="rgba(107,140,79,0.5)" stroke-width="1"/>
+          <!-- Brewery label -->
+          <text x="240" y="237" text-anchor="middle" font-family="Fraunces,serif" font-size="11" font-style="italic" fill="rgba(250,246,237,0.9)" font-weight="400">Mr. Bee's</text>
+          <text x="240" y="252" text-anchor="middle" font-family="Nunito,sans-serif" font-size="7" fill="rgba(250,246,237,0.5)" letter-spacing="1" font-weight="600">BREWERY</text>
+          <!-- Hive icons -->
+          <ellipse cx="130" cy="320" rx="16" ry="12" fill="rgba(242,193,78,0.25)" stroke="rgba(242,193,78,0.5)" stroke-width="1.2"/>
+          <text x="130" y="324" text-anchor="middle" font-size="10" fill="rgba(242,193,78,0.8)">◆</text>
+          <text x="130" y="340" text-anchor="middle" font-family="Nunito,sans-serif" font-size="7" fill="rgba(250,246,237,0.35)" font-weight="600" letter-spacing="0.5">APIARY</text>
+          <!-- Spring marker -->
+          <circle cx="350" cy="160" r="14" fill="rgba(91,154,200,0.15)" stroke="rgba(91,154,200,0.4)" stroke-width="1.2"/>
+          <text x="350" y="164" text-anchor="middle" font-size="10" fill="rgba(91,154,200,0.7)">~</text>
+          <text x="350" y="180" text-anchor="middle" font-family="Nunito,sans-serif" font-size="7" fill="rgba(250,246,237,0.35)" font-weight="600" letter-spacing="0.5">SPRING</text>
+          <!-- Tree clusters -->
+          <circle cx="100" cy="150" r="22" fill="rgba(43,74,47,0.35)" stroke="rgba(107,140,79,0.2)" stroke-width="1"/>
+          <circle cx="92" cy="160" r="16" fill="rgba(43,74,47,0.5)"/>
+          <circle cx="112" cy="158" r="14" fill="rgba(61,102,66,0.5)"/>
+          <circle cx="380" cy="340" r="18" fill="rgba(43,74,47,0.3)" stroke="rgba(107,140,79,0.2)" stroke-width="1"/>
+          <circle cx="370" cy="348" r="13" fill="rgba(43,74,47,0.5)"/>
+          <!-- Compass rose -->
+          <text x="430" y="55" text-anchor="middle" font-family="Nunito,sans-serif" font-size="10" fill="rgba(250,246,237,0.2)" font-weight="700">N</text>
+          <line x1="430" y1="60" x2="430" y2="78" stroke="rgba(250,246,237,0.15)" stroke-width="1"/>
+          <!-- Scale indicator -->
+          <line x1="60" y1="445" x2="140" y2="445" stroke="rgba(250,246,237,0.2)" stroke-width="1"/>
+          <text x="100" y="458" text-anchor="middle" font-family="Nunito,sans-serif" font-size="7" fill="rgba(250,246,237,0.2)" font-weight="500">500m</text>
+          <!-- Border -->
+          <rect x="10" y="10" width="460" height="460" rx="22" fill="none" stroke="rgba(250,246,237,0.08)" stroke-width="1"/>
+
+          <defs>
+            <radialGradient id="map-bg" cx="50%" cy="40%" r="70%">
+              <stop offset="0%" stop-color="#2B4A2F"/>
+              <stop offset="100%" stop-color="#1A2F1C"/>
+            </radialGradient>
+          </defs>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── JOIN CTA ─── -->
+<section class="join" id="join">
+  <div class="join-inner">
+    <span class="section-tag">Join the Flow</span>
+
+    <h2 class="join-h2 reveal">
+      Bring the meadow<br>to your <em>doorstep</em>
+    </h2>
+
+    <p class="join-sub reveal reveal-d1">
+      Leave your email and we'll send you a welcome note, a taste of what's currently brewing, and your first delivery window. No payment until you choose a tier.
+    </p>
+
+    <div class="join-form reveal reveal-d2">
+      <input class="join-input" type="email" placeholder="Your email address…" aria-label="Email address">
+      <button class="join-submit" type="button" id="join-btn">Start flowing</button>
+    </div>
+
+    <p class="join-note reveal reveal-d3">
+      By continuing you agree to our <a href="#">privacy policy</a>. Cancel or pause at any time.
+    </p>
+
+    <div class="join-proof reveal reveal-d4">
+      <div class="proof-item">
+        <div class="proof-dot"></div>
+        847 active subscribers
+      </div>
+      <div class="proof-item">
+        <div class="proof-dot"></div>
+        Delivered to 47 UK postcodes
+      </div>
+      <div class="proof-item">
+        <div class="proof-dot"></div>
+        4.9 / 5 from 312 reviews
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="foot-inner">
+    <div class="foot-top">
+      <div>
+        <div class="foot-brand">Mr. Bee's Brewery</div>
+        <p class="foot-tagline">
+          Brewed in the meadows of the North Downs, Kent, since 1994. Six hives, one chalk spring, seventeen acres, and a yeast strain that remembers everything.
+        </p>
+        <div class="foot-social">
+          <a class="foot-social-btn" href="#" aria-label="Instagram">In</a>
+          <a class="foot-social-btn" href="#" aria-label="Twitter/X">X</a>
+          <a class="foot-social-btn" href="#" aria-label="Facebook">Fb</a>
+          <a class="foot-social-btn" href="#" aria-label="Untappd">Ut</a>
+        </div>
+      </div>
+
+      <div class="foot-col">
+        <h5>The Brewery</h5>
+        <ul>
+          <li><a href="#">Our Story</a></li>
+          <li><a href="#">The Estate</a></li>
+          <li><a href="#">Ingredients</a></li>
+          <li><a href="#">Sustainability</a></li>
+        </ul>
+      </div>
+
+      <div class="foot-col">
+        <h5>The Brews</h5>
+        <ul>
+          <li><a href="#">Current Releases</a></li>
+          <li><a href="#">Seasonal Specials</a></li>
+          <li><a href="#">Vintage Archive</a></li>
+          <li><a href="#">Find in the Wild</a></li>
+        </ul>
+      </div>
+
+      <div class="foot-col">
+        <h5>Liquid Nature</h5>
+        <ul>
+          <li><a href="#">The Meadow</a></li>
+          <li><a href="#">The Grove</a></li>
+          <li><a href="#">The Canopy</a></li>
+          <li><a href="#">Member Login</a></li>
+          <li><a href="#">Gift a Subscription</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <span class="foot-copy">© 2025 Mr. Bee's Brewery Ltd · All rights reserved · Please drink responsibly</span>
+      <div class="foot-legal">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Cookies</a>
+        <a href="#">Accessibility</a>
+      </div>
+    </div>
+  </div>
 </footer>
-</body></html>
+
+<script>
+/* ─── SCROLL REVEAL ─── */
+const reveals = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(el => io.observe(el));
+
+/* ─── NAV SHRINK ─── */
+const nav = document.querySelector('.nav');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 80) {
+    nav.style.boxShadow = '0 12px 48px rgba(43,74,47,0.18)';
+  } else {
+    nav.style.boxShadow = '0 8px 32px rgba(43,74,47,0.1)';
+  }
+}, { passive: true });
+
+/* ─── JOIN FORM ─── */
+const joinBtn = document.getElementById('join-btn');
+const joinInput = document.querySelector('.join-input');
+if (joinBtn && joinInput) {
+  joinBtn.addEventListener('click', () => {
+    const val = joinInput.value.trim();
+    if (val && val.includes('@') && val.includes('.')) {
+      joinBtn.textContent = 'You\'re in the flow ✓';
+      joinBtn.style.background = '#3D6642';
+      joinInput.value = '';
+      joinInput.placeholder = 'Welcome — check your inbox';
+      setTimeout(() => {
+        joinBtn.textContent = 'Start flowing';
+        joinBtn.style.background = '';
+        joinInput.placeholder = 'Your email address…';
+      }, 5000);
+    } else {
+      joinInput.style.color = '#C47B18';
+      joinInput.placeholder = 'Please enter a valid email';
+      setTimeout(() => {
+        joinInput.style.color = '';
+        joinInput.placeholder = 'Your email address…';
+      }, 2500);
+    }
+  });
+  joinInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') joinBtn.click();
+  });
+}
+</script>
+</body>
+</html>
