@@ -3,1379 +3,732 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pavilion Auto Services | MOT &amp; Servicing Felixstowe</title>
+<title>Pavilion Auto Garage — Version 3</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --red: oklch(52% 0.22 22);
-    --red-glow: oklch(52% 0.22 22 / 0.3);
-    --red-dark: oklch(36% 0.18 22);
-    --blue: oklch(40% 0.10 240);
-    --blue-deep: oklch(16% 0.06 240);
-    --blue-mid: oklch(24% 0.08 240);
-    --blue-surface: oklch(20% 0.07 240);
-    --blue-raised: oklch(26% 0.08 240);
-    --white: oklch(96% 0.004 240);
-    --muted: oklch(58% 0.04 240);
-    --border: oklch(32% 0.06 240);
-    --accent-line: oklch(52% 0.22 22);
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'Work Sans', sans-serif;
-    background: var(--blue-deep);
-    color: var(--white);
-    overflow-x: hidden;
-  }
-
-  /* TOP BAR */
-  .topbar {
-    background: var(--blue-surface);
-    border-bottom: 1px solid var(--border);
-    padding: 10px 5vw;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 13px;
-    color: var(--muted);
-  }
-
-  .topbar a { color: var(--white); text-decoration: none; }
-  .topbar a:hover { color: var(--red); }
-
-  .topbar-right { display: flex; gap: 28px; align-items: center; }
-
-  /* NAV */
-  nav {
-    background: var(--blue-mid);
-    border-bottom: 1px solid var(--border);
-    padding: 0 5vw;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 76px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-
-  .logo-wrap {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    text-decoration: none;
-  }
-
-  .logo-emblem {
-    width: 48px;
-    height: 48px;
-    border: 2px solid var(--red);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-  }
-
-  .logo-emblem svg { width: 26px; height: 26px; fill: var(--red); }
-
-  .logo-name {
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 700;
-    font-size: 22px;
-    color: var(--white);
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    line-height: 1.1;
-  }
-
-  .logo-name small {
-    display: block;
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    color: var(--muted);
-    font-weight: 500;
-  }
-
-  .nav-links {
-    display: flex;
-    list-style: none;
-    gap: 4px;
-  }
-
-  .nav-links a {
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 600;
-    font-size: 14px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-decoration: none;
-    padding: 8px 16px;
-    border: 1px solid transparent;
-    transition: all 0.15s;
-  }
-
-  .nav-links a:hover {
-    color: var(--white);
-    border-color: var(--border);
-  }
-
-  .nav-cta-btn {
-    background: var(--red) !important;
-    color: var(--white) !important;
-    border-color: var(--red) !important;
-    padding: 8px 24px !important;
-  }
-
-  .nav-cta-btn:hover { background: var(--red-dark) !important; border-color: var(--red-dark) !important; }
-
-  /* HERO */
-  .hero {
-    display: grid;
-    grid-template-columns: 1fr 460px 80px;
-    min-height: calc(100vh - 116px);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse 60% 80% at 30% 50%, oklch(40% 0.10 240 / 0.3), transparent 70%);
-    pointer-events: none;
-  }
-
-  .hero-bg-img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.15;
-    filter: grayscale(100%);
-  }
-
-  .hero-content {
-    padding: 80px 5vw 80px 5vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    position: relative;
-  }
-
-  .hero-eyebrow {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 28px;
-  }
-
-  .eyebrow-line {
-    width: 40px;
-    height: 2px;
-    background: var(--red);
-  }
-
-  .eyebrow-text {
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 600;
-    font-size: 13px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--red);
-  }
-
-  .hero h1 {
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 700;
-    font-size: clamp(52px, 7vw, 88px);
-    line-height: 0.94;
-    color: var(--white);
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
-    margin-bottom: 28px;
-  }
-
-  .hero h1 .highlight {
-    color: var(--red);
-    display: block;
-    font-size: 1.1em;
-  }
-
-  .hero-desc {
-    font-size: 16px;
-    color: var(--muted);
-    max-width: 500px;
-    line-height: 1.75;
-    margin-bottom: 52px;
-  }
-
-  .hero-actions {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-    margin-bottom: 60px;
-  }
-
-  .btn-red {
-    background: var(--red);
-    color: var(--white);
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 700;
-    font-size: 15px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 15px 36px;
-    border: 2px solid var(--red);
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    transition: all 0.15s;
-  }
-
-  .btn-red:hover { background: transparent; color: var(--red); }
-
-  .btn-outline {
-    background: transparent;
-    color: var(--white);
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 700;
-    font-size: 15px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 15px 36px;
-    border: 2px solid var(--border);
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    transition: border-color 0.15s;
-  }
-
-  .btn-outline:hover { border-color: var(--white); }
-
-  .hero-badges {
-    display: flex;
-    gap: 0;
-  }
-
-  .badge-item {
-    padding: 16px 28px;
-    border: 1px solid var(--border);
-    margin-right: -1px;
-    text-align: center;
-  }
-
-  .badge-num {
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 700;
-    font-size: 36px;
-    color: var(--white);
-    line-height: 1;
-    display: block;
-  }
-
-  .badge-label {
-    font-size: 12px;
-    color: var(--muted);
-    letter-spacing: 0.06em;
-    display: block;
-    margin-top: 3px;
-  }
-
-  /* FORM PANEL */
-  .hero-form-panel {
-    background: var(--blue-surface);
-    border-left: 1px solid var(--border);
-    padding: 56px 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero-form-panel::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: var(--red);
-  }
-
-  .panel-title {
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 700;
-    font-size: 26px;
-    color: var(--white);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 4px;
-  }
-
-  .panel-sub {
-    font-size: 13px;
-    color: var(--muted);
-    margin-bottom: 32px;
-  }
-
-  .f-group {
-    margin-bottom: 16px;
-  }
-
-  .f-group label {
-    display: block;
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 6px;
-  }
-
-  .f-group input,
-  .f-group select,
-  .f-group textarea {
-    width: 100%;
-    padding: 11px 14px;
-    background: var(--blue-mid);
-    border: 1px solid var(--border);
-    color: var(--white);
-    font-family: 'Work Sans', sans-serif;
-    font-size: 14px;
-    outline: none;
-    border-radius: 0;
-    -webkit-appearance: none;
-    transition: border-color 0.15s;
-  }
-
-  .f-group input:focus,
-  .f-group select:focus {
-    border-color: var(--red);
-  }
-
-  .f-group select option { background: var(--blue-mid); }
-
-  .f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-
-  .submit-btn {
-    width: 100%;
-    padding: 15px;
-    background: var(--red);
-    color: var(--white);
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 700;
-    font-size: 16px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    border: 2px solid var(--red);
-    cursor: pointer;
-    margin-top: 8px;
-    transition: all 0.15s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-  }
-
-  .submit-btn:hover { background: transparent; }
-
-  .form-note {
-    text-align: center;
-    font-size: 12px;
-    color: var(--muted);
-    margin-top: 12px;
-  }
-
-  /* SERVICES */
-  .services {
-    padding: 100px 5vw;
-    background: var(--blue-deep);
-  }
-
-  .sec-tag {
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 600;
-    font-size: 12px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--red);
-    margin-bottom: 14px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .sec-tag::before { content: '//'; opacity: 0.5; }
-
-  .sec-title {
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 700;
-    font-size: clamp(40px, 5vw, 60px);
-    color: var(--white);
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
-    line-height: 1;
-    margin-bottom: 60px;
-  }
-
-  .services-list {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0;
-    border: 1px solid var(--border);
-  }
-
-  .svc {
-    padding: 40px;
-    border: 1px solid var(--border);
-    margin: -1px 0 0 -1px;
-    position: relative;
-    overflow: hidden;
-    transition: background 0.2s;
-  }
-
-  .svc:hover { background: var(--blue-surface); }
-
-  .svc-icon {
-    width: 52px;
-    height: 52px;
-    border: 1px solid var(--red);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 24px;
-    position: relative;
-  }
-
-  .svc-icon svg { width: 26px; height: 26px; fill: var(--red); }
-
-  .svc-name {
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 700;
-    font-size: 20px;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--white);
-    margin-bottom: 10px;
-  }
-
-  .svc-desc {
-    font-size: 14px;
-    color: var(--muted);
-    line-height: 1.7;
-  }
-
-  .svc-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 600;
-    font-size: 12px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--red);
-    text-decoration: none;
-    margin-top: 20px;
-  }
-
-  /* STATS BAND */
-  .stats-band {
-    background: var(--blue-surface);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    padding: 64px 5vw;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0;
-  }
-
-  .stat-cell {
-    text-align: center;
-    padding: 0 40px;
-    border-right: 1px solid var(--border);
-  }
-
-  .stat-cell:last-child { border-right: none; }
-
-  .stat-n {
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 700;
-    font-size: clamp(52px, 6vw, 72px);
-    color: var(--red);
-    line-height: 1;
-    display: block;
-  }
-
-  .stat-l {
-    font-size: 13px;
-    color: var(--muted);
-    letter-spacing: 0.06em;
-    margin-top: 6px;
-    display: block;
-  }
-
-  /* WHY US */
-  .why-section {
-    padding: 100px 5vw;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: center;
-  }
-
-  .why-left img {
-    width: 100%;
-    height: 520px;
-    object-fit: cover;
-    display: block;
-    filter: grayscale(30%) contrast(1.1);
-    border: 1px solid var(--border);
-  }
-
-  .why-right .sec-title { margin-bottom: 32px; font-size: clamp(36px, 4vw, 52px); }
-
-  .why-items {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .why-item {
-    display: grid;
-    grid-template-columns: 3px 1fr;
-    gap: 24px;
-    padding: 24px 0;
-    border-bottom: 1px solid var(--border);
-    align-items: start;
-  }
-
-  .why-item:last-child { border-bottom: none; }
-
-  .why-line { background: var(--red); height: 100%; width: 3px; }
-
-  .why-body h4 {
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 700;
-    font-size: 16px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--white);
-    margin-bottom: 4px;
-  }
-
-  .why-body p { font-size: 14px; color: var(--muted); line-height: 1.7; }
-
-  /* TESTIMONIALS */
-  .testimonials {
-    background: var(--blue-surface);
-    padding: 100px 5vw;
-    border-top: 1px solid var(--border);
-  }
-
-  .t-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-bottom: 56px;
-  }
-
-  .t-header .sec-title { margin-bottom: 0; }
-
-  .t-score {
-    text-align: right;
-    font-family: 'Rajdhani', sans-serif;
-  }
-
-  .t-score-num {
-    font-size: 52px;
-    font-weight: 700;
-    color: var(--white);
-    line-height: 1;
-  }
-
-  .t-score-num span { font-size: 22px; color: var(--muted); }
-
-  .t-score-stars { color: var(--red); font-size: 20px; letter-spacing: 2px; }
-
-  .t-score-count { font-size: 13px; color: var(--muted); margin-top: 4px; }
-
-  .t-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-  }
-
-  .t-card {
-    background: var(--blue-mid);
-    border: 1px solid var(--border);
-    padding: 36px;
-    position: relative;
-  }
-
-  .t-card::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: var(--red);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.3s ease-out;
-  }
-
-  .t-card:hover::before { transform: scaleX(1); }
-
-  .t-stars { color: var(--red); font-size: 15px; letter-spacing: 2px; margin-bottom: 20px; }
-
-  .t-quote {
-    font-size: 15px;
-    color: oklch(76% 0.02 240);
-    line-height: 1.75;
-    margin-bottom: 28px;
-    font-style: italic;
-  }
-
-  .t-person {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .t-avatar {
-    width: 40px;
-    height: 40px;
-    background: var(--red-dark);
-    border: 1px solid var(--red);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 700;
-    font-size: 14px;
-    color: var(--white);
-    flex-shrink: 0;
-  }
-
-  .t-name { font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: 15px; color: var(--white); letter-spacing: 0.04em; }
-  .t-loc { font-size: 12px; color: var(--muted); }
-
-  /* CTA STRIP */
-  .cta-strip {
-    background: var(--red);
-    padding: 64px 5vw;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 40px;
-    flex-wrap: wrap;
-  }
-
-  .cta-text h2 {
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 700;
-    font-size: clamp(36px, 5vw, 60px);
-    color: var(--white);
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
-    line-height: 1;
-  }
-
-  .cta-text p { color: oklch(88% 0.06 22); font-size: 16px; margin-top: 10px; }
-
-  .cta-btns { display: flex; gap: 16px; }
-
-  .cta-btn-white {
-    background: var(--white);
-    color: var(--red);
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 700;
-    font-size: 15px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 15px 36px;
-    border: 2px solid var(--white);
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    transition: all 0.15s;
-  }
-
-  .cta-btn-white:hover { background: transparent; color: var(--white); }
-
-  .cta-btn-border {
-    background: transparent;
-    color: var(--white);
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 700;
-    font-size: 15px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 15px 36px;
-    border: 2px solid oklch(80% 0.1 22);
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    transition: border-color 0.15s;
-  }
-
-  .cta-btn-border:hover { border-color: var(--white); }
-
-  /* CONTACT */
-  .contact-section {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    min-height: 480px;
-  }
-
-  .contact-info {
-    background: var(--blue-mid);
-    padding: 80px 5vw;
-    border-right: 1px solid var(--border);
-  }
-
-  .contact-info .sec-title { font-size: 40px; margin-bottom: 40px; }
-
-  .c-detail {
-    display: flex;
-    align-items: flex-start;
-    gap: 18px;
-    margin-bottom: 28px;
-  }
-
-  .c-icon {
-    width: 40px;
-    height: 40px;
-    border: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
-  .c-icon svg { width: 18px; height: 18px; fill: var(--red); }
-
-  .c-label {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 4px;
-  }
-
-  .c-val { font-size: 15px; color: var(--white); text-decoration: none; }
-  .c-val:hover { color: var(--red); }
-
-  .hours-table { margin-top: 32px; }
-
-  .h-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--border);
-    font-size: 14px;
-  }
-
-  .h-day { color: var(--muted); }
-  .h-time { color: var(--white); font-weight: 500; }
-
-  .contact-map {
-    position: relative;
-    min-height: 400px;
-  }
-
-  .contact-map iframe {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-    filter: grayscale(60%) invert(90%);
-    opacity: 0.7;
-  }
-
-  /* FOOTER */
-  footer {
-    background: var(--blue-surface);
-    border-top: 1px solid var(--border);
-    padding: 40px 5vw;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-    flex-wrap: wrap;
-  }
-
-  .f-brand {
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 700;
-    font-size: 18px;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--white);
-  }
-
-  .f-brand span { color: var(--red); }
-
-  .f-copy { font-size: 12px; color: var(--muted); margin-top: 6px; }
-
-  .f-links { display: flex; gap: 24px; }
-
-  .f-links a {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-decoration: none;
-    transition: color 0.15s;
-  }
-
-  .f-links a:hover { color: var(--red); }
-
-  /* ── Hamburger nav ── */
-  .nav-hamburger {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
-    padding: 8px;
-    background: none;
-    border: none;
-  }
-  .nav-hamburger span {
-    display: block;
-    width: 24px;
-    height: 2px;
-    background: var(--white);
-    transition: all 0.2s;
-  }
-  .mobile-nav {
-    display: none;
-    flex-direction: column;
-    background: var(--blue-surface);
-    border-bottom: 1px solid var(--border);
-  }
-  .mobile-nav.open { display: flex; }
-  .mobile-nav a {
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 600;
-    font-size: 16px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-decoration: none;
-    padding: 14px 20px;
-    border-bottom: 1px solid var(--border);
-  }
-  .mobile-nav a:last-child { border-bottom: none; color: var(--white); background: var(--red); }
-
-  /* ── Tablet (≤1024px) ── */
-  @media (max-width: 1024px) {
-    .hero { grid-template-columns: 1fr 400px 40px; }
-    .hero-content { padding: 60px 4vw; }
-    .hero-form-panel { padding: 44px 32px; }
-    .stats-band { grid-template-columns: repeat(2, 1fr); }
-    .stat-cell { border-right: none; border-bottom: 1px solid var(--border); padding: 32px 0; }
-    .stat-cell:nth-child(odd) { border-right: 1px solid var(--border); }
-    .stat-cell:last-child, .stat-cell:nth-last-child(2):nth-child(odd) { border-bottom: none; }
-    .why-section { grid-template-columns: 1fr; gap: 40px; }
-    .why-left img { height: 360px; }
-    .services-list { grid-template-columns: repeat(2, 1fr); }
-    .t-grid { grid-template-columns: repeat(2, 1fr); }
-    .contact-section { grid-template-columns: 1fr; }
-    .topbar { flex-direction: column; align-items: flex-start; gap: 4px; }
-    .cta-strip { flex-direction: column; gap: 24px; }
-  }
-
-  /* ── Mobile (≤768px) ── */
-  @media (max-width: 768px) {
-    .topbar { display: none; }
-    nav { padding: 0 16px; height: 64px; }
-    .nav-links { display: none; }
-    .nav-hamburger { display: flex; }
-
-    .hero { grid-template-columns: 1fr; min-height: auto; }
-    .hero > div:last-child { display: none; }
-    .hero-content { padding: 48px 20px 40px; }
-    .hero h1 { font-size: 52px; }
-    .hero-desc { font-size: 15px; }
-    .hero-actions { flex-direction: column; }
-    .btn-red, .btn-outline { width: 100%; text-align: center; }
-    .hero-badges { flex-wrap: wrap; }
-    .badge-item { flex: 1 1 calc(50% - 1px); }
-    .hero-form-panel { padding: 36px 20px; border-left: none; border-top: 3px solid var(--red); }
-    .f-row { grid-template-columns: 1fr; }
-
-    .services { padding: 60px 20px; }
-    .services-list { grid-template-columns: 1fr; }
-    .sec-title { font-size: 36px; }
-    .svc { padding: 28px 24px; }
-
-    .stats-band { grid-template-columns: repeat(2, 1fr); padding: 48px 20px; }
-    .stat-cell { padding: 24px 12px; }
-    .stat-n { font-size: 44px; }
-
-    .why-section { padding: 60px 20px; grid-template-columns: 1fr; }
-    .why-left img { height: 240px; }
-
-    .testimonials { padding: 60px 20px; }
-    .t-header { flex-direction: column; align-items: flex-start; gap: 16px; }
-    .t-grid { grid-template-columns: 1fr; }
-    .t-card { padding: 24px; }
-
-    .cta-strip { padding: 48px 20px; flex-direction: column; gap: 24px; }
-    .cta-text h2 { font-size: 36px; }
-    .cta-btns { flex-direction: column; width: 100%; }
-    .cta-btn-white, .cta-btn-border { width: 100%; text-align: center; }
-
-    .contact-section { grid-template-columns: 1fr; }
-    .contact-info { padding: 48px 20px; }
-    .contact-info .sec-title { font-size: 32px; }
-    .contact-map { min-height: 280px; }
-
-    footer { flex-direction: column; align-items: flex-start; padding: 32px 20px; gap: 20px; }
-    .f-links { flex-wrap: wrap; gap: 12px; }
-  }
-
-  /* ── Small mobile (≤400px) ── */
-  @media (max-width: 400px) {
-    .hero h1 { font-size: 40px; }
-    .stats-band { grid-template-columns: 1fr; }
-    .stat-cell { border-right: none !important; }
-    .badge-item { flex: 1 1 100%; }
-  }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0c1e3a;
+  --navy-2:#162d52;
+  --navy-3:#1e3d6e;
+  --blue-mid:#2563ab;
+  --blue-light:#dbeafe;
+  --red:#c0392b;
+  --red-2:#e74c3c;
+  --white:#ffffff;
+  --off:#f4f7fb;
+  --text:#0c1e3a;
+  --mid:#4b5e75;
+  --muted:#8a9ab0;
+  --border:#cdd8e8;
+  --fh:'Syne',sans-serif;
+  --fb:'Plus Jakarta Sans',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--white);color:var(--text);font-family:var(--fb);overflow-x:hidden}
+
+/* TOPBAR */
+.topbar{background:var(--red);color:rgba(255,255,255,.9);font-size:.78rem;font-weight:600;padding:.5rem 2rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;letter-spacing:.02em}
+.topbar a{color:white;text-decoration:none}
+.topbar-right{display:flex;gap:2rem}
+
+/* NAV */
+nav{background:var(--navy);position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;height:68px;padding:0 2.5rem;border-bottom:2px solid rgba(255,255,255,.06)}
+.nav-logo{font-family:var(--fh);font-weight:800;font-size:1.1rem;color:white;text-decoration:none;display:flex;align-items:center;gap:.6rem;letter-spacing:-.02em}
+.nl{width:34px;height:34px;background:var(--red);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.nl svg{fill:white}
+.nav-links{list-style:none;display:flex;align-items:center;gap:.1rem}
+.nav-links a{font-size:.875rem;font-weight:500;color:rgba(255,255,255,.6);text-decoration:none;padding:.45rem .85rem;border-radius:6px;transition:color .2s,background .2s}
+.nav-links a:hover{color:white;background:rgba(255,255,255,.08)}
+.nav-cta{background:white!important;color:var(--navy)!important;font-weight:700!important}
+.nav-cta:hover{background:var(--off)!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{width:24px;height:2px;background:white;display:block;border-radius:2px;transition:all .3s}
+.mob-menu{display:none;position:fixed;inset:0;top:68px;background:var(--navy);z-index:99;padding:2rem;flex-direction:column;gap:.25rem}
+.mob-menu.open{display:flex}
+.mob-menu a{font-family:var(--fh);font-weight:700;font-size:1.4rem;color:white;text-decoration:none;padding:.85rem 0;border-bottom:1px solid rgba(255,255,255,.08)}
+
+/* HERO — centred with full bg image + floating form */
+.hero{min-height:100dvh;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.hero-bg{position:absolute;inset:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.35)}
+.hero-bg-grad{position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,30,58,.6) 0%,rgba(12,30,58,.85) 100%)}
+.hero-inner{position:relative;z-index:2;width:100%;max-width:1200px;padding:5rem 2rem 3rem;display:grid;grid-template-columns:1fr 440px;gap:4rem;align-items:center}
+
+/* Left: headline */
+.hero-left{}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:.5rem;background:var(--red);color:white;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.4rem .9rem;border-radius:4px;margin-bottom:1.75rem}
+.hero-h1{font-family:var(--fh);font-weight:800;font-size:clamp(3rem,5vw,5.5rem);line-height:.95;letter-spacing:-.04em;color:white;margin-bottom:1.5rem}
+.hero-h1 .blue{color:#7eb3e8}
+.hero-p{font-size:1rem;color:rgba(255,255,255,.7);line-height:1.75;font-weight:300;max-width:440px;margin-bottom:2rem}
+.hero-badges{display:flex;gap:.85rem;flex-wrap:wrap}
+.hb{display:flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:.55rem 1rem;font-size:.82rem;color:rgba(255,255,255,.85);font-weight:500;backdrop-filter:blur(8px)}
+.hb-icon{font-size:.9rem}
+.hero-scroll{display:flex;align-items:center;gap:.75rem;margin-top:3rem;font-size:.8rem;color:rgba(255,255,255,.4);font-weight:500}
+.hero-scroll::before{content:'';width:40px;height:1px;background:rgba(255,255,255,.2)}
+
+/* Right: quote form */
+.hero-form{background:white;border-radius:16px;padding:2rem;box-shadow:0 32px 80px rgba(0,0,0,.35);border-top:4px solid var(--red)}
+.hf-title{font-family:var(--fh);font-weight:800;font-size:1.2rem;color:var(--navy);letter-spacing:-.02em;margin-bottom:.25rem}
+.hf-sub{font-size:.83rem;color:var(--muted);margin-bottom:1.5rem;line-height:1.5}
+.hf-label{font-size:.68rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem;display:block}
+.hf-input,.hf-select,.hf-textarea{width:100%;background:var(--off);border:1.5px solid var(--border);border-radius:8px;padding:.75rem .9rem;font-family:var(--fb);font-size:.88rem;color:var(--text);outline:none;transition:border-color .2s,box-shadow .2s;-webkit-appearance:none;margin-bottom:.85rem}
+.hf-input:focus,.hf-select:focus,.hf-textarea:focus{border-color:var(--blue-mid);box-shadow:0 0 0 3px rgba(37,99,171,.12)}
+.hf-input::placeholder{color:var(--muted)}
+.hf-textarea{resize:none;height:70px}
+.hf-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.hf-grid .hf-input{margin-bottom:0}
+.hf-grid-wrap{margin-bottom:.85rem}
+.hf-submit{width:100%;background:var(--red);color:white;font-family:var(--fh);font-weight:800;font-size:.95rem;padding:1rem;border:none;border-radius:8px;cursor:pointer;transition:background .2s,transform .15s;box-shadow:0 4px 16px rgba(192,57,43,.3);letter-spacing:.02em}
+.hf-submit:hover{background:#a93226}
+.hf-submit:active{transform:scale(.98)}
+.hf-divider{display:flex;align-items:center;gap:.6rem;margin:.85rem 0}
+.hf-divider span{font-size:.72rem;color:var(--muted);flex-shrink:0}
+.hf-divider::before,.hf-divider::after{content:'';flex:1;height:1px;background:var(--border)}
+.hf-call{display:flex;align-items:center;justify-content:center;gap:.5rem;background:var(--navy);color:white;font-family:var(--fh);font-weight:700;font-size:.88rem;padding:.8rem;border-radius:8px;text-decoration:none;transition:background .2s}
+.hf-call:hover{background:var(--navy-2)}
+.hf-note{font-size:.72rem;color:var(--muted);text-align:center;margin-top:.5rem}
+
+/* TRUST BAR */
+.trust-bar{background:var(--blue-mid);padding:1.25rem 2.5rem;display:flex;align-items:center;justify-content:center;gap:3rem;flex-wrap:wrap;border-bottom:3px solid var(--navy)}
+.tb-item{display:flex;align-items:center;gap:.6rem;color:white;font-size:.85rem;font-weight:600}
+.tb-item span{font-size:1.1rem}
+.tb-divider{width:1px;height:20px;background:rgba(255,255,255,.25)}
+
+/* SERVICES CARDS */
+.services-section{padding:5.5rem 5%;background:var(--off)}
+.sec-label{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:.6rem}
+.sec-h2{font-family:var(--fh);font-weight:800;font-size:clamp(2rem,3vw,3rem);color:var(--navy);letter-spacing:-.03em;line-height:1.05}
+.sec-head{text-align:center;margin-bottom:3.5rem}
+.sec-head p{font-size:.97rem;color:var(--mid);line-height:1.75;font-weight:300;max-width:560px;margin:.75rem auto 0}
+
+/* Asymmetric card layout — NOT 3 equal cards */
+.svc-layout{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+.svc-col{display:flex;flex-direction:column;gap:1.25rem}
+.svc-card{border-radius:14px;overflow:hidden;background:white;border:1px solid var(--border);transition:transform .25s,box-shadow .25s;position:relative}
+.svc-card:hover{transform:translateY(-5px);box-shadow:0 20px 50px rgba(12,30,58,.12)}
+.svc-img{width:100%;object-fit:cover;display:block;transition:transform .4s}
+.svc-card:hover .svc-img{transform:scale(1.04)}
+.svc-img-wrap{overflow:hidden;position:relative}
+.svc-img-wrap::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(12,30,58,.6) 0%,transparent 50%)}
+.svc-img-label{position:absolute;bottom:.85rem;left:1.25rem;font-family:var(--fh);font-weight:800;font-size:1rem;color:white;z-index:2;letter-spacing:-.01em}
+.svc-num-label{position:absolute;top:.85rem;left:1.25rem;font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6);z-index:2}
+.svc-body{padding:1.5rem}
+.svc-desc{font-size:.88rem;color:var(--mid);line-height:1.65;font-weight:300;margin-bottom:1rem}
+.svc-link{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--fh);font-weight:700;font-size:.8rem;letter-spacing:.04em;text-transform:uppercase;color:var(--red);text-decoration:none;border-bottom:1px solid rgba(192,57,43,.25);padding-bottom:1px;transition:border-color .2s}
+.svc-link:hover{border-color:var(--red)}
+.svc-card.dark{background:var(--navy);border-color:var(--navy-2)}
+.svc-card.dark .svc-desc{color:rgba(255,255,255,.55)}
+.svc-card.dark .svc-link{color:#7eb3e8;border-color:rgba(126,179,232,.3)}
+.svc-card.dark .svc-body-title{color:white}
+.svc-body-title{font-family:var(--fh);font-weight:800;font-size:1.05rem;color:var(--navy);margin-bottom:.4rem;letter-spacing:-.01em}
+.svc-card.featured-red{background:var(--red);border-color:var(--red)}
+.svc-card.featured-red .svc-body-title{color:white}
+.svc-card.featured-red .svc-desc{color:rgba(255,255,255,.75)}
+.svc-card.featured-red .svc-link{color:white;border-color:rgba(255,255,255,.4)}
+
+/* WHY */
+.why-section{padding:5.5rem 5%;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;background:var(--white)}
+.why-img-col{position:relative}
+.why-img-main{width:100%;border-radius:14px;object-fit:cover;display:block;aspect-ratio:4/5;filter:brightness(.85)}
+.why-badge{position:absolute;bottom:2rem;right:-1.5rem;background:var(--red);color:white;border-radius:10px;padding:1.25rem 1.5rem;text-align:center;box-shadow:0 12px 32px rgba(192,57,43,.3)}
+.wb-n{font-family:var(--fh);font-weight:800;font-size:2.2rem;line-height:1;letter-spacing:-.03em}
+.wb-l{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.75);margin-top:.2rem}
+.why-text .sec-h2{margin-bottom:1.25rem}
+.why-text p{font-size:.97rem;color:var(--mid);line-height:1.8;font-weight:300;margin-bottom:2rem}
+.wi-grid{display:flex;flex-direction:column;gap:.85rem}
+.wi-row{display:flex;gap:.9rem;align-items:flex-start;padding:1.1rem 1.25rem;background:var(--off);border:1px solid var(--border);border-radius:10px;transition:border-color .2s}
+.wi-row:hover{border-color:var(--blue-mid)}
+.wi-icon{width:38px;height:38px;background:var(--navy);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.95rem;color:white;flex-shrink:0}
+.wi-title{font-weight:700;font-size:.93rem;color:var(--navy);margin-bottom:.2rem}
+.wi-desc{font-size:.83rem;color:var(--muted);line-height:1.5}
+
+/* STATS */
+.stats-band{display:grid;grid-template-columns:repeat(4,1fr);background:var(--navy);padding:0}
+.sb{text-align:center;padding:3rem 1rem;color:white;border-right:1px solid rgba(255,255,255,.08);position:relative}
+.sb:last-child{border-right:none}
+.sb::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:40px;height:3px;background:var(--red)}
+.sb-n{font-family:var(--fh);font-weight:800;font-size:3.2rem;letter-spacing:-.04em;line-height:1;color:white}
+.sb-l{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.5);margin-top:.3rem}
+
+/* IMAGE ROW */
+.img-row{display:grid;grid-template-columns:repeat(3,1fr);height:320px}
+.ir-img{overflow:hidden;position:relative;border-right:2px solid white}
+.ir-img:last-child{border-right:none}
+.ir-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s;filter:brightness(.65)}
+.ir-img:hover img{transform:scale(1.06);filter:brightness(.8)}
+.ir-img .ir-cap{position:absolute;bottom:1.25rem;left:1.25rem;font-family:var(--fh);font-weight:700;font-size:.85rem;letter-spacing:.04em;text-transform:uppercase;color:white;opacity:.9}
+
+/* REVIEWS */
+.reviews-section{padding:5.5rem 5%;background:var(--off)}
+.rev-header{display:grid;grid-template-columns:1fr auto;align-items:end;margin-bottom:3rem;gap:2rem}
+.rev-score{font-family:var(--fh);font-weight:800;font-size:4rem;color:var(--navy);letter-spacing:-.05em;line-height:1}
+.rev-stars{display:flex;gap:3px;margin:.3rem 0}
+.star{color:#f4a200;font-size:1rem}
+.rev-grid{display:grid;grid-template-columns:1.8fr 1fr 1fr;gap:1.25rem}
+.rc{background:white;border:1px solid var(--border);border-radius:14px;padding:1.75rem;transition:box-shadow .2s,transform .2s}
+.rc:hover{box-shadow:0 14px 40px rgba(12,30,58,.1);transform:translateY(-3px)}
+.rc.feat{background:var(--navy)}
+.rc.feat .rt{color:rgba(255,255,255,.65)}
+.rc.feat .rname{color:white}
+.rc.feat .rmeta{color:rgba(255,255,255,.4)}
+.rc.feat .rsep{border-color:rgba(255,255,255,.1)}
+.rc.feat .rav{background:rgba(255,255,255,.1);color:white;border-color:rgba(255,255,255,.1)}
+.rstars{display:flex;gap:2px;margin-bottom:.85rem}
+.rt{font-size:.9rem;color:var(--mid);line-height:1.7;font-weight:300;margin-bottom:1.25rem}
+.rsep{border:none;border-top:1px solid var(--border);margin-bottom:1rem}
+.rrow{display:flex;align-items:center;gap:.75rem}
+.rav{width:36px;height:36px;border-radius:50%;background:var(--blue-light);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8rem;color:var(--navy);flex-shrink:0;border:2px solid var(--border)}
+.rname{font-weight:700;font-size:.88rem;color:var(--navy)}
+.rmeta{font-size:.78rem;color:var(--muted)}
+
+/* FULL QUOTE FORM SECTION */
+.quote-section{padding:5.5rem 5%;background:var(--navy);display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.qs-left .sec-label{color:rgba(192,57,43,.8)}
+.qs-left .sec-h2{color:white;margin-bottom:1.25rem}
+.qs-left p{font-size:.97rem;color:rgba(255,255,255,.6);line-height:1.8;font-weight:300;margin-bottom:2rem}
+.contact-items{display:flex;flex-direction:column;gap:.85rem}
+.ci{display:flex;gap:.85rem;align-items:flex-start;padding:1.1rem 1.25rem;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:10px}
+.ci-icon{width:38px;height:38px;background:var(--red);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.95rem;color:white;flex-shrink:0}
+.ci-label{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4);margin-bottom:.15rem}
+.ci-val{font-weight:700;font-size:.9rem;color:white;line-height:1.45}
+.ci-val a{color:#7eb3e8;text-decoration:none}
+.full-form{background:white;border-radius:14px;padding:2.5rem}
+.full-form .ff-title{font-family:var(--fh);font-weight:800;font-size:1.25rem;color:var(--navy);letter-spacing:-.02em;margin-bottom:.25rem}
+.full-form .ff-sub{font-size:.85rem;color:var(--muted);margin-bottom:1.75rem}
+.ff-grid{display:grid;grid-template-columns:1fr 1fr;gap:.85rem}
+.ff-full{grid-column:1/-1}
+.ff-label{font-size:.68rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem;display:block}
+.ff-inp,.ff-sel,.ff-ta{width:100%;background:var(--off);border:1.5px solid var(--border);border-radius:8px;padding:.8rem 1rem;font-family:var(--fb);font-size:.9rem;color:var(--text);outline:none;transition:border-color .2s,box-shadow .2s;-webkit-appearance:none}
+.ff-inp:focus,.ff-sel:focus,.ff-ta:focus{border-color:var(--blue-mid);box-shadow:0 0 0 3px rgba(37,99,171,.12)}
+.ff-inp::placeholder{color:var(--muted)}
+.ff-ta{resize:none;height:80px}
+.ff-submit{width:100%;background:var(--red);color:white;font-family:var(--fh);font-weight:800;font-size:.95rem;padding:1rem;border:none;border-radius:8px;cursor:pointer;transition:background .2s,transform .15s;box-shadow:0 4px 16px rgba(192,57,43,.3);letter-spacing:.02em;margin-top:.5rem}
+.ff-submit:hover{background:#a93226}
+.ff-submit:active{transform:scale(.98)}
+
+/* LOCATION */
+.loc-section{display:grid;grid-template-columns:1fr 1fr}
+.loc-left{padding:5rem 4rem;background:var(--off);display:flex;flex-direction:column;justify-content:center}
+.loc-left .sec-h2{margin-bottom:2rem}
+.loc-details{display:flex;flex-direction:column;gap:.85rem;margin-bottom:2rem}
+.ld{display:flex;gap:.85rem;align-items:flex-start}
+.ld-icon{width:38px;height:38px;background:var(--navy);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.95rem;color:white;flex-shrink:0}
+.ld-label{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:.15rem}
+.ld-val{font-weight:600;font-size:.9rem;color:var(--navy);line-height:1.45}
+.ld-val a{color:var(--red);text-decoration:none}
+.hrs{background:var(--navy);border-radius:10px;overflow:hidden}
+.hrs-head{background:var(--red);padding:.7rem 1.25rem;font-weight:700;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:white}
+.hr{display:flex;justify-content:space-between;padding:.65rem 1.25rem;border-bottom:1px solid rgba(255,255,255,.06);font-size:.87rem}
+.hr:last-child{border-bottom:none}
+.hd{color:rgba(255,255,255,.5)}
+.ht{color:white;font-weight:600}
+.ht.cl{color:rgba(255,255,255,.3)}
+.loc-map{overflow:hidden}
+.loc-map iframe{width:100%;height:100%;border:none;display:block;min-height:500px}
+
+/* FOOTER */
+footer{background:var(--navy);padding:4rem 5% 0;border-top:3px solid var(--red)}
+.f-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:3rem;padding-bottom:3rem;border-bottom:1px solid rgba(255,255,255,.07)}
+.f-logo{font-family:var(--fh);font-weight:800;font-size:1.05rem;color:white;display:flex;align-items:center;gap:.6rem;text-decoration:none;margin-bottom:.85rem}
+.f-logo .nl{width:28px;height:28px}
+.f-brand p{font-size:.87rem;color:rgba(255,255,255,.45);line-height:1.65;max-width:230px}
+.fc h4{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:1rem}
+.f-links{list-style:none;display:flex;flex-direction:column;gap:.55rem}
+.f-links a{font-size:.88rem;color:rgba(255,255,255,.55);text-decoration:none;transition:color .2s}
+.f-links a:hover{color:white}
+.f-btm{padding:1.5rem 0;display:flex;justify-content:space-between;align-items:center}
+.f-btm p{font-size:.78rem;color:rgba(255,255,255,.3)}
+
+/* RESPONSIVE */
+@media(max-width:1100px){
+  .hero-inner{grid-template-columns:1fr;gap:2.5rem;padding:4rem 1.25rem 2.5rem}
+  .hero-form{max-width:560px}
+  .svc-layout{grid-template-columns:1fr}
+  .why-section{grid-template-columns:1fr;padding:4rem 1.25rem;gap:2.5rem}
+  .why-img-col{display:none}
+  .quote-section{grid-template-columns:1fr;padding:4rem 1.25rem;gap:2.5rem}
+  .loc-section{grid-template-columns:1fr}
+  .loc-left{padding:3.5rem 1.5rem}
+  .rev-grid{grid-template-columns:1fr}
+  .f-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  .topbar{display:none}
+  nav{padding:0 1.25rem}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .trust-bar{gap:1.25rem;padding:1rem 1.25rem}
+  .tb-divider{display:none}
+  .stats-band{grid-template-columns:1fr 1fr;padding:0}
+  .sb{padding:2rem .75rem}
+  .sb:nth-child(2){border-right:none}
+  .sb:nth-child(3){border-right:1px solid rgba(255,255,255,.08)}
+  .img-row{grid-template-columns:1fr;height:auto}
+  .ir-img{height:200px;border-right:none;border-bottom:2px solid white}
+  .ir-img:last-child{border-bottom:none}
+  .services-section{padding:4rem 1.25rem}
+  .rev-header{grid-template-columns:1fr}
+  .reviews-section{padding:4rem 1.25rem}
+  .ff-grid{grid-template-columns:1fr}
+  .hf-grid{grid-template-columns:1fr}
+  .loc-map iframe{min-height:350px}
+  .f-grid{grid-template-columns:1fr}
+  footer{padding:3rem 1.25rem 0}
+  .f-btm{flex-direction:column;gap:.5rem;text-align:center;padding:1.25rem 0}
+}
 </style>
 </head>
 <body>
 
+<!-- TOPBAR -->
 <div class="topbar">
-  <span>Tollgate Service Station, 349 High Street, Felixstowe IP11 9QN</span>
+  <span>&#128205; Tollgate Service Station, 349 High Street, Felixstowe, IP11 9QN</span>
   <div class="topbar-right">
-    <span>Mon–Fri: 8:30am – 5:00pm</span>
-    <a href="tel:01394283245">01394 283245</a>
-    <a href="mailto:enq@paviliongarage.co.uk">enq@paviliongarage.co.uk</a>
+    <span>Mon–Fri 08:30–17:00</span>
+    <a href="tel:01394283245">&#128222; 01394 283245</a>
   </div>
 </div>
 
+<!-- NAV -->
 <nav>
-  <a class="logo-wrap" href="#">
-    <div class="logo-emblem">
-      <svg viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
-    </div>
-    <div class="logo-name">
-      Pavilion Auto<span style="color:var(--red)">.</span>
-      <small>MOT &amp; Servicing · Felixstowe</small>
-    </div>
+  <a href="#" class="nav-logo">
+    <div class="nl"><svg width="18" height="18" viewBox="0 0 18 18"><path d="M9 1.5L2 5v4c0 4.5 3 7.5 7 9 4-1.5 7-4.5 7-9V5L9 1.5z"/></svg></div>
+    Pavilion Auto
   </a>
-
   <ul class="nav-links">
     <li><a href="#services">Services</a></li>
     <li><a href="#about">About</a></li>
-    <li><a href="#testimonials">Reviews</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#booking" class="nav-cta-btn">Book Now</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#location">Find Us</a></li>
+    <li><a href="tel:01394283245" style="color:rgba(255,255,255,.8)">01394 283245</a></li>
+    <li><a href="#quote" class="nav-cta">Free Quote</a></li>
   </ul>
-  <button class="nav-hamburger" id="hamburger2" aria-label="Open menu">
+  <button class="hamburger" onclick="document.getElementById('mobMenu').classList.toggle('open')" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
 </nav>
-
-<div class="mobile-nav" id="mobileNav2">
-  <a href="#services">Services</a>
-  <a href="#about">About</a>
-  <a href="#testimonials">Reviews</a>
-  <a href="#contact">Contact</a>
-  <a href="#booking">Book Now</a>
+<div class="mob-menu" id="mobMenu">
+  <a href="#services" onclick="this.closest('.mob-menu').classList.remove('open')">Services</a>
+  <a href="#about" onclick="this.closest('.mob-menu').classList.remove('open')">About</a>
+  <a href="#reviews" onclick="this.closest('.mob-menu').classList.remove('open')">Reviews</a>
+  <a href="#location" onclick="this.closest('.mob-menu').classList.remove('open')">Find Us</a>
+  <a href="tel:01394283245">01394 283245</a>
+  <a href="#quote" onclick="this.closest('.mob-menu').classList.remove('open')">Free Quote</a>
 </div>
 
 <!-- HERO -->
-<section class="hero" id="booking">
-  <img class="hero-bg-img" src="https://images.unsplash.com/photo-1625047509168-a7026f36de04?auto=format&fit=crop&w=1600&q=80" alt="">
-
-  <div class="hero-content">
-    <div class="hero-eyebrow">
-      <div class="eyebrow-line"></div>
-      <div class="eyebrow-text">DVSA Approved MOT Testing Station</div>
-    </div>
-
-    <h1>Felixstowe's<br><span class="highlight">Trusted</span><br>Garage</h1>
-
-    <p class="hero-desc">Over 20 years of honest, expert automotive care. MOT testing, servicing, and repairs for all makes and models — at prices that don't surprise you.</p>
-
-    <div class="hero-actions">
-      <a href="#booking" class="btn-red">Book Online</a>
-      <a href="tel:01394283245" class="btn-outline">01394 283245</a>
-    </div>
-
-    <div class="hero-badges">
-      <div class="badge-item">
-        <span class="badge-num">20+</span>
-        <span class="badge-label">Years trading</span>
-      </div>
-      <div class="badge-item">
-        <span class="badge-num">All</span>
-        <span class="badge-label">Makes &amp; models</span>
-      </div>
-      <div class="badge-item">
-        <span class="badge-num">5★</span>
-        <span class="badge-label">Customer rating</span>
-      </div>
-    </div>
+<section class="hero">
+  <div class="hero-bg">
+    <img src="https://plus.unsplash.com/premium_photo-1663090140645-32b7d760853e?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Pavilion Auto Garage">
+    <div class="hero-bg-grad"></div>
   </div>
-
-  <div class="hero-form-panel">
-    <div class="panel-title">Book Your MOT or Service</div>
-    <div class="panel-sub">We'll confirm your appointment within 2 hours</div>
-
-    <div class="f-group">
-      <label>Service Type</label>
-      <select>
-        <option value="">Select a service…</option>
-        <option>MOT Test (Class IV)</option>
-        <option>Full Service</option>
-        <option>Interim Service</option>
-        <option>Vehicle Repair</option>
-        <option>MOT + Service Combined</option>
-        <option>Diagnostics</option>
-      </select>
-    </div>
-
-    <div class="f-row">
-      <div class="f-group">
-        <label>First Name</label>
-        <input type="text" placeholder="John">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-eyebrow">&#9650; Felixstowe's Trusted Local Garage</div>
+      <h1 class="hero-h1">Honest Care<br>For Every<br><span class="blue">Vehicle.</span></h1>
+      <p class="hero-p">MOT testing, full servicing, diagnostics and quality used vehicle sales. Serving Felixstowe drivers for over 30 years with the kind of service that earns recommendations.</p>
+      <div class="hero-badges">
+        <span class="hb"><span class="hb-icon">&#10003;</span>Official MOT Station</span>
+        <span class="hb"><span class="hb-icon">&#9965;</span>All Makes &amp; Models</span>
+        <span class="hb"><span class="hb-icon">&#9733;</span>4.9 Star Rated</span>
       </div>
-      <div class="f-group">
-        <label>Last Name</label>
-        <input type="text" placeholder="Smith">
-      </div>
+      <div class="hero-scroll">Scroll to explore our services</div>
     </div>
 
-    <div class="f-group">
-      <label>Reg. Plate</label>
-      <input type="text" placeholder="AB12 CDE" style="font-weight:600; letter-spacing:0.06em; text-transform:uppercase;">
-    </div>
-
-    <div class="f-group">
-      <label>Phone</label>
-      <input type="tel" placeholder="01394…">
-    </div>
-
-    <div class="f-row">
-      <div class="f-group">
-        <label>Date</label>
-        <input type="date">
-      </div>
-      <div class="f-group">
-        <label>Time</label>
-        <select>
-          <option>8:30 AM</option>
-          <option>9:30 AM</option>
-          <option>10:30 AM</option>
-          <option>11:30 AM</option>
-          <option>1:00 PM</option>
-          <option>2:00 PM</option>
-          <option>3:00 PM</option>
+    <!-- HERO QUOTE FORM -->
+    <div class="hero-form" id="quoteHero">
+      <div class="hf-title">Get a Free Quote</div>
+      <p class="hf-sub">No obligation. We'll reply quickly with a clear price.</p>
+      <form onsubmit="return false;">
+        <div class="hf-grid-wrap">
+          <div class="hf-grid">
+            <div>
+              <label class="hf-label">First Name</label>
+              <input class="hf-input" type="text" placeholder="First name">
+            </div>
+            <div>
+              <label class="hf-label">Surname</label>
+              <input class="hf-input" type="text" placeholder="Surname">
+            </div>
+          </div>
+        </div>
+        <label class="hf-label">Phone Number</label>
+        <input class="hf-input" type="tel" placeholder="07xxx xxxxxx">
+        <label class="hf-label">Email Address</label>
+        <input class="hf-input" type="email" placeholder="you@email.com">
+        <div class="hf-grid-wrap">
+          <div class="hf-grid">
+            <div>
+              <label class="hf-label">Vehicle Reg</label>
+              <input class="hf-input" type="text" placeholder="e.g. AB12 CDE">
+            </div>
+            <div>
+              <label class="hf-label">Make / Model</label>
+              <input class="hf-input" type="text" placeholder="e.g. Ford Focus">
+            </div>
+          </div>
+        </div>
+        <label class="hf-label">Service Required</label>
+        <select class="hf-select" style="margin-bottom:.85rem">
+          <option value="">Select a service...</option>
+          <option>MOT Test</option>
+          <option>Full Service</option>
+          <option>Interim Service</option>
+          <option>Vehicle Diagnostics</option>
+          <option>Brakes / Tyres</option>
+          <option>Air Conditioning</option>
+          <option>Used Car Enquiry</option>
+          <option>Other / General Enquiry</option>
         </select>
-      </div>
-    </div>
-
-    <button class="submit-btn">
-      Request Booking
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
-    </button>
-    <div class="form-note">No spam. Free reminders included with every booking.</div>
-  </div>
-  <div style="background: var(--blue-deep);"></div>
-</section>
-
-<!-- SERVICES -->
-<section class="services" id="services">
-  <div class="sec-tag">What We Offer</div>
-  <div class="sec-title">Our Services</div>
-
-  <div class="services-list">
-    <div class="svc">
-      <div class="svc-icon">
-        <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
-      </div>
-      <div class="svc-name">MOT Testing</div>
-      <p class="svc-desc">Class IV MOT testing for cars, dual purpose vehicles, and vans up to 3000kg. DVSA approved with experienced testers and full digital reporting.</p>
-      <a href="#booking" class="svc-link">Book MOT →</a>
-    </div>
-    <div class="svc">
-      <div class="svc-icon">
-        <svg viewBox="0 0 24 24"><path d="M13.78 15.3L19.78 21.3L21.89 19.14L15.89 13.14L13.78 15.3M17.5 11.1C16.92 11.1 16.31 11 15.76 10.79L5.9 20.65L3.35 18.1C3.74 17.71 3.74 17.07 3.35 16.68L2.64 17.39L1.56 16.31L5.55 12.32C5.34 11.77 5.23 11.16 5.23 10.58C5.23 7.64 7.6 5.27 10.54 5.27C11.12 5.27 11.73 5.38 12.28 5.59L9.04 8.83L10.73 10.52L14 7.28C14.21 7.83 14.32 8.44 14.32 9.02C14.32 9.6 14.21 10.21 14 10.76L15.89 12.65C16.44 12.86 17.05 12.97 17.63 12.97L17.5 11.1Z"/></svg>
-      </div>
-      <div class="svc-name">Vehicle Servicing</div>
-      <p class="svc-desc">Full and interim servicing for all makes and models. Oil, filters, brakes, and fluids — all work is recorded in your vehicle's service book.</p>
-      <a href="#booking" class="svc-link">Book Service →</a>
-    </div>
-    <div class="svc">
-      <div class="svc-icon">
-        <svg viewBox="0 0 24 24"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg>
-      </div>
-      <div class="svc-name">Vehicle Repairs</div>
-      <p class="svc-desc">Mechanical repairs across all makes and models. You only receive the work your vehicle needs — no unnecessary upselling, ever.</p>
-      <a href="#booking" class="svc-link">Book Repair →</a>
-    </div>
-    <div class="svc">
-      <div class="svc-icon">
-        <svg viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
-      </div>
-      <div class="svc-name">Diagnostics</div>
-      <p class="svc-desc">Modern diagnostic equipment to identify electrical and mechanical faults quickly and accurately before any work commences.</p>
-      <a href="#booking" class="svc-link">Book Diagnostics →</a>
-    </div>
-    <div class="svc">
-      <div class="svc-icon">
-        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-      </div>
-      <div class="svc-name">Collection &amp; Delivery</div>
-      <p class="svc-desc">We collect and return your vehicle by prior arrangement across Felixstowe and surrounding areas. Just £35 + VAT for ultimate convenience.</p>
-      <a href="#contact" class="svc-link">Enquire →</a>
-    </div>
-    <div class="svc">
-      <div class="svc-icon">
-        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-      </div>
-      <div class="svc-name">Free Reminders</div>
-      <p class="svc-desc">Stay road-legal without the worry. We send free MOT and service reminders so you never miss a deadline. Included with every booking.</p>
-      <a href="#booking" class="svc-link">Sign Up →</a>
+        <label class="hf-label">Preferred Date</label>
+        <input class="hf-input" type="date">
+        <label class="hf-label">Additional Notes</label>
+        <textarea class="hf-textarea" placeholder="Any extra details about your vehicle or the work needed..."></textarea>
+        <button class="hf-submit" type="submit">Submit Quote Request →</button>
+        <div class="hf-divider"><span>or</span></div>
+        <a href="tel:01394283245" class="hf-call">&#128222; Call 01394 283245</a>
+        <p class="hf-note">Your details are kept private and never shared with third parties.</p>
+      </form>
     </div>
   </div>
 </section>
 
-<!-- STATS -->
-<div class="stats-band">
-  <div class="stat-cell">
-    <span class="stat-n" data-target="20">20+</span>
-    <span class="stat-l">Years in Felixstowe</span>
-  </div>
-  <div class="stat-cell">
-    <span class="stat-n" data-target="3500">3,500+</span>
-    <span class="stat-l">MOTs per year</span>
-  </div>
-  <div class="stat-cell">
-    <span class="stat-n" data-target="98">98%</span>
-    <span class="stat-l">Customer satisfaction</span>
-  </div>
-  <div class="stat-cell">
-    <span class="stat-n" data-target="100">100%</span>
-    <span class="stat-l">Transparent pricing</span>
-  </div>
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="tb-item"><span>&#10003;</span> Official MOT Testing Station</div>
+  <div class="tb-divider"></div>
+  <div class="tb-item"><span>&#9965;</span> All Makes &amp; Models Covered</div>
+  <div class="tb-divider"></div>
+  <div class="tb-item"><span>&#9733;</span> 4.9★ Customer Rating</div>
+  <div class="tb-divider"></div>
+  <div class="tb-item"><span>&#128176;</span> Finance Available</div>
+  <div class="tb-divider"></div>
+  <div class="tb-item"><span>&#128205;</span> Felixstowe, Suffolk</div>
 </div>
 
-<!-- WHY -->
+<!-- SERVICES -->
+<section class="services-section" id="services">
+  <div class="sec-head">
+    <div class="sec-label">Our Services</div>
+    <h2 class="sec-h2">Everything under one roof.</h2>
+    <p>From routine maintenance to complex repairs — our qualified team handles every job with the same care and professionalism.</p>
+  </div>
+  <div class="svc-layout">
+    <div class="svc-col">
+      <div class="svc-card">
+        <div class="svc-img-wrap">
+          <div class="svc-num-label">01 — Most Popular</div>
+          <img class="svc-img" src="https://images.unsplash.com/photo-1643700973089-baa86a1ab9ee?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="MOT Testing" style="height:220px">
+          <div class="svc-img-label">MOT Testing</div>
+        </div>
+        <div class="svc-body">
+          <p class="svc-desc">Class IV official MOT station in Felixstowe. Qualified testers, honest report, immediate repair quotes if required. Walk-ins welcome.</p>
+          <a href="#quote" class="svc-link">Book your MOT →</a>
+        </div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-img-wrap">
+          <div class="svc-num-label">02</div>
+          <img class="svc-img" src="https://plus.unsplash.com/premium_photo-1661917453663-0f7ea5b12227?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Servicing" style="height:180px">
+          <div class="svc-img-label">Full &amp; Interim Servicing</div>
+        </div>
+        <div class="svc-body">
+          <p class="svc-desc">All makes and models. Quality parts, transparent pricing, and a full vehicle health check included as standard.</p>
+          <a href="#quote" class="svc-link">Get a quote →</a>
+        </div>
+      </div>
+      <div class="svc-card featured-red">
+        <div class="svc-body" style="padding:2rem">
+          <div class="svc-body-title">Air Conditioning</div>
+          <p class="svc-desc">Re-gas and system checks to keep you comfortable. Available year-round at competitive prices.</p>
+          <a href="#quote" class="svc-link">Enquire →</a>
+        </div>
+      </div>
+    </div>
+    <div class="svc-col">
+      <div class="svc-card dark">
+        <div class="svc-body" style="padding:2rem">
+          <div style="font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:.4rem">03</div>
+          <div class="svc-body-title">Vehicle Diagnostics</div>
+          <p class="svc-desc">Warning light on? Our advanced diagnostic equipment covers all major manufacturers. We'll identify the issue and explain your options clearly before any work begins.</p>
+          <a href="#quote" class="svc-link">Book →</a>
+        </div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-img-wrap">
+          <div class="svc-num-label">04</div>
+          <img class="svc-img" src="https://plus.unsplash.com/premium_photo-1682142263585-628a4561e136?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Brakes and Tyres" style="height:200px">
+          <div class="svc-img-label">Brakes &amp; Tyres</div>
+        </div>
+        <div class="svc-body">
+          <p class="svc-desc">Full brake inspection, pad and disc replacement, and tyre fitting across all sizes. Safety first — competitive pricing always.</p>
+          <a href="#quote" class="svc-link">Get a price →</a>
+        </div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-img-wrap">
+          <div class="svc-num-label">05</div>
+          <img class="svc-img" src="https://plus.unsplash.com/premium_photo-1674375348357-a25140a68bbd?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Used Car Sales" style="height:180px">
+          <div class="svc-img-label">Used Car &amp; Van Sales</div>
+        </div>
+        <div class="svc-body">
+          <p class="svc-desc">Quality used vehicles, prepared and sold with care. Trade-ins welcome. Finance available through Woodstone Funding, Ipswich.</p>
+          <a href="#quote" class="svc-link">Enquire →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
 <section class="why-section" id="about">
-  <div class="why-left">
-    <img src="https://images.unsplash.com/photo-1625047509168-a7026f36de04?auto=format&fit=crop&w=700&q=80" alt="Technician working at Pavilion Auto Services">
+  <div class="why-img-col">
+    <img class="why-img-main" src="https://images.unsplash.com/photo-1645445522156-9ac06bc7a767?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Expert mechanic at work">
+    <div class="why-badge">
+      <div class="wb-n">30+</div>
+      <div class="wb-l">Years Serving<br>Felixstowe</div>
+    </div>
   </div>
-  <div class="why-right">
-    <div class="sec-tag">Why Choose Us</div>
-    <div class="sec-title">Built on<br>Trust</div>
-    <div class="why-items">
-      <div class="why-item">
-        <div class="why-line"></div>
-        <div class="why-body">
-          <h4>Word-of-Mouth Reputation</h4>
-          <p>The majority of our new customers come via personal recommendations. That says more than any advertisement could.</p>
-        </div>
+  <div class="why-text">
+    <div class="sec-label">Why Choose Us</div>
+    <h2 class="sec-h2">The garage Felixstowe<br>recommends.</h2>
+    <p>The majority of our work comes from personal referrals. That says everything. Based at Tollgate Service Station on the High Street, we put customers first — always. No upselling, no surprises, no work without agreement.</p>
+    <div class="wi-grid">
+      <div class="wi-row">
+        <div class="wi-icon">&#10003;</div>
+        <div><div class="wi-title">Transparent, upfront pricing</div><div class="wi-desc">We agree costs before we start. The price we quote is the price you pay.</div></div>
       </div>
-      <div class="why-item">
-        <div class="why-line"></div>
-        <div class="why-body">
-          <h4>No Unnecessary Work</h4>
-          <p>Our experienced technicians tell you exactly what your vehicle needs — and nothing more. Integrity, every time.</p>
-        </div>
+      <div class="wi-row">
+        <div class="wi-icon">&#9965;</div>
+        <div><div class="wi-title">All makes &amp; models</div><div class="wi-desc">Family cars, commercial vans, and everything in between — all covered.</div></div>
       </div>
-      <div class="why-item">
-        <div class="why-line"></div>
-        <div class="why-body">
-          <h4>Fully Qualified Testers</h4>
-          <p>Our MOT testers are DVSA qualified with years of hands-on experience across all vehicle types and makes.</p>
-        </div>
+      <div class="wi-row">
+        <div class="wi-icon">&#128100;</div>
+        <div><div class="wi-title">Qualified, experienced team</div><div class="wi-desc">Decades of combined expertise. We get it right, first time.</div></div>
       </div>
-      <div class="why-item">
-        <div class="why-line"></div>
-        <div class="why-body">
-          <h4>Competitive Pricing</h4>
-          <p>Premium quality servicing at fair, competitive rates. No hidden charges, no surprises — ever.</p>
-        </div>
+      <div class="wi-row">
+        <div class="wi-icon">&#128176;</div>
+        <div><div class="wi-title">Finance available</div><div class="wi-desc">Spread the cost of a used vehicle through Woodstone Funding, Ipswich.</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
-<section class="testimonials" id="testimonials">
-  <div class="t-header">
+<!-- STATS BAND -->
+<div class="stats-band">
+  <div class="sb"><div class="sb-n">30+</div><div class="sb-l">Years Experience</div></div>
+  <div class="sb"><div class="sb-n">4.9★</div><div class="sb-l">Customer Rating</div></div>
+  <div class="sb"><div class="sb-n">All</div><div class="sb-l">Makes &amp; Models</div></div>
+  <div class="sb"><div class="sb-n">3</div><div class="sb-l">Phone Lines</div></div>
+</div>
+
+<!-- IMAGE ROW -->
+<div class="img-row">
+  <div class="ir-img"><img src="https://images.unsplash.com/photo-1643700973089-baa86a1ab9ee?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Workshop"><div class="ir-cap">Workshop</div></div>
+  <div class="ir-img"><img src="https://plus.unsplash.com/premium_photo-1682142263585-628a4561e136?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Inspection"><div class="ir-cap">Inspections</div></div>
+  <div class="ir-img"><img src="https://plus.unsplash.com/premium_photo-1674375348357-a25140a68bbd?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Tyres"><div class="ir-cap">Tyres &amp; Brakes</div></div>
+</div>
+
+<!-- REVIEWS -->
+<section class="reviews-section" id="reviews">
+  <div class="rev-header">
     <div>
-      <div class="sec-tag">Customer Reviews</div>
-      <div class="sec-title">What People Say</div>
+      <div class="sec-label">Customer Reviews</div>
+      <h2 class="sec-h2">What our customers say.</h2>
     </div>
-    <div class="t-score">
-      <div class="t-score-num">4.9<span>/5</span></div>
-      <div class="t-score-stars">★★★★★</div>
-      <div class="t-score-count">200+ verified reviews</div>
+    <div style="text-align:right">
+      <div class="rev-score">4.9</div>
+      <div class="rev-stars"><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span></div>
+      <div style="font-size:.82rem;color:var(--muted)">200+ verified reviews</div>
     </div>
   </div>
-
-  <div class="t-grid">
-    <div class="t-card">
-      <div class="t-stars">★★★★★</div>
-      <p class="t-quote">Brilliant from start to finish. They phoned before doing any additional work and the price was exactly what was quoted. Will never go anywhere else.</p>
-      <div class="t-person">
-        <div class="t-avatar">SM</div>
-        <div>
-          <div class="t-name">Sarah M.</div>
-          <div class="t-loc">Felixstowe · 6-year customer</div>
-        </div>
-      </div>
+  <div class="rev-grid">
+    <div class="rc feat">
+      <div class="rstars"><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span></div>
+      <p class="rt">"I'd tried two other garages who couldn't diagnose the fault. Pavilion found it straight away, explained everything, and fixed it the same day at a fair price. Honestly the best garage experience I've had. Won't go anywhere else."</p>
+      <hr class="rsep">
+      <div class="rrow"><div class="rav">MH</div><div><div class="rname">Martin Holt</div><div class="rmeta">Ford Focus · Felixstowe</div></div></div>
     </div>
-
-    <div class="t-card">
-      <div class="t-stars">★★★★★</div>
-      <p class="t-quote">Used their collection service and it was faultless. They picked up the car, serviced it, and had it back before I needed it. Genuine five-star experience.</p>
-      <div class="t-person">
-        <div class="t-avatar">JB</div>
-        <div>
-          <div class="t-name">James B.</div>
-          <div class="t-loc">Ipswich · Regular customer</div>
-        </div>
-      </div>
+    <div class="rc">
+      <div class="rstars"><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span></div>
+      <p class="rt">"Full service and MOT done promptly, priced as quoted. Friendly, professional team. I always recommend Pavilion to anyone who asks."</p>
+      <hr class="rsep">
+      <div class="rrow"><div class="rav">JR</div><div><div class="rname">James Roper</div><div class="rmeta">Transit Van · Ipswich</div></div></div>
     </div>
-
-    <div class="t-card">
-      <div class="t-stars">★★★★★</div>
-      <p class="t-quote">Honest, fast, and professional. Another garage wanted to charge me for parts that weren't needed. Pavilion told me the truth and saved me a lot of money.</p>
-      <div class="t-person">
-        <div class="t-avatar">LT</div>
-        <div>
-          <div class="t-name">Linda T.</div>
-          <div class="t-loc">Trimley · 3-year customer</div>
-        </div>
-      </div>
+    <div class="rc">
+      <div class="rstars"><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span></div>
+      <p class="rt">"Refreshingly honest — they told me what needed doing and what could wait. No pressure, no upselling. Rare to find a garage you can actually trust."</p>
+      <hr class="rsep">
+      <div class="rrow"><div class="rav">SR</div><div><div class="rname">Sarah Rice</div><div class="rmeta">Regular Customer</div></div></div>
     </div>
   </div>
 </section>
 
-<!-- CTA -->
-<section class="cta-strip">
-  <div class="cta-text">
-    <h2>Book Your MOT<br>or Service Today</h2>
-    <p>Felixstowe's most trusted garage — one call away.</p>
+<!-- FULL QUOTE FORM -->
+<section class="quote-section" id="quote">
+  <div class="qs-left">
+    <div class="sec-label">Book &amp; Enquire</div>
+    <h2 class="sec-h2" style="color:white">Ready to book<br>your vehicle in?</h2>
+    <p>Use the form to request a quote or book a service. We'll reply promptly to confirm everything. Prefer to speak to someone directly? Call us — we're happy to help.</p>
+    <div class="contact-items">
+      <div class="ci">
+        <div class="ci-icon">&#128222;</div>
+        <div><div class="ci-label">Phone</div><div class="ci-val"><a href="tel:01394283245">01394 283245</a> · <a href="tel:01394672020">672020</a> · <a href="tel:01394283925">283925</a></div></div>
+      </div>
+      <div class="ci">
+        <div class="ci-icon">&#9993;</div>
+        <div><div class="ci-label">Email</div><div class="ci-val"><a href="mailto:enq@paviliongarage.co.uk">enq@paviliongarage.co.uk</a></div></div>
+      </div>
+      <div class="ci">
+        <div class="ci-icon">&#128205;</div>
+        <div><div class="ci-label">Address</div><div class="ci-val">Tollgate Service Station<br>349 High Street, Felixstowe, IP11 9QN</div></div>
+      </div>
+      <div class="ci">
+        <div class="ci-icon">&#9200;</div>
+        <div><div class="ci-label">Opening Hours</div><div class="ci-val">Mon–Fri: 08:30–17:00 · Sat &amp; Sun: Closed</div></div>
+      </div>
+    </div>
   </div>
-  <div class="cta-btns">
-    <a href="#booking" class="cta-btn-white">Book Online</a>
-    <a href="tel:01394283245" class="cta-btn-border">01394 283245</a>
+  <div class="full-form">
+    <div class="ff-title">Request a Quote or Booking</div>
+    <p class="ff-sub">Fill in your details and we'll get back to you quickly with a clear, honest quote.</p>
+    <form onsubmit="return false;">
+      <div class="ff-grid">
+        <div>
+          <label class="ff-label">First Name</label>
+          <input class="ff-inp" type="text" placeholder="First name">
+        </div>
+        <div>
+          <label class="ff-label">Surname</label>
+          <input class="ff-inp" type="text" placeholder="Surname">
+        </div>
+        <div>
+          <label class="ff-label">Phone</label>
+          <input class="ff-inp" type="tel" placeholder="07xxx xxxxxx">
+        </div>
+        <div>
+          <label class="ff-label">Email</label>
+          <input class="ff-inp" type="email" placeholder="you@email.com">
+        </div>
+        <div>
+          <label class="ff-label">Vehicle Reg</label>
+          <input class="ff-inp" type="text" placeholder="e.g. AB12 CDE">
+        </div>
+        <div>
+          <label class="ff-label">Make &amp; Model</label>
+          <input class="ff-inp" type="text" placeholder="e.g. Ford Focus">
+        </div>
+        <div class="ff-full">
+          <label class="ff-label">Service Required</label>
+          <select class="ff-sel">
+            <option value="">Select a service...</option>
+            <option>MOT Test</option>
+            <option>Full Service</option>
+            <option>Interim Service</option>
+            <option>Vehicle Diagnostics</option>
+            <option>Brakes / Tyres</option>
+            <option>Air Conditioning</option>
+            <option>Used Car Enquiry</option>
+            <option>Other Repair</option>
+          </select>
+        </div>
+        <div>
+          <label class="ff-label">Preferred Date</label>
+          <input class="ff-inp" type="date">
+        </div>
+        <div>
+          <label class="ff-label">Preferred Time</label>
+          <select class="ff-sel">
+            <option value="">Any time</option>
+            <option>Morning (08:30–12:00)</option>
+            <option>Afternoon (12:00–17:00)</option>
+          </select>
+        </div>
+        <div class="ff-full">
+          <label class="ff-label">Additional Details</label>
+          <textarea class="ff-ta" placeholder="Any extra information about the vehicle or the work required..."></textarea>
+        </div>
+      </div>
+      <button class="ff-submit" type="submit">Send Quote Request →</button>
+    </form>
   </div>
 </section>
 
-<!-- CONTACT -->
-<section class="contact-section" id="contact">
-  <div class="contact-info">
-    <div class="sec-tag">Find Us</div>
-    <div class="sec-title">Visit The Garage</div>
-
-    <div class="c-detail">
-      <div class="c-icon"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div>
-      <div>
-        <div class="c-label">Address</div>
-        <div class="c-val">Tollgate Service Station, 349 High Street<br>Felixstowe, Suffolk IP11 9QN</div>
+<!-- LOCATION -->
+<section class="loc-section" id="location">
+  <div class="loc-left">
+    <div class="sec-label">Find Us</div>
+    <h2 class="sec-h2">Based in<br>Felixstowe.</h2>
+    <div class="loc-details">
+      <div class="ld">
+        <div class="ld-icon">&#128205;</div>
+        <div><div class="ld-label">Address</div><div class="ld-val">Tollgate Service Station<br>349 High Street, Felixstowe<br>Suffolk, IP11 9QN</div></div>
+      </div>
+      <div class="ld">
+        <div class="ld-icon">&#128222;</div>
+        <div><div class="ld-label">Phone</div><div class="ld-val"><a href="tel:01394283245">01394 283245</a> · <a href="tel:01394672020">672020</a> · <a href="tel:01394283925">283925</a></div></div>
+      </div>
+      <div class="ld">
+        <div class="ld-icon">&#9993;</div>
+        <div><div class="ld-label">Email</div><div class="ld-val"><a href="mailto:enq@paviliongarage.co.uk">enq@paviliongarage.co.uk</a></div></div>
       </div>
     </div>
-
-    <div class="c-detail">
-      <div class="c-icon"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></div>
-      <div>
-        <div class="c-label">Phone</div>
-        <a href="tel:01394283245" class="c-val">01394 283245 / 672020 / 283925</a>
-      </div>
-    </div>
-
-    <div class="c-detail">
-      <div class="c-icon"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
-      <div>
-        <div class="c-label">Email</div>
-        <a href="mailto:enq@paviliongarage.co.uk" class="c-val">enq@paviliongarage.co.uk</a>
-      </div>
-    </div>
-
-    <div class="hours-table">
-      <div class="sec-tag" style="margin-top: 8px;">Opening Hours</div>
-      <div class="h-row"><span class="h-day">Monday – Friday</span><span class="h-time">8:30 am – 5:00 pm</span></div>
-      <div class="h-row"><span class="h-day">Saturday</span><span class="h-time" style="color:var(--muted)">Closed</span></div>
-      <div class="h-row"><span class="h-day">Sunday</span><span class="h-time" style="color:var(--muted)">Closed</span></div>
+    <div class="hrs">
+      <div class="hrs-head">Opening Hours</div>
+      <div class="hr"><span class="hd">Monday – Friday</span><span class="ht">08:30 – 17:00</span></div>
+      <div class="hr"><span class="hd">Saturday</span><span class="ht cl">Closed</span></div>
+      <div class="hr"><span class="hd">Sunday</span><span class="ht cl">Closed</span></div>
     </div>
   </div>
-
-  <div class="contact-map">
-    <iframe src="https://maps.google.com/maps?q=349+High+Street+Felixstowe+IP11+9QN&output=embed" loading="lazy" allowfullscreen></iframe>
+  <div class="loc-map">
+    <iframe src="https://maps.google.com/maps?q=349+High+Street+Felixstowe+IP11+9QN&output=embed" loading="lazy" title="Map"></iframe>
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
-  <div>
-    <div class="f-brand">Pavilion Auto<span>.</span> Services Ltd</div>
-    <div class="f-copy">© 2026 Pavilion Auto Services Ltd. 349 High Street, Felixstowe IP11 9QN. Registered in England &amp; Wales.</div>
+  <div class="f-grid">
+    <div class="f-brand">
+      <a href="#" class="f-logo">
+        <div class="nl"><svg width="14" height="14" viewBox="0 0 18 18" fill="white"><path d="M9 1.5L2 5v4c0 4.5 3 7.5 7 9 4-1.5 7-4.5 7-9V5L9 1.5z"/></svg></div>
+        Pavilion Auto
+      </a>
+      <p>Felixstowe's trusted independent garage. Honest pricing, qualified technicians, 30+ years of experience.</p>
+    </div>
+    <div class="fc"><h4>Services</h4>
+      <ul class="f-links">
+        <li><a href="#services">MOT Testing</a></li>
+        <li><a href="#services">Full Servicing</a></li>
+        <li><a href="#services">Diagnostics</a></li>
+        <li><a href="#services">Brakes &amp; Tyres</a></li>
+        <li><a href="#services">Used Car Sales</a></li>
+        <li><a href="#services">Air Conditioning</a></li>
+      </ul>
+    </div>
+    <div class="fc"><h4>Company</h4>
+      <ul class="f-links">
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#quote">Get a Quote</a></li>
+        <li><a href="#location">Find Us</a></li>
+      </ul>
+    </div>
+    <div class="fc"><h4>Contact</h4>
+      <ul class="f-links">
+        <li><a href="tel:01394283245">01394 283245</a></li>
+        <li><a href="tel:01394672020">01394 672020</a></li>
+        <li><a href="tel:01394283925">01394 283925</a></li>
+        <li><a href="mailto:enq@paviliongarage.co.uk">enq@paviliongarage.co.uk</a></li>
+        <li><a href="#">Facebook</a></li>
+      </ul>
+    </div>
   </div>
-  <div class="f-links">
-    <a href="#">Services</a>
-    <a href="#">About</a>
-    <a href="#">FAQ</a>
-    <a href="#">Contact</a>
-    <a href="#">Privacy</a>
+  <div class="f-btm">
+    <p>&copy; 2025 Pavilion Auto Services Ltd. Registered in England &amp; Wales.</p>
+    <p>349 High Street, Felixstowe, Suffolk IP11 9QN</p>
   </div>
 </footer>
-
-<script>
-  const counters = document.querySelectorAll('.stat-n[data-target]');
-
-  const animate = (el) => {
-    const target = parseInt(el.dataset.target);
-    const suffix = el.textContent.replace(/[\d,]/g, '');
-    let current = 0;
-    const duration = 1400;
-    const steps = 60;
-    const increment = target / steps;
-    const timer = setInterval(() => {
-      current = Math.min(current + increment, target);
-      const val = current >= 1000 ? Math.round(current).toLocaleString() : Math.round(current);
-      el.textContent = val + suffix;
-      if (current >= target) clearInterval(timer);
-    }, duration / steps);
-  };
-
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { animate(e.target); obs.unobserve(e.target); }
-    });
-  }, { threshold: 0.4 });
-
-  counters.forEach(c => obs.observe(c));
-
-  document.getElementById('hamburger2').addEventListener('click', () => {
-    document.getElementById('mobileNav2').classList.toggle('open');
-  });
-  document.querySelectorAll('#mobileNav2 a').forEach(a => {
-    a.addEventListener('click', () => document.getElementById('mobileNav2').classList.remove('open'));
-  });
-</script>
 </body>
 </html>
