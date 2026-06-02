@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Artisan Home — Premium Silicone Oven Gloves</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Karla:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+:root{
+  --sage:       oklch(58% 0.060 135);
+  --sage-dark:  oklch(44% 0.050 135);
+  --sage-deep:  oklch(37% 0.044 135);
+  --sage-mid:   oklch(50% 0.052 135);
+  --sage-light: oklch(71% 0.048 135);
+  --sage-xlight:oklch(94% 0.018 135);
+  --cream:      oklch(97% 0.009 85);
+  --cream-dark: oklch(92% 0.015 85);
+  --charcoal:   oklch(18% 0.008 65);
+  --white:      oklch(99.5% 0.003 85);
+  --mid:        oklch(45% 0.006 65);
+  --mitt-color: #6b835f;
+}
+
+body{font-family:'Karla',sans-serif;background:var(--cream);color:var(--charcoal);line-height:1.6;overflow-x:hidden}
+
+/* NAV */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;height:70px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 clamp(20px,5vw,64px);
+  background:var(--sage);
+  backdrop-filter:blur(14px);
+  transition:background .3s,box-shadow .3s;
+}
+.nav.scrolled{var(--sage);box-shadow:0 2px 24px oklch(18% 0.008 65/.2)}
+.nav-logo img{height:60px;display:block;filter: invert(0)}
+.nav-links{display:flex;gap:36px;list-style:none}
+.nav-links a{text-decoration:none;color:rgba(255,255,255,0.8);font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:#fff}
+.nav-cart{position:relative;background:none;border:none;padding:8px;cursor:pointer;color:rgba(255,255,255,0.9);transition:color .2s}
+.nav-cart:hover{color:#fff}
+.cart-badge{position:absolute;top:2px;right:2px;width:18px;height:18px;background:var(--cream);color:var(--sage-dark);font-size:10px;font-weight:700;border-radius:50%;display:flex;align-items:center;justify-content:center}
+
+/* HERO */
+.hero{
+  margin-top:70px;
+  background:oklch(58% 0.060 135 / 0.96);;
+  padding:clamp(64px,10vw,120px) clamp(24px,6vw,80px) clamp(80px,12vw,140px);
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;bottom:-2px;left:0;right:0;height:80px;
+  background:var(--cream);
+  clip-path:ellipse(55% 100% at 50% 100%);
+}
+.hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,80px);align-items:center}
+.hero-content{}
+.hero-tag{
+  display:inline-block;
+  background:oklch(68% 0.050 135 / 0.35);
+  color:rgba(255,255,255,0.9);
+  font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  padding:8px 18px;border-radius:40px;margin-bottom:24px;
+}
+.hero h1{
+  font-family:'Abril Fatface',serif;
+  font-size:clamp(44px,7vw,90px);
+  line-height:1.0;
+  color:var(--white);
+  margin-bottom:24px;
+}
+.hero-sub{
+  font-size:clamp(15px,1.5vw,18px);font-weight:300;
+  color:rgba(255,255,255,0.82);line-height:1.75;
+  max-width:440px;margin-bottom:36px;
+}
+.hero-price-row{display:flex;align-items:center;gap:20px;margin-bottom:32px}
+.hero-price{font-family:'Abril Fatface',serif;font-size:clamp(28px,3.5vw,42px);color:var(--white)}
+.hero-price-sub{font-size:13px;color:rgba(255,255,255,0.7);font-weight:400}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+.btn-white{
+  background:var(--white);color:var(--sage-dark);
+  padding:15px 36px;border-radius:40px;
+  font-family:'Karla',sans-serif;font-size:14px;font-weight:700;
+  border:none;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;
+  transition:all .22s;
+}
+.btn-white:hover{background:var(--cream);transform:translateY(-1px)}
+.btn-outline-white{
+  background:transparent;color:var(--white);
+  padding:14px 32px;border-radius:40px;border:2px solid rgba(255,255,255,0.4);
+  font-family:'Karla',sans-serif;font-size:14px;font-weight:600;
+  cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;
+  transition:all .22s;
+}
+.btn-outline-white:hover{border-color:rgba(255,255,255,0.8);background:rgba(255,255,255,0.1)}
+.hero-trust{display:flex;align-items:center;gap:8px;margin-top:20px;font-size:13px;color:rgba(255,255,255,0.72)}
+.stars-g{color:#ffd166;font-size:15px;letter-spacing:1px}
+.hero-visual{display:flex;align-items:center;justify-content:center;position:relative}
+.hero-mitt-bg{
+  width:clamp(260px,38vw,420px);height:clamp(260px,38vw,420px);
+  background:oklch(62% 0.055 135 / 0.9);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+}
+.hero-mitt-bg::after{
+  content:'Available in 5 colours';
+  position:absolute;bottom:-48px;left:50%;transform:translateX(-50%);
+  white-space:nowrap;
+  background:rgba(255,255,255,0.15);
+  color:rgba(255,255,255,0.9);
+  font-size:12px;font-weight:600;letter-spacing:.08em;
+  padding:8px 20px;border-radius:40px;
+}
+.mitt-svg-g{width:clamp(200px,30vw,340px);display:block;filter:drop-shadow(0 16px 40px oklch(18% 0.008 65/.3))}
+.mitt-body{fill:var(--mitt-color);transition:fill .45s cubic-bezier(.16,1,.3,1)}
+
+/* PRODUCT SECTION */
+.product-section{
+  background:var(--cream);
+  padding:clamp(80px,10vw,120px) clamp(24px,6vw,80px);
+}
+.product-inner{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,80px);align-items:start}
+.product-image-panel{
+  position:sticky;top:90px;
+  background:var(--white);border-radius:28px;
+  padding:48px 36px;
+  display:flex;align-items:center;justify-content:center;
+  min-height:400px;
+  box-shadow:0 4px 40px oklch(18% 0.008 65/.06);
+}
+.section-kicker-g{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sage);margin-bottom:12px}
+.product-name-g{font-family:'Abril Fatface',serif;font-size:clamp(30px,3.5vw,46px);line-height:1.1;color:var(--charcoal);margin-bottom:14px}
+.rating-row-g{display:flex;align-items:center;gap:10px;margin-bottom:22px}
+.review-count-g{font-size:13px;color:var(--mid);cursor:pointer}
+.product-desc-g{font-size:15px;color:var(--mid);line-height:1.8;margin-bottom:28px;font-weight:400}
+.product-price-g{font-family:'Abril Fatface',serif;font-size:clamp(30px,3.5vw,42px);color:var(--charcoal);margin-bottom:28px}
+.colour-label-g{font-size:12px;font-weight:700;letter-spacing:.06em;color:var(--charcoal);margin-bottom:14px;text-transform:uppercase}
+.colour-name-g{font-family:'Karla',sans-serif;font-weight:400;text-transform:none;letter-spacing:0;color:var(--sage);margin-left:8px}
+.colour-swatches-g{display:flex;gap:12px;margin-bottom:28px;flex-wrap:wrap}
+.swatch{
+  width:38px;height:38px;border-radius:50%;border:3px solid transparent;
+  cursor:pointer;transition:transform .18s;outline:none;position:relative;
+}
+.swatch::after{content:'';position:absolute;inset:-5px;border-radius:50%;border:2.5px solid transparent;transition:border-color .2s}
+.swatch:hover{transform:scale(1.1)}
+.swatch.active::after{border-color:var(--sage)}
+.qty-atc-row-g{display:flex;gap:12px;align-items:center;margin-bottom:16px}
+.qty-stepper-g{display:flex;align-items:center;background:var(--cream-dark);border-radius:40px;overflow:hidden}
+.qty-btn-g{background:none;border:none;width:46px;height:50px;font-size:20px;cursor:pointer;color:var(--charcoal);display:flex;align-items:center;justify-content:center;transition:background .15s}
+.qty-btn-g:hover{background:oklch(88% 0.025 77/.6)}
+.qty-num-g{width:36px;text-align:center;font-size:15px;font-weight:700}
+.atc-btn-g{
+  flex:1;background:var(--sage);color:var(--white);border:none;border-radius:40px;
+  padding:14px 28px;
+  font-family:'Karla',sans-serif;font-size:15px;font-weight:700;
+  cursor:pointer;transition:all .22s;
+  box-shadow:0 4px 20px oklch(58% 0.060 135/.32);
+}
+.atc-btn-g:hover{background:var(--sage-dark);transform:translateY(-1px);box-shadow:0 8px 28px oklch(58% 0.060 135/.42)}
+.atc-btn-g.added{background:var(--sage-mid)}
+.delivery-note-g{font-size:13px;color:var(--mid);display:flex;align-items:center;gap:6px}
+.divider-g{height:1px;background:oklch(88% 0.025 77);margin:24px 0}
+.spec-grid-g{display:grid;grid-template-columns:1fr 1fr;gap:10px 20px}
+.spec-item-g{font-size:13px}
+.spec-label-g{font-weight:700;color:var(--charcoal);display:block}
+.spec-val-g{color:var(--mid)}
+
+/* FEATURES */
+.features{
+  background:var(--sage);
+  padding:clamp(64px,9vw,100px) clamp(24px,6vw,80px);
+  position:relative;
+}
+.features-header-g{text-align:center;margin-bottom:clamp(40px,6vw,64px)}
+.features-kicker{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:14px}
+.features-title-g{font-family:'Abril Fatface',serif;font-size:clamp(32px,5vw,60px);color:var(--white);line-height:1.05}
+.features-sub-g{font-size:16px;color:rgba(255,255,255,0.75);max-width:480px;margin:14px auto 0;font-weight:300;line-height:1.75}
+.features-grid-g{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.feature-card-g{
+  background:oklch(62% 0.055 135 / 0.4);
+  border:1px solid oklch(68% 0.050 135 / 0.4);
+  border-radius:24px;padding:36px 32px;
+  transition:background .22s,transform .22s;
+}
+.feature-card-g:hover{background:oklch(64% 0.055 135 / 0.55);transform:translateY(-3px)}
+.feature-icon-g{
+  width:52px;height:52px;background:rgba(255,255,255,0.15);border-radius:14px;
+  display:flex;align-items:center;justify-content:center;margin-bottom:20px;
+}
+.feature-icon-g svg{width:26px;height:26px;stroke:var(--white)}
+.feature-title-g{font-family:'Abril Fatface',serif;font-size:clamp(18px,2vw,24px);color:var(--white);margin-bottom:12px;line-height:1.15}
+.feature-desc-g{font-size:14px;color:rgba(255,255,255,0.78);line-height:1.78;font-weight:400}
+
+/* IN-USE */
+.in-use{
+  background:var(--cream);
+  display:grid;grid-template-columns:1fr 1fr;
+}
+.in-use-img{overflow:hidden;aspect-ratio:1/1}
+.in-use-img img{width:100%;height:100%;object-fit:cover;display:block}
+.in-use-content{
+  padding:clamp(48px,7vw,80px) clamp(32px,5vw,64px);
+  display:flex;flex-direction:column;justify-content:center;
+  background:var(--sage-xlight);
+}
+.in-use-kicker{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sage);margin-bottom:16px}
+.in-use-heading{font-family:'Abril Fatface',serif;font-size:clamp(26px,3.5vw,44px);color:var(--charcoal);margin-bottom:18px;line-height:1.1}
+.in-use-body{font-size:15px;color:var(--mid);line-height:1.8;margin-bottom:28px}
+.care-tags{display:flex;flex-wrap:wrap;gap:10px}
+.care-tag{
+  background:var(--white);border:1px solid oklch(88% 0.025 77);
+  color:var(--charcoal);font-size:12px;font-weight:600;
+  padding:8px 18px;border-radius:40px;
+}
+
+/* REVIEWS */
+.reviews-g{background:var(--cream);padding:clamp(64px,9vw,100px) clamp(24px,6vw,80px)}
+.reviews-header-g{text-align:center;margin-bottom:clamp(40px,6vw,64px)}
+.reviews-kicker-g{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sage);margin-bottom:14px}
+.reviews-title-g{font-family:'Abril Fatface',serif;font-size:clamp(28px,4vw,52px);color:var(--charcoal);line-height:1.05}
+.reviews-grid-g{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.review-card-g{background:var(--white);border-radius:22px;padding:32px 28px;box-shadow:0 2px 20px oklch(18% 0.008 65/.05)}
+.review-stars-g{color:#d4900a;font-size:16px;letter-spacing:2px;margin-bottom:16px}
+.review-text-g{font-size:15px;color:var(--mid);line-height:1.8;font-style:italic;margin-bottom:22px}
+.reviewer-g{display:flex;align-items:center;gap:12px}
+.reviewer-avatar-g{width:40px;height:40px;border-radius:50%;background:var(--sage);color:var(--white);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.reviewer-name-g{font-weight:700;font-size:14px;color:var(--charcoal)}
+.reviewer-loc-g{font-size:12px;color:var(--mid)}
+
+/* FAQ */
+.faq-g{background:var(--sage);padding:clamp(64px,9vw,100px) clamp(24px,6vw,80px)}
+.faq-header-g{text-align:center;margin-bottom:clamp(40px,6vw,56px)}
+.faq-title-g{font-family:'Abril Fatface',serif;font-size:clamp(28px,4vw,52px);color:var(--white);margin-bottom:8px}
+.faq-sub-g{font-size:15px;color:rgba(255,255,255,0.7);font-weight:300}
+.faq-list-g{max-width:780px;margin:0 auto}
+.faq-item-g{border-bottom:1px solid oklch(68% 0.050 135 / 0.5)}
+.faq-q-g{
+  width:100%;background:none;border:none;text-align:left;padding:22px 0;
+  font-family:'Karla',sans-serif;font-size:16px;font-weight:600;color:var(--white);
+  cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;
+  transition:color .2s;
+}
+.faq-q-g:hover{color:rgba(255,255,255,0.75)}
+.faq-icon-g{width:22px;height:22px;flex-shrink:0;stroke:currentColor;transition:transform .3s}
+.faq-item-g.open .faq-icon-g{transform:rotate(45deg)}
+.faq-body-g{display:grid;grid-template-rows:0fr;transition:grid-template-rows .32s cubic-bezier(.16,1,.3,1)}
+.faq-item-g.open .faq-body-g{grid-template-rows:1fr}
+.faq-inner-g{overflow:hidden}
+.faq-a-g{padding-bottom:22px;font-size:14px;color:rgba(255,255,255,0.75);line-height:1.8;font-weight:300}
+
+/* FOOTER */
+.footer-g{
+  background:var(--sage-deep);
+  padding:clamp(48px,7vw,80px) clamp(24px,6vw,80px) clamp(24px,4vw,40px);
+  color:var(--white);
+}
+.footer-top-g{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.footer-logo-g img{height:80px;}
+.footer-tagline-g{font-size:14px;opacity:.7;line-height:1.7;max-width:280px;font-weight:300}
+.footer-col-g h4{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;opacity:.5;margin-bottom:18px}
+.footer-col-g ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-col-g a{text-decoration:none;color:var(--white);opacity:.72;font-size:14px;font-weight:300;transition:opacity .2s}
+.footer-col-g a:hover{opacity:1}
+.footer-bottom-g{border-top:1px solid oklch(44% 0.050 135 / 0.6);padding-top:24px;display:flex;justify-content:space-between;align-items:center;font-size:12px;opacity:.55}
+
+@media(max-width:960px){
+  .hero-inner{grid-template-columns:1fr}
+  .hero-visual{display:none}
+  .hero::before{height:60px}
+  .product-inner{grid-template-columns:1fr}
+  .product-image-panel{position:relative;top:auto}
+  .features-grid-g{grid-template-columns:1fr}
+  .in-use{grid-template-columns:1fr}
+  .in-use-img{aspect-ratio:16/9}
+  .reviews-grid-g{grid-template-columns:1fr}
+  .footer-top-g{grid-template-columns:1fr;gap:28px}
+  .nav-links{display:none}
+}
+@media(max-width:600px){
+  .footer-bottom-g{flex-direction:column;gap:8px;text-align:center}
+  .spec-grid-g{grid-template-columns:1fr}
+  .qty-atc-row-g{flex-direction:column;align-items:stretch}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a href="#" class="nav-logo"><img src="logo.jpeg" alt="Artisan Home"></a>
+  <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+    <li><a href="#product">Shop</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <button class="nav-cart" aria-label="Cart">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+    <span class="cart-badge" id="cart-badge">0</span>
+  </button>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <span class="hero-tag">New: 5 colours available</span>
+      <h1>Hot things belong in your hands.</h1>
+      <p class="hero-sub">Our silicone oven gloves handle the heat so you can handle the flavour. Rated to 260°C, machine washable, and built to look good doing it.</p>
+      <div class="hero-price-row">
+        <span class="hero-price">£19.99</span>
+        <span class="hero-price-sub">Sold as a pair. Free UK delivery over £25.</span>
+      </div>
+      <div class="hero-actions">
+        <a href="#product" class="btn-white">Shop Now <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        <a href="#features" class="btn-outline-white">See Features</a>
+      </div>
+      <div class="hero-trust">
+        <span class="stars-g">★★★★★</span>
+        <span>4.8 stars — 847 reviews</span>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-mitt-bg">
+        <svg class="mitt-svg-g" viewBox="0 0 320 215" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="grip-g3h" width="11" height="11" patternUnits="userSpaceOnUse"><circle cx="5.5" cy="5.5" r="2" fill="rgba(255,255,255,0.25)"/></pattern>
+            <filter id="sh-g3h" x="-30%" y="-20%" width="180%" height="160%"><feDropShadow dx="0" dy="10" stdDeviation="20" flood-color="#1a2e1a" flood-opacity="0.35"/></filter>
+          </defs>
+          <g filter="url(#sh-g3h)">
+            <path d="M22 200 L22 120 C20 64 26 16 66 12 C106 16 112 64 110 120 L110 200 Z" class="mitt-body"/>
+            <ellipse cx="114" cy="116" rx="18" ry="34" transform="rotate(-10 114 116)" class="mitt-body"/>
+            <rect x="20" y="185" width="92" height="22" rx="10" class="mitt-body" opacity=".85"/>
+            <path d="M22 200 L22 120 C20 64 26 16 66 12 C106 16 112 64 110 120 L110 200 Z" fill="url(#grip-g3h)"/>
+            <ellipse cx="114" cy="116" rx="18" ry="34" transform="rotate(-10 114 116)" fill="url(#grip-g3h)"/>
+            <rect x="20" y="185" width="92" height="22" rx="10" fill="url(#grip-g3h)" opacity=".6"/>
+            <ellipse cx="64" cy="35" rx="26" ry="15" fill="rgba(255,255,255,0.15)"/>
+          </g>
+          <g transform="translate(320,0) scale(-1,1)" filter="url(#sh-g3h)">
+            <path d="M22 200 L22 120 C20 64 26 16 66 12 C106 16 112 64 110 120 L110 200 Z" class="mitt-body" opacity=".8"/>
+            <ellipse cx="114" cy="116" rx="18" ry="34" transform="rotate(-10 114 116)" class="mitt-body" opacity=".8"/>
+            <rect x="20" y="185" width="92" height="22" rx="10" class="mitt-body" opacity=".68"/>
+            <path d="M22 200 L22 120 C20 64 26 16 66 12 C106 16 112 64 110 120 L110 200 Z" fill="url(#grip-g3h)" opacity=".8"/>
+            <ellipse cx="114" cy="116" rx="18" ry="34" transform="rotate(-10 114 116)" fill="url(#grip-g3h)" opacity=".8"/>
+            <rect x="20" y="185" width="92" height="22" rx="10" fill="url(#grip-g3h)" opacity=".5"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="product-section" id="product">
+  <div class="product-inner">
+    <div class="product-image-panel">
+      <svg style="width:clamp(200px,30vw,320px);display:block" viewBox="0 0 320 215" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="grip-g3p" width="11" height="11" patternUnits="userSpaceOnUse"><circle cx="5.5" cy="5.5" r="2" fill="rgba(255,255,255,0.22)"/></pattern>
+          <filter id="sh-g3p" x="-30%" y="-20%" width="180%" height="160%"><feDropShadow dx="0" dy="10" stdDeviation="18" flood-color="#2c2926" flood-opacity="0.22"/></filter>
+        </defs>
+        <g filter="url(#sh-g3p)">
+          <path d="M22 200 L22 120 C20 64 26 16 66 12 C106 16 112 64 110 120 L110 200 Z" class="mitt-body"/>
+          <ellipse cx="114" cy="116" rx="18" ry="34" transform="rotate(-10 114 116)" class="mitt-body"/>
+          <rect x="20" y="185" width="92" height="22" rx="10" class="mitt-body" opacity=".85"/>
+          <path d="M22 200 L22 120 C20 64 26 16 66 12 C106 16 112 64 110 120 L110 200 Z" fill="url(#grip-g3p)"/>
+          <ellipse cx="114" cy="116" rx="18" ry="34" transform="rotate(-10 114 116)" fill="url(#grip-g3p)"/>
+          <rect x="20" y="185" width="92" height="22" rx="10" fill="url(#grip-g3p)" opacity=".6"/>
+          <ellipse cx="64" cy="35" rx="26" ry="15" fill="rgba(255,255,255,0.14)"/>
+        </g>
+        <g transform="translate(320,0) scale(-1,1)" filter="url(#sh-g3p)">
+          <path d="M22 200 L22 120 C20 64 26 16 66 12 C106 16 112 64 110 120 L110 200 Z" class="mitt-body" opacity=".82"/>
+          <ellipse cx="114" cy="116" rx="18" ry="34" transform="rotate(-10 114 116)" class="mitt-body" opacity=".82"/>
+          <rect x="20" y="185" width="92" height="22" rx="10" class="mitt-body" opacity=".7"/>
+          <path d="M22 200 L22 120 C20 64 26 16 66 12 C106 16 112 64 110 120 L110 200 Z" fill="url(#grip-g3p)" opacity=".82"/>
+          <ellipse cx="114" cy="116" rx="18" ry="34" transform="rotate(-10 114 116)" fill="url(#grip-g3p)" opacity=".82"/>
+          <rect x="20" y="185" width="92" height="22" rx="10" fill="url(#grip-g3p)" opacity=".5"/>
+        </g>
+      </svg>
+    </div>
+
+    <div>
+      <p class="section-kicker-g">Sold as a Pair</p>
+      <h2 class="product-name-g">Premium Silicone<br>Oven Gloves</h2>
+      <div class="rating-row-g">
+        <span class="stars-g">★★★★★</span>
+        <span class="review-count-g">847 reviews</span>
+      </div>
+      <p class="product-desc-g">Triple-layer silicone construction. Non-slip grip pattern. Extended 18cm cuffs. Machine washable. This is what great oven protection looks like, available in five colours chosen for real kitchens.</p>
+      <p class="product-price-g">£19.99</p>
+      <p class="colour-label-g">Colour <span class="colour-name-g" id="color-name-g">Sage Green</span></p>
+      <div class="colour-swatches-g">
+        <button class="swatch active" data-color="#6b835f" data-name="Sage Green" style="background:#6b835f" title="Sage Green" aria-label="Sage Green"></button>
+        <button class="swatch" data-color="#1C1C1C" data-name="Midnight Black" style="background:#1C1C1C" title="Midnight Black" aria-label="Midnight Black"></button>
+        <button class="swatch" data-color="#4A4A4A" data-name="Slate Charcoal" style="background:#4A4A4A" title="Slate Charcoal" aria-label="Slate Charcoal"></button>
+        <button class="swatch" data-color="#7A2230" data-name="Deep Burgundy" style="background:#7A2230" title="Deep Burgundy" aria-label="Deep Burgundy"></button>
+        <button class="swatch" data-color="#1B3557" data-name="Storm Navy" style="background:#1B3557" title="Storm Navy" aria-label="Storm Navy"></button>
+      </div>
+      <div class="qty-atc-row-g">
+        <div class="qty-stepper-g">
+          <button class="qty-btn-g" id="qty-minus" aria-label="Decrease quantity">−</button>
+          <span class="qty-num-g" id="qty-num">1</span>
+          <button class="qty-btn-g" id="qty-plus" aria-label="Increase quantity">+</button>
+        </div>
+        <button class="atc-btn-g" id="atc-btn">Add to Cart</button>
+      </div>
+      <p class="delivery-note-g">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        Free standard UK delivery on orders over £25
+      </p>
+      <div class="divider-g"></div>
+      <div class="spec-grid-g">
+        <div class="spec-item-g"><span class="spec-label-g">Material</span><span class="spec-val-g">Silicone &amp; Cotton lining</span></div>
+        <div class="spec-item-g"><span class="spec-label-g">Length</span><span class="spec-val-g">32cm</span></div>
+        <div class="spec-item-g"><span class="spec-label-g">Heat rating</span><span class="spec-val-g">260°C / 500°F</span></div>
+        <div class="spec-item-g"><span class="spec-label-g">Cuff length</span><span class="spec-val-g">18cm</span></div>
+        <div class="spec-item-g"><span class="spec-label-g">Washing</span><span class="spec-val-g">Machine 30°C, air dry</span></div>
+        <div class="spec-item-g"><span class="spec-label-g">Sold as</span><span class="spec-val-g">A pair (2 gloves)</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="features" id="features">
+  <div class="features-header-g">
+    <p class="features-kicker">Why Artisan Home</p>
+    <h2 class="features-title-g">Built for people who actually cook.</h2>
+    <p class="features-sub-g">Not for show. Not for occasionally reheating leftovers. For real kitchen use, every day.</p>
+  </div>
+  <div class="features-grid-g">
+    <div class="feature-card-g">
+      <div class="feature-icon-g">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h3 class="feature-title-g">500°F Heat Protection</h3>
+      <p class="feature-desc-g">Triple-layer silicone rated to 260°C. Handles every oven, hob, and grill in domestic use without breaking a sweat. Or burning your hands.</p>
+    </div>
+    <div class="feature-card-g">
+      <div class="feature-icon-g">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 00-4 0v0M14 10V4a2 2 0 00-4 0v2M10 10.5V6a2 2 0 00-4 0v8"/><path d="M18 8a2 2 0 114 0v6a8 8 0 01-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 012.83-2.82L7 15"/></svg>
+      </div>
+      <h3 class="feature-title-g">Grip That Doesn't Quit</h3>
+      <p class="feature-desc-g">Raised silicone dots across every surface. Cast iron, ceramic, glass — it holds them all. The kind of grip that lets you move with confidence, not caution.</p>
+    </div>
+    <div class="feature-card-g">
+      <div class="feature-icon-g">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22C6.5 22 2 17.5 2 12S6.5 2 12 2s10 4.5 10 10"/><path d="M17 16l2 2 4-4"/></svg>
+      </div>
+      <h3 class="feature-title-g">Machine Washable</h3>
+      <p class="feature-desc-g">30°C cycle, air dry. That's it. The silicone holds its colour and shape indefinitely. These are gloves you use hard, not gloves you baby.</p>
+    </div>
+    <div class="feature-card-g">
+      <div class="feature-icon-g">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+      </div>
+      <h3 class="feature-title-g">18cm Cuff Coverage</h3>
+      <p class="feature-desc-g">Most oven gloves stop at the wrist. Ours don't. The extended cuff wraps around your forearm, blocking steam and radiant heat where you actually get burned.</p>
+    </div>
+  </div>
+</section>
+
+<div class="in-use">
+  <div class="in-use-img">
+    <img src="1.jpg" alt="Home cook using oven gloves in the kitchen">
+  </div>
+  <div class="in-use-content">
+    <p class="in-use-kicker">Care &amp; Use</p>
+    <h2 class="in-use-heading">Low maintenance. High performance.</h2>
+    <p class="in-use-body">Kitchen life is messy. These gloves were designed with that in mind. Machine wash, air dry, and they're ready for the next roast. The silicone surface wipes clean in seconds between uses.</p>
+    <div class="care-tags">
+      <span class="care-tag">260°C / 500°F max</span>
+      <span class="care-tag">Machine wash 30°C</span>
+      <span class="care-tag">Air dry only</span>
+      <span class="care-tag">No open flame</span>
+      <span class="care-tag">Hang or lay flat</span>
+    </div>
+  </div>
+</div>
+
+<section class="reviews-g">
+  <div class="reviews-header-g">
+    <p class="reviews-kicker-g">Customer Reviews</p>
+    <h2 class="reviews-title-g">847 people love these.</h2>
+  </div>
+  <div class="reviews-grid-g">
+    <div class="review-card-g">
+      <div class="review-stars-g">★★★★★</div>
+      <p class="review-text-g">"Finally replaced my tatty old oven gloves. These look brilliant, grip like nothing I've used before, and survive the washing machine. A proper upgrade."</p>
+      <div class="reviewer-g">
+        <div class="reviewer-avatar-g">SM</div>
+        <div><p class="reviewer-name-g">Sarah M.</p><p class="reviewer-loc-g">Harrogate, Yorkshire</p></div>
+      </div>
+    </div>
+    <div class="review-card-g">
+      <div class="review-stars-g">★★★★★</div>
+      <p class="review-text-g">"I bought the sage green to match my kitchen. The grip is exceptional — I haven't dropped a single roasting tin since. Worth every penny of the £19.99."</p>
+      <div class="reviewer-g">
+        <div class="reviewer-avatar-g">JT</div>
+        <div><p class="reviewer-name-g">James T.</p><p class="reviewer-loc-g">Edinburgh</p></div>
+      </div>
+    </div>
+    <div class="review-card-g">
+      <div class="review-stars-g">★★★★★</div>
+      <p class="review-text-g">"As someone who bakes every weekend, these have been a revelation. The cuffs are long enough to actually protect my forearms. Genuinely brilliant product."</p>
+      <div class="reviewer-g">
+        <div class="reviewer-avatar-g">RK</div>
+        <div><p class="reviewer-name-g">Rachel K.</p><p class="reviewer-loc-g">Bristol</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="faq-g">
+  <div class="faq-header-g">
+    <h2 class="faq-title-g">Got questions?</h2>
+    <p class="faq-sub-g">We have answers. The important ones, at least.</p>
+  </div>
+  <div class="faq-list-g">
+    <div class="faq-item-g">
+      <button class="faq-q-g">What sizes are available?<svg class="faq-icon-g" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+      <div class="faq-body-g"><div class="faq-inner-g"><p class="faq-a-g">One size fits most. The flexible silicone construction works comfortably for a wide range of hand sizes, for both men and women.</p></div></div>
+    </div>
+    <div class="faq-item-g">
+      <button class="faq-q-g">Washing machine safe?<svg class="faq-icon-g" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+      <div class="faq-body-g"><div class="faq-inner-g"><p class="faq-a-g">Yes, 30°C cycle then air dry. The silicone holds its colour and shape wash after wash. Don't tumble dry.</p></div></div>
+    </div>
+    <div class="faq-item-g">
+      <button class="faq-q-g">What's the max temperature?<svg class="faq-icon-g" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+      <div class="faq-body-g"><div class="faq-inner-g"><p class="faq-a-g">260°C / 500°F. That covers every oven, hob, and grill in a home kitchen. Not designed for direct open-flame contact.</p></div></div>
+    </div>
+    <div class="faq-item-g">
+      <button class="faq-q-g">Are they waterproof?<svg class="faq-icon-g" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+      <div class="faq-body-g"><div class="faq-inner-g"><p class="faq-a-g">The silicone outer is water resistant, so great for steamy dishes and wet cookware. Not designed for prolonged submersion.</p></div></div>
+    </div>
+    <div class="faq-item-g">
+      <button class="faq-q-g">Free delivery?<svg class="faq-icon-g" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+      <div class="faq-body-g"><div class="faq-inner-g"><p class="faq-a-g">Free standard UK delivery on orders over £25. Orders under £25 are £2.99 flat. Dispatched within 1 business day.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer-g">
+  <div class="footer-top-g">
+    <div class="footer-logo-g">
+      <img src="logo.jpeg" alt="Artisan Home">
+      <p class="footer-tagline-g">Premium kitchen accessories for the home that takes cooking seriously, without taking itself too seriously.</p>
+    </div>
+    <div class="footer-col-g">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="#">Oven Gloves</a></li>
+        <li><a href="#">All Products</a></li>
+        <li><a href="#">Gift Ideas</a></li>
+      </ul>
+    </div>
+    <div class="footer-col-g">
+      <h4>Information</h4>
+      <ul>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Delivery &amp; Returns</a></li>
+        <li><a href="#">Care Guide</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom-g">
+    <span>© 2026 Artisan Home. All rights reserved.</span>
+    <span>Made for kitchens that mean business.</span>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20));
+
+document.querySelectorAll('.swatch').forEach(swatch => {
+  swatch.addEventListener('click', () => {
+    document.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
+    swatch.classList.add('active');
+    document.documentElement.style.setProperty('--mitt-color', swatch.dataset.color);
+    const nameEl = document.getElementById('color-name-g');
+    if (nameEl) nameEl.textContent = swatch.dataset.name;
+  });
+});
+
+let qty = 1;
+const qtyNumEl = document.getElementById('qty-num');
+document.getElementById('qty-minus').addEventListener('click', () => { if (qty > 1) qtyNumEl.textContent = --qty; });
+document.getElementById('qty-plus').addEventListener('click', () => qtyNumEl.textContent = ++qty);
+
+const atcBtn = document.getElementById('atc-btn');
+const badge = document.getElementById('cart-badge');
+let cartCount = 0;
+atcBtn.addEventListener('click', () => {
+  cartCount += qty;
+  badge.textContent = cartCount;
+  atcBtn.textContent = 'Added!';
+  atcBtn.classList.add('added');
+  setTimeout(() => { atcBtn.textContent = 'Add to Cart'; atcBtn.classList.remove('added'); }, 1800);
+});
+
+document.querySelectorAll('.faq-q-g').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.closest('.faq-item-g');
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item-g').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  });
+});
+</script>
+</body>
+</html>
