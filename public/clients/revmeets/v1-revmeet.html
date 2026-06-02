@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>REVMEET — Find Car Events & Meetups</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --or:#FF5F1F;--ord:#E04E10;
+      --bg:#080808;--bg2:#101010;
+      --card:#131313;--card2:#1A1A1A;
+      --bdr:#1E1E1E;--bdr2:#282828;
+      --txt:#F5F5F5;--mut:#6B6B6B;--mut2:#4A4A4A;
+    }
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--txt);font-family:'Inter',sans-serif;line-height:1.6}
+    .hd{font-family:'Bebas Neue',cursive;letter-spacing:.05em}
+
+    nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(8,8,8,.93);backdrop-filter:blur(16px);border-bottom:1px solid var(--bdr);padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between}
+    .logo{font-family:'Bebas Neue',cursive;font-size:1.75rem;color:var(--or);letter-spacing:.12em;text-decoration:none}
+    .logo span{color:#fff}
+    .nav-links{display:flex;list-style:none;gap:2rem}
+    .nav-links a{color:var(--mut);text-decoration:none;font-size:.8rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;transition:color .2s}
+    .nav-links a:hover{color:var(--or)}
+    .nav-actions{display:flex;align-items:center;gap:.75rem}
+    .btn-ghost{background:transparent;color:var(--mut);border:1px solid var(--bdr2);padding:.45rem 1.1rem;border-radius:4px;font-size:.8rem;font-weight:600;cursor:pointer;text-decoration:none;transition:all .2s}
+    .btn-ghost:hover{color:#fff;border-color:#444}
+    .btn-or{background:var(--or);color:#fff;border:none;padding:.45rem 1.1rem;border-radius:4px;font-size:.8rem;font-weight:700;cursor:pointer;text-decoration:none;transition:background .2s}
+    .btn-or:hover{background:var(--ord)}
+    .btn-or-lg{background:var(--or);color:#fff;border:none;padding:.875rem 2.5rem;border-radius:4px;font-size:1rem;font-weight:700;letter-spacing:.04em;cursor:pointer;text-decoration:none;transition:all .2s;display:inline-block}
+    .btn-or-lg:hover{background:var(--ord);transform:translateY(-1px)}
+    .btn-ghost-lg{background:transparent;color:#fff;border:2px solid var(--bdr2);padding:.875rem 2.5rem;border-radius:4px;font-size:1rem;font-weight:700;cursor:pointer;text-decoration:none;transition:all .2s;display:inline-block}
+    .btn-ghost-lg:hover{border-color:var(--or);color:var(--or)}
+
+    .hero{min-height:100vh;position:relative;display:flex;align-items:center;justify-content:center;text-align:center;padding:80px 1.5rem 4rem;overflow:hidden}
+    .hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1920&q=80') center/cover;filter:brightness(.3) saturate(.7)}
+    .hero-ov{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,8,8,.4) 0%,rgba(8,8,8,.15) 40%,rgba(8,8,8,.9) 85%,var(--bg) 100%)}
+    .hero-content{position:relative;z-index:1;max-width:920px;width:100%}
+    .eyebrow{display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,95,31,.12);border:1px solid rgba(255,95,31,.25);color:var(--or);padding:.35rem 1rem;border-radius:100px;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1.5rem}
+    .hero h1{font-family:'Bebas Neue',cursive;font-size:clamp(3.5rem,9vw,7.5rem);line-height:.95;letter-spacing:.03em;margin-bottom:1.25rem}
+    .hero h1 .hl{color:var(--or)}
+    .hero p{font-size:1.05rem;color:rgba(245,245,245,.7);margin-bottom:2.5rem;max-width:560px;margin-left:auto;margin-right:auto}
+
+    .search-box{background:rgba(13,13,13,.96);border:1px solid var(--bdr2);border-radius:8px;padding:1.25rem;max-width:840px;margin:0 auto;backdrop-filter:blur(20px)}
+    .s-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr auto;gap:.75rem}
+    .s-field{display:flex;flex-direction:column;gap:.3rem}
+    .s-field label{font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mut)}
+    .s-field input,.s-field select{background:var(--bg);border:1px solid var(--bdr2);color:#fff;padding:.75rem 1rem;border-radius:6px;font-size:.9rem;font-family:'Inter',sans-serif;outline:none;transition:border-color .2s;width:100%}
+    .s-field input::placeholder{color:var(--mut)}
+    .s-field input:focus,.s-field select:focus{border-color:var(--or)}
+    .s-field select option{background:#111}
+    .s-btn{background:var(--or);color:#fff;border:none;padding:0 1.5rem;border-radius:6px;font-size:1rem;font-weight:700;cursor:pointer;transition:background .2s;display:flex;align-items:flex-end;padding-bottom:.75rem}
+    .s-btn:hover{background:var(--ord)}
+    .quick-tags{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;margin-top:1.5rem}
+    .tag{background:rgba(255,255,255,.05);border:1px solid var(--bdr2);color:var(--mut);padding:.3rem .875rem;border-radius:100px;font-size:.75rem;font-weight:500;cursor:pointer;transition:all .2s;text-decoration:none}
+    .tag:hover{border-color:var(--or);color:var(--or);background:rgba(255,95,31,.08)}
+
+    .stats-bar{background:var(--card);border-top:1px solid var(--bdr);border-bottom:1px solid var(--bdr);padding:1.5rem 2rem}
+    .stats-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;text-align:center}
+    .stat-n{font-family:'Bebas Neue',cursive;font-size:2.25rem;color:var(--or);letter-spacing:.05em}
+    .stat-l{font-size:.8rem;color:var(--mut);letter-spacing:.05em}
+
+    section{padding:5rem 1.5rem}
+    .container{max-width:1200px;margin:0 auto}
+    .sec-label{font-size:.7rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--or);margin-bottom:.75rem}
+    .sec-title{font-family:'Bebas Neue',cursive;font-size:clamp(2.5rem,5vw,4rem);letter-spacing:.04em;line-height:1;margin-bottom:1rem}
+    .sec-sub{font-size:.95rem;color:var(--mut);max-width:500px}
+
+    .steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3rem}
+    .step-card{background:var(--card);border:1px solid var(--bdr);border-radius:8px;padding:2rem;transition:border-color .3s}
+    .step-card:hover{border-color:var(--or)}
+    .step-n{font-family:'Bebas Neue',cursive;font-size:5rem;color:var(--bdr2);line-height:1;margin-bottom:.5rem}
+    .step-icon{width:48px;height:48px;background:rgba(255,95,31,.1);border:1px solid rgba(255,95,31,.2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;color:var(--or);margin-bottom:1.25rem}
+    .step-card h3{font-family:'Bebas Neue',cursive;font-size:1.5rem;letter-spacing:.05em;margin-bottom:.75rem}
+    .step-card p{font-size:.9rem;color:var(--mut);line-height:1.7}
+
+    .map-filters{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:1.5rem}
+    .mf-input{background:var(--card);border:1px solid var(--bdr2);color:#fff;padding:.6rem 1rem;border-radius:6px;font-size:.85rem;font-family:'Inter',sans-serif;outline:none;transition:border-color .2s}
+    .mf-input:focus{border-color:var(--or)}
+    .mf-input::placeholder{color:var(--mut)}
+    .filter-btn{background:var(--or);color:#fff;border:none;padding:.6rem 1.25rem;border-radius:6px;font-size:.85rem;font-weight:600;cursor:pointer}
+    #map{height:500px;border-radius:8px;border:1px solid var(--bdr);overflow:hidden}
+    .map-legend{display:flex;gap:1.5rem;margin-top:1rem;flex-wrap:wrap}
+    .leg-item{display:flex;align-items:center;gap:.4rem;font-size:.8rem;color:var(--mut)}
+    .leg-dot{width:10px;height:10px;border-radius:50%}
+
+    .events-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1.5rem;margin-top:2.5rem}
+    .ev-card{background:var(--card);border:1px solid var(--bdr);border-radius:8px;overflow:hidden;transition:all .3s;cursor:pointer}
+    .ev-card:hover{border-color:var(--or);transform:translateY(-4px)}
+    .ev-img{height:180px;position:relative;overflow:hidden}
+    .ev-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s;filter:brightness(.85)}
+    .ev-card:hover .ev-img img{transform:scale(1.06)}
+    .ev-badge{position:absolute;top:.75rem;left:.75rem;background:var(--or);color:#fff;padding:.25rem .7rem;border-radius:100px;font-size:.68rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+    .ev-body{padding:1.25rem}
+    .ev-meta{display:flex;gap:1rem;font-size:.75rem;color:var(--mut);margin-bottom:.6rem}
+    .ev-meta span{display:flex;align-items:center;gap:.3rem}
+    .ev-card h3{font-size:.95rem;font-weight:700;margin-bottom:.5rem;line-height:1.3}
+    .ev-stats{display:flex;align-items:center;justify-content:space-between;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--bdr)}
+    .ev-rating{display:flex;align-items:center;gap:.3rem;font-size:.8rem}
+    .ev-rating .stars{color:var(--or);font-size:.7rem}
+    .ev-btn{display:block;width:100%;background:transparent;border:1px solid var(--bdr2);color:#fff;padding:.6rem;border-radius:6px;font-size:.8rem;font-weight:600;cursor:pointer;text-align:center;margin-top:.875rem;transition:all .2s;text-decoration:none}
+    .ev-btn:hover{background:var(--or);border-color:var(--or)}
+
+    .venues-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1.5rem;margin-top:2.5rem}
+    .ven-card{background:var(--card);border:1px solid var(--bdr);border-radius:8px;overflow:hidden;display:flex;transition:all .3s}
+    .ven-card:hover{border-color:var(--or);transform:translateY(-2px)}
+    .ven-img{width:130px;flex-shrink:0;overflow:hidden}
+    .ven-img img{width:100%;height:100%;object-fit:cover;filter:brightness(.8);transition:transform .4s}
+    .ven-card:hover .ven-img img{transform:scale(1.08)}
+    .ven-body{padding:1.25rem;flex:1}
+    .ven-cats{display:flex;gap:.35rem;flex-wrap:wrap;margin-bottom:.5rem}
+    .ven-cat{background:rgba(255,95,31,.08);border:1px solid rgba(255,95,31,.15);color:var(--or);padding:.15rem .5rem;border-radius:100px;font-size:.65rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+    .ven-body h3{font-size:.95rem;font-weight:700;margin-bottom:.3rem}
+    .ven-loc{font-size:.78rem;color:var(--mut);margin-bottom:.5rem;display:flex;align-items:center;gap:.3rem}
+    .ven-row{display:flex;align-items:center;justify-content:space-between;margin-top:.75rem}
+    .ven-follow{background:transparent;border:1px solid var(--bdr2);color:var(--mut);padding:.3rem .75rem;border-radius:4px;font-size:.75rem;font-weight:600;cursor:pointer;transition:all .2s}
+    .ven-follow:hover{border-color:var(--or);color:var(--or)}
+
+    .t-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.5rem}
+    .t-card{background:var(--card);border:1px solid var(--bdr);border-radius:8px;padding:1.75rem}
+    .t-stars{color:var(--or);font-size:.85rem;margin-bottom:1rem}
+    .t-quote{font-size:.88rem;color:rgba(245,245,245,.8);line-height:1.75;margin-bottom:1.25rem;font-style:italic}
+    .t-auth{display:flex;align-items:center;gap:.75rem}
+    .t-av{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;flex-shrink:0}
+    .t-name{font-size:.875rem;font-weight:700}
+    .t-role{font-size:.75rem;color:var(--mut)}
+
+    .nl-section{background:linear-gradient(135deg,rgba(255,95,31,.08),rgba(255,95,31,.03));border-top:1px solid rgba(255,95,31,.1);border-bottom:1px solid rgba(255,95,31,.1);padding:3.5rem 1.5rem}
+    .nl-inner{max-width:600px;margin:0 auto;text-align:center}
+    .nl-form{display:flex;gap:.75rem;margin-top:1.5rem}
+    .nl-input{flex:1;background:var(--card);border:1px solid var(--bdr2);color:#fff;padding:.875rem 1.25rem;border-radius:6px;font-size:.9rem;font-family:'Inter',sans-serif;outline:none}
+    .nl-input::placeholder{color:var(--mut)}
+    .nl-input:focus{border-color:var(--or)}
+
+    .su-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:2rem}
+    .su-card{background:var(--card);border:1px solid var(--bdr);border-radius:8px;padding:2.5rem;text-align:center;transition:border-color .3s}
+    .su-card:hover{border-color:var(--or)}
+    .su-icon{width:64px;height:64px;border-radius:50%;margin:0 auto 1.5rem;display:flex;align-items:center;justify-content:center;font-size:1.75rem}
+    .su-card h3{font-family:'Bebas Neue',cursive;font-size:2rem;letter-spacing:.05em;margin-bottom:.75rem}
+    .su-card p{font-size:.88rem;color:var(--mut);margin-bottom:1.5rem;line-height:1.7}
+    .su-list{list-style:none;text-align:left;margin-bottom:2rem;display:flex;flex-direction:column;gap:.5rem}
+    .su-list li{display:flex;align-items:center;gap:.6rem;font-size:.85rem;color:rgba(245,245,245,.85)}
+    .su-list li i{color:var(--or);font-size:.75rem}
+
+    footer{background:var(--card);border-top:1px solid var(--bdr);padding:3rem 1.5rem 1.5rem}
+    .ft-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+    .ft-brand p{font-size:.85rem;color:var(--mut);margin-top:.75rem;line-height:1.7;max-width:280px}
+    .ft-soc{display:flex;gap:.75rem;margin-top:1.25rem}
+    .soc-btn{width:36px;height:36px;border-radius:6px;background:var(--bg);border:1px solid var(--bdr2);display:flex;align-items:center;justify-content:center;color:var(--mut);font-size:.85rem;transition:all .2s;cursor:pointer;text-decoration:none}
+    .soc-btn:hover{color:var(--or);border-color:var(--or)}
+    .ft-col h4{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff;margin-bottom:1rem}
+    .ft-col ul{list-style:none;display:flex;flex-direction:column;gap:.6rem}
+    .ft-col a{color:var(--mut);text-decoration:none;font-size:.85rem;transition:color .2s}
+    .ft-col a:hover{color:var(--or)}
+    .ft-bot{max-width:1200px;margin:0 auto;padding-top:1.5rem;border-top:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between;font-size:.78rem;color:var(--mut)}
+
+    @media(max-width:768px){
+      .nav-links,.nav-actions{display:none}
+      .s-grid{grid-template-columns:1fr}
+      .s-btn{align-items:center;padding:.75rem}
+      .stats-inner{grid-template-columns:repeat(2,1fr)}
+      .steps-grid,.t-grid,.su-grid{grid-template-columns:1fr}
+      .events-grid{grid-template-columns:1fr}
+      .venues-grid{grid-template-columns:1fr}
+      .ft-grid{grid-template-columns:1fr 1fr;gap:2rem}
+      .nl-form{flex-direction:column}
+    }
+    ::-webkit-scrollbar{width:5px}
+    ::-webkit-scrollbar-track{background:var(--bg)}
+    ::-webkit-scrollbar-thumb{background:var(--bdr2);border-radius:3px}
+    ::-webkit-scrollbar-thumb:hover{background:var(--or)}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="logo">REV<span>MEET</span></a>
+  <ul class="nav-links">
+    <li><a href="#events">Events</a></li>
+    <li><a href="#map-sec">Map</a></li>
+    <li><a href="#venues">Clubs</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#signup">Host an Event</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a href="#" class="btn-ghost">Log In</a>
+    <a href="#signup" class="btn-or">Sign Up Free</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-ov"></div>
+  <div class="hero-content">
+    <div class="eyebrow"><i class="fas fa-circle" style="font-size:.4rem"></i> Live Events Across the UK</div>
+    <h1>FIND YOUR NEXT<br><span class="hl">CAR EVENT</span></h1>
+    <p>Discover car shows, track days, night cruises, and meetups near you. Connect with the community that lives for the drive.</p>
+    <div class="search-box">
+      <div class="s-grid">
+        <div class="s-field">
+          <label><i class="fas fa-location-dot"></i>&nbsp; Location</label>
+          <input type="text" placeholder="City, postcode or area...">
+        </div>
+        <div class="s-field">
+          <label><i class="fas fa-calendar"></i>&nbsp; Date From</label>
+          <input type="date">
+        </div>
+        <div class="s-field">
+          <label><i class="fas fa-car"></i>&nbsp; Event Type</label>
+          <select>
+            <option value="">All Events</option>
+            <option>Car Show</option>
+            <option>Track Day</option>
+            <option>Night Cruise</option>
+            <option>Drift Event</option>
+            <option>Stance Meet</option>
+            <option>JDM Meet</option>
+            <option>Classic Cars</option>
+            <option>Supercar Meet</option>
+          </select>
+        </div>
+        <div class="s-field">
+          <label style="opacity:0">.</label>
+          <button class="s-btn"><i class="fas fa-search"></i></button>
+        </div>
+      </div>
+    </div>
+    <div class="quick-tags">
+      <span style="font-size:.75rem;color:var(--mut);align-self:center">Popular:</span>
+      <a href="#" class="tag">Car Shows</a>
+      <a href="#" class="tag">Track Days</a>
+      <a href="#" class="tag">JDM Meets</a>
+      <a href="#" class="tag">Drift Events</a>
+      <a href="#" class="tag">Cruises</a>
+      <a href="#" class="tag">Stance</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div><div class="stat-n">12,400+</div><div class="stat-l">Events Listed</div></div>
+    <div><div class="stat-n">84,000+</div><div class="stat-l">Registered Members</div></div>
+    <div><div class="stat-n">2,100+</div><div class="stat-l">Clubs & Venues</div></div>
+    <div><div class="stat-n">340+</div><div class="stat-l">Cities Covered</div></div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section id="how" style="background:var(--bg)">
+  <div class="container">
+    <div class="sec-label">How It Works</div>
+    <div class="sec-title">GET STARTED IN<br>THREE SIMPLE STEPS</div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-n">01</div>
+        <div class="step-icon"><i class="fas fa-map-location-dot"></i></div>
+        <h3>Search Your Area</h3>
+        <p>Enter your location and browse upcoming car events on our interactive map. Filter by event type, date, distance and more.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-n">02</div>
+        <div class="step-icon"><i class="fas fa-ticket"></i></div>
+        <h3>Register & Book</h3>
+        <p>Found something you love? Create a free account, register for events, and get all the details delivered straight to you.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-n">03</div>
+        <div class="step-icon"><i class="fas fa-flag-checkered"></i></div>
+        <h3>Show Up & Connect</h3>
+        <p>Turn up, meet fellow enthusiasts, share your build, and be part of a community as passionate about cars as you are.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAP -->
+<section id="map-sec" style="background:var(--bg2)">
+  <div class="container">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem">
+      <div>
+        <div class="sec-label">Interactive Map</div>
+        <div class="sec-title">EVENTS NEAR YOU</div>
+      </div>
+      <div class="map-filters">
+        <input type="date" class="mf-input" placeholder="From">
+        <input type="date" class="mf-input" placeholder="To">
+        <select class="mf-input">
+          <option value="">All Types</option>
+          <option>Car Show</option>
+          <option>Track Day</option>
+          <option>Night Cruise</option>
+          <option>Drift Event</option>
+          <option>Meet</option>
+        </select>
+        <button class="filter-btn"><i class="fas fa-sliders"></i> Filter</button>
+      </div>
+    </div>
+    <div id="map"></div>
+    <div class="map-legend">
+      <div class="leg-item"><div class="leg-dot" style="background:#FF5F1F"></div>Car Show</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#E040FB"></div>Track Day</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#00BCD4"></div>Cruise</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#4CAF50"></div>Meet</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#FFD700"></div>Drift</div>
+      <div class="leg-item" style="margin-left:auto;font-size:.75rem"><i class="fas fa-info-circle"></i> Click a pin for details</div>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section id="events" style="background:var(--bg)">
+  <div class="container">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:.5rem">
+      <div><div class="sec-label">Don't Miss Out</div><div class="sec-title">FEATURED EVENTS</div></div>
+      <a href="#" class="btn-ghost" style="margin-bottom:.5rem">View All <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <div class="sec-sub">Hand-picked events from across the UK — from underground meets to massive car shows.</div>
+    <div class="events-grid">
+      <div class="ev-card">
+        <div class="ev-img"><img src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=600&q=80" alt=""><span class="ev-badge">Car Show</span></div>
+        <div class="ev-body">
+          <div class="ev-meta"><span><i class="fas fa-calendar-alt"></i> 15 Jun 2025</span><span><i class="fas fa-location-dot"></i> London</span></div>
+          <h3>London Supercar Show 2025</h3>
+          <p style="font-size:.82rem;color:var(--mut);line-height:1.6">Europe's most exclusive supercar gathering. 200+ vehicles expected with full day entertainment.</p>
+          <div class="ev-stats">
+            <div class="ev-rating"><span class="stars">★★★★★</span><span>4.9 <span style="color:var(--mut)">(312)</span></span></div>
+            <span style="font-size:.8rem;color:var(--mut)"><i class="fas fa-users"></i> 450 going</span>
+          </div>
+          <a href="#" class="ev-btn">Register Now</a>
+        </div>
+      </div>
+      <div class="ev-card">
+        <div class="ev-img"><img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=600&q=80" alt=""><span class="ev-badge" style="background:#00BCD4">Cruise</span></div>
+        <div class="ev-body">
+          <div class="ev-meta"><span><i class="fas fa-calendar-alt"></i> 22 Jun 2025</span><span><i class="fas fa-location-dot"></i> Manchester</span></div>
+          <h3>Manchester Night Cruise</h3>
+          <p style="font-size:.82rem;color:var(--mut);line-height:1.6">Start your engines at midnight. A city-wide cruise through Manchester with 100+ cars. All welcome.</p>
+          <div class="ev-stats">
+            <div class="ev-rating"><span class="stars">★★★★★</span><span>4.7 <span style="color:var(--mut)">(89)</span></span></div>
+            <span style="font-size:.8rem;color:var(--mut)"><i class="fas fa-users"></i> 120 going</span>
+          </div>
+          <a href="#" class="ev-btn">Register Now</a>
+        </div>
+      </div>
+      <div class="ev-card">
+        <div class="ev-img"><img src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?auto=format&fit=crop&w=600&q=80" alt=""><span class="ev-badge" style="background:#E040FB">Track Day</span></div>
+        <div class="ev-body">
+          <div class="ev-meta"><span><i class="fas fa-calendar-alt"></i> 6 Jul 2025</span><span><i class="fas fa-location-dot"></i> Leeds</span></div>
+          <h3>Yorkshire Track Day Open</h3>
+          <p style="font-size:.82rem;color:var(--mut);line-height:1.6">Open track day at Harewood Speed Hill Climb. All cars welcome. Instruction available for novices.</p>
+          <div class="ev-stats">
+            <div class="ev-rating"><span class="stars">★★★★☆</span><span>4.6 <span style="color:var(--mut)">(54)</span></span></div>
+            <span style="font-size:.8rem;color:var(--mut)"><i class="fas fa-users"></i> 80 going</span>
+          </div>
+          <a href="#" class="ev-btn">Register Now</a>
+        </div>
+      </div>
+      <div class="ev-card">
+        <div class="ev-img"><img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=600&q=80" alt=""><span class="ev-badge" style="background:#4CAF50">Meet</span></div>
+        <div class="ev-body">
+          <div class="ev-meta"><span><i class="fas fa-calendar-alt"></i> 13 Jul 2025</span><span><i class="fas fa-location-dot"></i> Bristol</span></div>
+          <h3>South West Stance & Style</h3>
+          <p style="font-size:.82rem;color:var(--mut);line-height:1.6">The South West's biggest stance and modified car show. Judged categories, prizes, and live DJ.</p>
+          <div class="ev-stats">
+            <div class="ev-rating"><span class="stars">★★★★★</span><span>4.8 <span style="color:var(--mut)">(201)</span></span></div>
+            <span style="font-size:.8rem;color:var(--mut)"><i class="fas fa-users"></i> 310 going</span>
+          </div>
+          <a href="#" class="ev-btn">Register Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VENUES -->
+<section id="venues" style="background:var(--bg2)">
+  <div class="container">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:.5rem">
+      <div><div class="sec-label">Top Rated</div><div class="sec-title">FEATURED CLUBS<br>& VENUES</div></div>
+      <a href="#" class="btn-ghost" style="margin-bottom:.5rem">View All <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <div class="sec-sub">Join established clubs and discover venues running regular events near you.</div>
+    <div class="venues-grid">
+      <div class="ven-card">
+        <div class="ven-img"><img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=300&q=80" alt=""></div>
+        <div class="ven-body">
+          <div class="ven-cats"><span class="ven-cat">Track Days</span><span class="ven-cat">Meets</span></div>
+          <h3>East London AutoClub</h3>
+          <div class="ven-loc"><i class="fas fa-location-dot"></i> Stratford, London E15</div>
+          <p style="font-size:.8rem;color:var(--mut);line-height:1.6">One of London's most active car clubs. Weekly meets, monthly shows and organised track days.</p>
+          <div class="ven-row"><span style="font-size:.82rem"><span style="color:var(--or)">★</span> 4.9 <span style="color:var(--mut)">· 1.2k followers</span></span><button class="ven-follow">+ Follow</button></div>
+        </div>
+      </div>
+      <div class="ven-card">
+        <div class="ven-img"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=300&q=80" alt=""></div>
+        <div class="ven-body">
+          <div class="ven-cats"><span class="ven-cat">Drift</span><span class="ven-cat">Track Days</span></div>
+          <h3>Northern Drift Alliance</h3>
+          <div class="ven-loc"><i class="fas fa-location-dot"></i> Sheffield, S1</div>
+          <p style="font-size:.8rem;color:var(--mut);line-height:1.6">The North's premier drift club. From beginner-friendly practice days to full competition events.</p>
+          <div class="ven-row"><span style="font-size:.82rem"><span style="color:var(--or)">★</span> 4.8 <span style="color:var(--mut)">· 892 followers</span></span><button class="ven-follow">+ Follow</button></div>
+        </div>
+      </div>
+      <div class="ven-card">
+        <div class="ven-img"><img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=300&q=80" alt=""></div>
+        <div class="ven-body">
+          <div class="ven-cats"><span class="ven-cat">Shows</span><span class="ven-cat">Cruises</span><span class="ven-cat">JDM</span></div>
+          <h3>Scottish Car Culture</h3>
+          <div class="ven-loc"><i class="fas fa-location-dot"></i> Glasgow, G1</div>
+          <p style="font-size:.8rem;color:var(--mut);line-height:1.6">Scotland's largest car community — regular weekend meets, charity cruises and annual summer show.</p>
+          <div class="ven-row"><span style="font-size:.82rem"><span style="color:var(--or)">★</span> 4.7 <span style="color:var(--mut)">· 2.1k followers</span></span><button class="ven-follow">+ Follow</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section style="background:var(--bg)">
+  <div class="container">
+    <div class="sec-label">Community Love</div>
+    <div class="sec-title">WHAT THE<br>COMMUNITY SAYS</div>
+    <div class="t-grid">
+      <div class="t-card">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-quote">"RevMeet completely changed how I find local meets. I used to spend hours scrolling Facebook groups — now it's one search and I've got 10 events near me this weekend."</p>
+        <div class="t-auth"><div class="t-av" style="background:#FF5F1F">JR</div><div><div class="t-name">Jake Reynolds</div><div class="t-role">Golf R Mk8 owner · Manchester</div></div></div>
+      </div>
+      <div class="t-card">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-quote">"We've been hosting track days for 5 years and RevMeet has doubled our attendance. The event management tools are brilliant and the audience is exactly who we want."</p>
+        <div class="t-auth"><div class="t-av" style="background:#E040FB">SC</div><div><div class="t-name">Sarah Clarke</div><div class="t-role">Track Day Organiser · Silverstone</div></div></div>
+      </div>
+      <div class="t-card">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-quote">"Best platform for car enthusiasts in the UK bar none. Found my local JDM scene through RevMeet, made real friends, and got my Supra featured at a car show. Absolute must."</p>
+        <div class="t-auth"><div class="t-av" style="background:#00BCD4">MT</div><div><div class="t-name">Marcus Tanaka</div><div class="t-role">Toyota Supra owner · Birmingham</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<div class="nl-section">
+  <div class="nl-inner">
+    <div class="sec-label">Stay in the Loop</div>
+    <div class="sec-title" style="font-size:clamp(2rem,4vw,3rem)">NEVER MISS<br>AN EVENT</div>
+    <p style="color:var(--mut);font-size:.9rem;margin-top:.75rem">Get weekly event roundups, new venue alerts, and exclusive early access — straight to your inbox.</p>
+    <div class="nl-form">
+      <input type="email" class="nl-input" placeholder="Your email address...">
+      <button class="btn-or-lg" style="white-space:nowrap;padding:.875rem 1.5rem">Subscribe</button>
+    </div>
+    <p style="font-size:.75rem;color:var(--mut2);margin-top:.75rem">No spam. Unsubscribe anytime.</p>
+  </div>
+</div>
+
+<!-- SIGN UP -->
+<section id="signup" style="background:var(--bg)">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:3rem">
+      <div class="sec-label">Join Today</div>
+      <div class="sec-title">CHOOSE YOUR<br>ACCOUNT TYPE</div>
+    </div>
+    <div class="su-grid">
+      <div class="su-card">
+        <div class="su-icon" style="background:rgba(255,95,31,.12);color:var(--or)"><i class="fas fa-user"></i></div>
+        <h3>Car Enthusiast</h3>
+        <p>Find and attend events, connect with clubs, and never miss a meet near you.</p>
+        <ul class="su-list">
+          <li><i class="fas fa-check"></i> Browse all events for free</li>
+          <li><i class="fas fa-check"></i> Register for events in one tap</li>
+          <li><i class="fas fa-check"></i> Follow your favourite clubs</li>
+          <li><i class="fas fa-check"></i> Get reminders and event alerts</li>
+          <li><i class="fas fa-check"></i> Share your build and photos</li>
+        </ul>
+        <a href="#" class="btn-or-lg" style="width:100%;text-align:center">Join Free</a>
+      </div>
+      <div class="su-card" style="border-color:var(--bdr2)">
+        <div class="su-icon" style="background:rgba(255,95,31,.2);color:var(--or)"><i class="fas fa-flag-checkered"></i></div>
+        <h3>Event Host / Club</h3>
+        <p>List your events, manage registrations, and reach thousands of car enthusiasts.</p>
+        <ul class="su-list">
+          <li><i class="fas fa-check"></i> Create unlimited events</li>
+          <li><i class="fas fa-check"></i> Full registration management</li>
+          <li><i class="fas fa-check"></i> Attendee communication tools</li>
+          <li><i class="fas fa-check"></i> Analytics and insights dashboard</li>
+          <li><i class="fas fa-check"></i> Featured event placement</li>
+        </ul>
+        <a href="#" class="btn-or-lg" style="width:100%;text-align:center">Register as Host</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-grid">
+    <div class="ft-brand">
+      <a href="#" class="logo" style="font-size:1.5rem">REV<span>MEET</span></a>
+      <p>The UK's premier platform for discovering and organising car events. Built by enthusiasts, for enthusiasts.</p>
+      <div class="ft-soc">
+        <a href="#" class="soc-btn"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="soc-btn"><i class="fab fa-tiktok"></i></a>
+        <a href="#" class="soc-btn"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="soc-btn"><i class="fab fa-x-twitter"></i></a>
+        <a href="#" class="soc-btn"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+    <div class="ft-col"><h4>Discover</h4><ul><li><a href="#">Browse Events</a></li><li><a href="#">Car Shows</a></li><li><a href="#">Track Days</a></li><li><a href="#">Night Cruises</a></li><li><a href="#">Drift Events</a></li><li><a href="#">Classic Cars</a></li></ul></div>
+    <div class="ft-col"><h4>Clubs</h4><ul><li><a href="#">Browse Clubs</a></li><li><a href="#">Featured Venues</a></li><li><a href="#">Start a Club</a></li><li><a href="#">Partner With Us</a></li><li><a href="#">Host an Event</a></li></ul></div>
+    <div class="ft-col"><h4>Company</h4><ul><li><a href="#">About Us</a></li><li><a href="#">Pricing</a></li><li><a href="#">Blog</a></li><li><a href="#">Help Centre</a></li><li><a href="#">Contact</a></li><li><a href="#">Privacy Policy</a></li></ul></div>
+  </div>
+  <div class="ft-bot">
+    <span>© 2025 RevMeet. All rights reserved.</span>
+    <span>Made with <span style="color:var(--or)">❤</span> for car enthusiasts</span>
+  </div>
+</footer>
+
+<script>
+  const map = L.map('map', { center:[52.5,-1.9], zoom:6 });
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution:'© OpenStreetMap contributors © CARTO', maxZoom:19
+  }).addTo(map);
+
+  const colors = { 'Car Show':'#FF5F1F','Track Day':'#E040FB','Cruise':'#00BCD4','Meet':'#4CAF50','Drift Event':'#FFD700' };
+  const events = [
+    {lat:51.5074,lng:-0.1278,name:"London Supercar Show",date:"15 Jun 2025",type:"Car Show",att:450},
+    {lat:53.4808,lng:-2.2426,name:"Manchester Night Cruise",date:"22 Jun 2025",type:"Cruise",att:120},
+    {lat:52.4862,lng:-1.8904,name:"Birmingham Modified Meet",date:"29 Jun 2025",type:"Meet",att:200},
+    {lat:53.8008,lng:-1.5491,name:"Yorkshire Track Day Open",date:"6 Jul 2025",type:"Track Day",att:80},
+    {lat:51.4545,lng:-2.5879,name:"South West Stance Show",date:"13 Jul 2025",type:"Car Show",att:310},
+    {lat:54.9783,lng:-1.6178,name:"Newcastle Drift Championship",date:"20 Jul 2025",type:"Drift Event",att:160},
+    {lat:55.8642,lng:-4.2518,name:"Glasgow Car Culture Meet",date:"3 Aug 2025",type:"Meet",att:90},
+    {lat:51.4816,lng:-3.1791,name:"Cardiff JDM Showcase",date:"27 Jul 2025",type:"Car Show",att:275},
+    {lat:52.6369,lng:-1.1398,name:"Midlands Tuner Festival",date:"10 Aug 2025",type:"Car Show",att:380},
+    {lat:50.7260,lng:-1.8795,name:"Bournemouth Coastal Cruise",date:"17 Aug 2025",type:"Cruise",att:140}
+  ];
+
+  events.forEach(e => {
+    const c = colors[e.type] || '#FF5F1F';
+    L.circleMarker([e.lat,e.lng],{radius:10,fillColor:c,color:'#000',weight:2,opacity:1,fillOpacity:.85})
+      .addTo(map)
+      .bindPopup(`<div style="font-family:Inter,sans-serif;min-width:190px">
+        <div style="background:${c};color:#fff;padding:.4rem .75rem;margin:-12px -12px .75rem;border-radius:4px 4px 0 0;font-size:.68rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase">${e.type}</div>
+        <strong style="font-size:.9rem">${e.name}</strong><br>
+        <span style="font-size:.8rem;color:#666;display:block;margin-top:.25rem">📅 ${e.date}</span>
+        <span style="font-size:.8rem;color:#666">👥 ${e.att} attending</span><br>
+        <a href="#" style="display:inline-block;margin-top:.75rem;background:${c};color:#fff;padding:.3rem .875rem;border-radius:4px;font-size:.75rem;font-weight:700;text-decoration:none">View Event</a>
+      </div>`);
+  });
+</script>
+</body>
+</html>
