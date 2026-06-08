@@ -13,6 +13,8 @@ import PromoVideos from './pages/PromoVideos';
 import ContentProduction from './pages/ContentProduction';
 import Portfolio from './pages/Portfolio';
 import About from './pages/About';
+import LogoExport from './pages/LogoExport';
+import Todo from './pages/Todo';
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
@@ -52,6 +54,8 @@ function AppContent() {
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/export-logo" element={<LogoExport />} />
+            <Route path="/todo" element={<Todo />} />
           </Routes>
         </AnimatePresence>
       </main>
