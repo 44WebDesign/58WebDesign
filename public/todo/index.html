@@ -71,15 +71,26 @@
 </head>
 <body class="font-sans min-h-screen flex flex-col">
 
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed bottom-8 right-8 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
     <!-- Navbar -->
     <nav class="w-full px-8 py-6 flex justify-between items-center border-b border-primary/5 bg-background-light">
         <div class="flex items-center gap-2">
             <span class="font-display text-4xl tracking-[-0.12em] text-primary">58</span>
             <span class="text-[10px] uppercase tracking-[0.3em] font-medium text-primary/70">WebDesign</span>
         </div>
-        <a href="/" class="text-[10px] uppercase tracking-[0.2em] font-bold text-primary/50 hover:text-primary transition-colors flex items-center gap-1.5 group">
-            <i data-lucide="arrow-left" class="w-3.5 h-3.5 transition-transform group-hover:-translate-x-0.5"></i> Back to Home
-        </a>
+        
+        <div class="flex items-center gap-6">
+            <!-- Auth Container Profile Area -->
+            <div id="auth-container" class="flex items-center gap-3">
+                <span class="text-[10px] uppercase tracking-wider text-primary/30">Sync Status...</span>
+            </div>
+            
+            <a href="/" class="text-[10px] uppercase tracking-[0.2em] font-bold text-primary/50 hover:text-primary transition-colors flex items-center gap-1.5 group">
+                <i data-lucide="arrow-left" class="w-3.5 h-3.5 transition-transform group-hover:-translate-x-0.5"></i> Back to Home
+            </a>
+        </div>
     </nav>
 
     <!-- Main Workspace Content -->
@@ -98,8 +109,8 @@
                     <p class="text-sm font-light leading-relaxed opacity-60 uppercase tracking-widest">
                         An workspace-oriented view for strategic tracking. Keep momentum high across immediate tasks, monthly objectives, and long-term milestones.
                     </p>
-                    <div class="text-[10px] uppercase font-bold tracking-widest opacity-40 flex items-center gap-2">
-                        <i data-lucide="clock" class="w-3 h-3"></i> Real-time Client-side State Enabled
+                    <div id="sync-status-indicator" class="text-[10px] uppercase font-bold tracking-widest opacity-40 flex items-center gap-2">
+                        <i data-lucide="clock" class="w-3 h-3"></i> Client-side Local State
                     </div>
                 </div>
             </section>
@@ -264,13 +275,71 @@
     </footer>
 
     <!-- Core Business Logic Setup -->
-    <script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { 
+            getFirestore, 
+            collection, 
+            doc, 
+            setDoc, 
+            updateDoc, 
+            deleteDoc, 
+            query, 
+            where, 
+            onSnapshot 
+        } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            projectId: "gen-lang-client-0724148703",
+            appId: "1:717508645202:web:c2e76d2d7a9eece8ccaa8b",
+            apiKey: "AIzaSyCPTYaMa8ECEfA_4dQh0jYKe1OsVZ23GBw",
+            authDomain: "gen-lang-client-0724148703.firebaseapp.com",
+            firestoreDatabaseId: "ai-studio-549d7889-a92a-46a5-8a4a-1846138d7b85",
+            storageBucket: "gen-lang-client-0724148703.firebasestorage.app",
+            messagingSenderId: "717508645202",
+            measurementId: ""
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
+
         // State variables
         let todos = {
             week: [],
             month: [],
             goals: []
         };
+        
+        let currentUser = { uid: "default_user", displayName: "Workspace Owner" };
+        let unsubscribeSnapshot = null;
+
+        // Custom Firestore Error Payload definitions matching requirements
+        const OperationType = {
+            CREATE: 'create',
+            UPDATE: 'update',
+            DELETE: 'delete',
+            LIST: 'list',
+            GET: 'get',
+            WRITE: 'write',
+        };
+
+        function handleFirestoreError(error, operationType, path) {
+            const errInfo = {
+                error: error instanceof Error ? error.message : String(error),
+                authInfo: {
+                    userId: currentUser.uid,
+                    email: "default_user@workspace.local",
+                    emailVerified: true,
+                },
+                operationType,
+                path
+            };
+            console.error('Firestore Sync Error: ', JSON.stringify(errInfo));
+            showToast(`Sync warning: ${error.message || error}`, 'error');
+            throw new Error(JSON.stringify(errInfo));
+        }
 
         // DOM elements
         const lists = {
@@ -298,42 +367,81 @@
             month: document.getElementById('clear-month'),
             goals: document.getElementById('clear-goals')
         };
+        const authContainer = document.getElementById('auth-container');
+        const syncStatusIndicator = document.getElementById('sync-status-indicator');
 
-        // Load files and render
-        function init() {
+        // Toast system
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+            
+            const toast = document.createElement('div');
+            toast.className = 'pointer-events-auto bg-white border border-primary/10 shadow-lg px-5 py-3.5 rounded-2xl flex items-center gap-3 transform translate-y-4 opacity-0 transition-all duration-300 max-w-sm';
+            
+            let iconCode = 'info';
+            let iconClass = 'text-primary';
+            if (type === 'success') {
+                iconCode = 'check-circle';
+                iconClass = 'text-emerald-500';
+            } else if (type === 'error') {
+                iconCode = 'alert-triangle';
+                iconClass = 'text-rose-500';
+            }
+            
+            toast.innerHTML = `
+                <i data-lucide="${iconCode}" class="w-4 h-4 ${iconClass} flex-shrink-0"></i>
+                <p class="text-xs font-light text-primary tracking-wide leading-normal">${message}</p>
+            `;
+            
+            container.appendChild(toast);
+            lucide.createIcons();
+            
+            setTimeout(() => {
+                toast.classList.remove('translate-y-4', 'opacity-0');
+            }, 10);
+            
+            setTimeout(() => {
+                toast.classList.add('translate-y-4', 'opacity-0');
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 4000);
+        }
+
+        // Load fallback storage tasks
+        function loadLocalStorageTodos() {
             try {
                 const savedWeek = localStorage.getItem('58webdesign-todo-week');
                 const savedMonth = localStorage.getItem('58webdesign-todo-month');
                 const savedGoals = localStorage.getItem('58webdesign-todo-goals');
 
                 todos.week = savedWeek ? JSON.parse(savedWeek) : [
-                    { id: 'w1', text: 'Optimize CSS delivery and Tailwind styles', completed: false, createdAt: Date.now() - 86400000 },
-                    { id: 'w2', text: 'Finalize brand identity and logomarks', completed: true, createdAt: Date.now() - 172800000 }
+                     { id: 'w1', text: 'Optimize CSS delivery and Tailwind styles', completed: false, createdAt: Date.now() - 86400000 },
+                     { id: 'w2', text: 'Finalize brand identity and logomarks', completed: true, createdAt: Date.now() - 172800000 }
                 ];
                 todos.month = savedMonth ? JSON.parse(savedMonth) : [
-                    { id: 'm1', text: 'Complete SEO performance audits for client sites', completed: false, createdAt: Date.now() },
-                    { id: 'm2', text: 'Roll out updated Interactive Video components', completed: false, createdAt: Date.now() }
+                     { id: 'm1', text: 'Complete SEO performance audits for client sites', completed: false, createdAt: Date.now() },
+                     { id: 'm2', text: 'Roll out updated Interactive Video components', completed: false, createdAt: Date.now() }
                 ];
                 todos.goals = savedGoals ? JSON.parse(savedGoals) : [
-                    { id: 'g1', text: 'Secure 15 active retainer partnerships', completed: false, createdAt: Date.now() },
-                    { id: 'g2', text: 'Launch redesigned internal showcase gallery', completed: false, createdAt: Date.now() }
+                     { id: 'g1', text: 'Secure 15 active retainer partnerships', completed: false, createdAt: Date.now() },
+                     { id: 'g2', text: 'Launch redesigned internal showcase gallery', completed: false, createdAt: Date.now() }
                 ];
-
-                renderAll();
             } catch (e) {
-                console.error('Error initializing todo lists:', e);
+                console.error('Error loading fallback storage:', e);
             }
         }
 
-        function saveTodos(key) {
+        // Save to local storage as fallback when offline / logged-out
+        function saveLocalStorageTodos(column) {
             try {
-                localStorage.setItem(`58webdesign-todo-${key}`, JSON.stringify(todos[key]));
+                localStorage.setItem(`58webdesign-todo-${column}`, JSON.stringify(todos[column]));
             } catch (e) {
-                console.error(`Error saving localStorage for ${key}:`, e);
+                console.error(`Error saving localStorage for ${column}:`, e);
             }
         }
 
-        // Render functions
+        // Render function
         function renderAll() {
             Object.keys(todos).forEach(column => {
                 renderColumn(column);
@@ -345,16 +453,12 @@
             const data = todos[column];
             const openCount = data.filter(t => !t.completed).length;
 
-            // Update open badge
             badges[column].textContent = `${openCount} open`;
-
-            // Clear first
             listEl.innerHTML = '';
 
-            // Render tasks
             if (data.length === 0) {
                 listEl.innerHTML = `
-                    <div class="flex flex-col items-center justify-center py-12 text-center text-xs font-light tracking-wider text-primary/40">
+                    <div class="flex flex-col items-center justify-center py-12 text-center text-xs font-light tracking-wider text-primary/40 leading-relaxed select-none">
                         No tasks planned
                     </div>
                 `;
@@ -369,7 +473,7 @@
                         : 'border-primary/20 hover:border-primary/50 bg-transparent text-transparent';
 
                     const textClass = item.completed 
-                        ? 'line-through opacity-30 text-primary/70' 
+                        ? 'line-through opacity-30 text-primary/70 font-light' 
                         : 'text-primary';
 
                     itemDiv.innerHTML = `
@@ -378,9 +482,9 @@
                                 type="button"
                                 onclick="toggleTodo('${column}', '${item.id}')"
                                 aria-label="${item.completed ? 'Mark incomplete' : 'Mark complete'}"
-                                class="flex-none w-5 h-5 rounded-full border flex items-center justify-center transition-all ${checkboxClass}"
+                                class="flex-none w-5 h-5 rounded-full border flex items-center justify-center transition-all cursor-pointer ${checkboxClass}"
                             >
-                                <i data-lucide="check" class="w-3 h-3 stroke-[3]" style="${item.completed ? '' : 'display: none;'}"></i>
+                                <i data-lucide="check" class="w-2.5 h-2.5 stroke-[3]" style="${item.completed ? '' : 'display: none;'}"></i>
                             </button>
                             <span class="text-sm font-light truncate select-none transition-all ${textClass}">
                                 ${escapeHTML(item.text)}
@@ -390,7 +494,7 @@
                             type="button"
                             onclick="deleteTodo('${column}', '${item.id}')"
                             aria-label="Delete todo"
-                            class="opacity-0 group-hover:opacity-40 hover:!opacity-100 transition-opacity p-1 text-primary"
+                            class="opacity-0 group-hover:opacity-40 hover:!opacity-100 transition-opacity p-1 text-primary cursor-pointer"
                         >
                             <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
                         </button>
@@ -400,7 +504,6 @@
                 });
             }
 
-            // Show or hide clear button
             const hasCompleted = data.some(t => t.completed);
             if (hasCompleted) {
                 clearButtons[column].classList.remove('hidden');
@@ -408,74 +511,233 @@
                 clearButtons[column].classList.add('hidden');
             }
 
-            // Refresh Lucide icons in column
             lucide.createIcons({
-                attrs: {
-                    class: 'svg-icon'
-                }
+                attrs: { class: 'svg-icon' }
             });
         }
 
-        // Action Handlers
-        window.toggleTodo = function(column, id) {
-            todos[column] = todos[column].map(item => {
-                if (item.id === id) {
-                    return { ...item, completed: !item.completed };
-                }
-                return item;
-            });
-            saveTodos(column);
-            renderColumn(column);
-        }
+        // Toggling
+        window.toggleTodo = async function(column, id) {
+            const item = todos[column].find(t => t.id === id);
+            if (!item) return;
 
-        window.deleteTodo = function(column, id) {
+            if (currentUser) {
+                try {
+                    await updateDoc(doc(db, 'todos', id), { completed: !item.completed });
+                } catch (error) {
+                    handleFirestoreError(error, OperationType.UPDATE, `todos/${id}`);
+                }
+            } else {
+                todos[column] = todos[column].map(t => {
+                    if (t.id === id) {
+                        return { ...t, completed: !t.completed };
+                    }
+                    return t;
+                });
+                saveLocalStorageTodos(column);
+                renderColumn(column);
+                showToast('Task updated locally!');
+            }
+        };
+
+        // Deleting
+        window.deleteTodo = async function(column, id) {
             const itemEl = document.querySelector(`[data-id="${id}"]`);
+            const executeDelete = async () => {
+                if (currentUser) {
+                    try {
+                        await deleteDoc(doc(db, 'todos', id));
+                    } catch (error) {
+                        handleFirestoreError(error, OperationType.DELETE, `todos/${id}`);
+                    }
+                } else {
+                    todos[column] = todos[column].filter(t => t.id !== id);
+                    saveLocalStorageTodos(column);
+                    renderColumn(column);
+                    showToast('Task removed from this device.');
+                }
+            };
+
             if (itemEl) {
                 itemEl.classList.add('fade-out');
-                // Wait for transition before actual re-render and delete
-                setTimeout(() => {
-                    todos[column] = todos[column].filter(item => item.id !== id);
-                    saveTodos(column);
-                    renderColumn(column);
-                }, 150);
+                setTimeout(executeDelete, 150);
             } else {
-                todos[column] = todos[column].filter(item => item.id !== id);
-                saveTodos(column);
-                renderColumn(column);
+                await executeDelete();
             }
-        }
+        };
 
-        // Add task handlers
+        // Form task additions
         Object.keys(forms).forEach(column => {
-            forms[column].addEventListener('submit', function(e) {
+            forms[column].addEventListener('submit', async function(e) {
                 e.preventDefault();
                 const text = inputs[column].value.trim();
                 if (!text) return;
 
-                const newItem = {
-                    id: Math.random().toString(36).substring(2, 9),
-                    text: text,
-                    completed: false,
-                    createdAt: Date.now()
+                const id = Math.random().toString(36).substring(2, 9);
+                
+                if (currentUser) {
+                    const newItem = {
+                        id: id,
+                        text: text,
+                        completed: false,
+                        column: column,
+                        createdAt: Date.now(),
+                        userId: currentUser.uid
+                    };
+                    try {
+                        await setDoc(doc(db, 'todos', id), newItem);
+                        inputs[column].value = '';
+                    } catch (error) {
+                        handleFirestoreError(error, OperationType.CREATE, `todos/${id}`);
+                    }
+                } else {
+                    const newItem = {
+                        id: id,
+                        text: text,
+                        completed: false,
+                        createdAt: Date.now()
+                    };
+                    todos[column].push(newItem);
+                    saveLocalStorageTodos(column);
+                    inputs[column].value = '';
+                    renderColumn(column);
+                    showToast('Task committed to local device!');
+                }
+            });
+        });
+
+        // Clear completed task loops
+        Object.keys(clearButtons).forEach(column => {
+            clearButtons[column].addEventListener('click', async function() {
+                const completedItems = todos[column].filter(t => t.completed);
+                if (completedItems.length === 0) return;
+
+                if (currentUser) {
+                    try {
+                        for (const item of completedItems) {
+                            await deleteDoc(doc(db, 'todos', item.id));
+                        }
+                        showToast(`Cleared ${completedItems.length} completed tasks from Cloud!`, 'success');
+                    } catch (error) {
+                        handleFirestoreError(error, OperationType.WRITE, 'clear-completed');
+                    }
+                } else {
+                    todos[column] = todos[column].filter(t => !t.completed);
+                    saveLocalStorageTodos(column);
+                    renderColumn(column);
+                    showToast(`Cleared ${completedItems.length} tasks locally.`);
+                }
+            });
+        });
+
+        // Migration logic initially
+        async function migrateLocalTasksToCloud(user) {
+            const columns = ['week', 'month', 'goals'];
+            let migratedCount = 0;
+
+            for (const column of columns) {
+                const localData = localStorage.getItem(`58webdesign-todo-${column}`);
+                if (localData) {
+                    try {
+                        const parsed = JSON.parse(localData);
+                        if (Array.isArray(parsed) && parsed.length > 0) {
+                            // Filter out elements that are original static placeholders so we only migrate custom items
+                            const customItems = parsed.filter(item => !['w1', 'w2', 'm1', 'm2', 'g1', 'g2'].includes(item.id));
+                            for (const item of customItems) {
+                                const docRef = doc(db, 'todos', item.id);
+                                const cloudItem = {
+                                    id: item.id,
+                                    text: item.text,
+                                    completed: item.completed,
+                                    column: column,
+                                    createdAt: item.createdAt || Date.now(),
+                                    userId: user.uid
+                                };
+                                await setDoc(docRef, cloudItem);
+                                migratedCount++;
+                            }
+                        }
+                        // Clear localStorage so we don't migrate multiple times
+                        localStorage.removeItem(`58webdesign-todo-${column}`);
+                    } catch (err) {
+                        console.error(`Migration error for ${column}:`, err);
+                    }
+                }
+            }
+
+            if (migratedCount > 0) {
+                showToast(`Synchronized ${migratedCount} local tasks to your workspace account!`, 'success');
+            }
+        }
+
+        // Realtime Subscription
+        function subscribeTodos(user) {
+            if (unsubscribeSnapshot) {
+                unsubscribeSnapshot();
+            }
+
+            const q = query(collection(db, 'todos'), where('userId', '==', user.uid));
+            
+            unsubscribeSnapshot = onSnapshot(q, (snapshot) => {
+                todos = {
+                    week: [],
+                    month: [],
+                    goals: []
                 };
 
-                todos[column].push(newItem);
-                saveTodos(column);
-                inputs[column].value = '';
-                renderColumn(column);
-            });
-        });
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    if (todos[data.column]) {
+                        todos[data.column].push(data);
+                    }
+                });
 
-        // Clear completed handlers
-        Object.keys(clearButtons).forEach(column => {
-            clearButtons[column].addEventListener('click', function() {
-                todos[column] = todos[column].filter(item => !item.completed);
-                saveTodos(column);
-                renderColumn(column);
-            });
-        });
+                // Maintain chronological sorted stability
+                Object.keys(todos).forEach(col => {
+                    todos[col].sort((a, b) => a.createdAt - b.createdAt);
+                });
 
-        // Safe escape util
+                renderAll();
+            }, (error) => {
+                handleFirestoreError(error, OperationType.LIST, 'todos');
+            });
+        }
+
+        function unsubscribeTodos() {
+            if (unsubscribeSnapshot) {
+                unsubscribeSnapshot();
+                unsubscribeSnapshot = null;
+            }
+        }
+
+        // Render Authentication Status UI pill in Navbar
+        function renderAuthStatus(user) {
+            authContainer.innerHTML = '';
+            
+            authContainer.innerHTML = `
+                <div class="flex items-center gap-3 bg-white pl-3.5 pr-3.5 py-1.5 rounded-full border border-primary/5 shadow-sm">
+                    <div class="flex flex-col text-right">
+                        <span class="text-[10px] font-semibold text-primary leading-tight">Workspace Owner</span>
+                        <span class="text-[8px] uppercase tracking-wider text-emerald-600 font-bold leading-normal flex items-center justify-end gap-1 select-none">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-[ping_1.5s_infinite]"></span> Connected
+                        </span>
+                    </div>
+                </div>
+            `;
+
+            // Status banner updates
+            syncStatusIndicator.className = "text-[10px] uppercase font-bold tracking-widest flex items-center gap-2 text-emerald-600 font-medium";
+            syncStatusIndicator.innerHTML = `<i data-lucide="cloud" class="w-3.5 h-3.5 animate-[bounce_2s_infinite]"></i> Cloud-synced Profile Active`;
+
+            lucide.createIcons();
+        }
+
+        // Auto initialization
+        renderAuthStatus(currentUser);
+        subscribeTodos(currentUser);
+        migrateLocalTasksToCloud(currentUser);
+
+        // Safe escape helper
         function escapeHTML(str) {
             return str
                 .replace(/&/g, '&amp;')
@@ -485,10 +747,7 @@
                 .replace(/'/g, '&#039;');
         }
 
-        // Initialize lists and render
-        init();
-        
-        // Setup initial global Lucide icons
+        // Initialize Lucide initially
         lucide.createIcons();
     </script>
 </body>
