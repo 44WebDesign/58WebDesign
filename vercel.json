@@ -28,6 +28,10 @@
       "destination": "/clients/index.html"
     },
     {
+      "source": "/todo",
+      "destination": "/todo/index.html"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
