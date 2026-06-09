@@ -1,0 +1,61 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Global Safety Net default-deny catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function isValidTodo(data) {
+      return data.keys().hasAll(['id', 'text', 'completed', 'column', 'createdAt', 'userId'])
+        && data.keys().size() == 6
+        && data.id is string && data.id.size() <= 128
+        && data.text is string && data.text.size() <= 1000
+        && data.completed is bool
+        && (data.column == 'week' || data.column == 'month' || data.column == 'goals')
+        && data.createdAt is int
+        && data.userId is string && data.userId == 'default_user';
+    }
+
+    // Todos Collection Rules
+    match /todos/{todoId} {
+      // Secure Individual retrieval without active session auth requirements
+      allow get: if existing().userId == 'default_user';
+      
+      // Secure List querying (forces query to match default_user)
+      allow list: if resource.data.userId == 'default_user';
+
+      // Secure Creation
+      allow create: if isValidId(todoId)
+        && isValidTodo(incoming())
+        && incoming().id == todoId;
+
+      // Secure Modification with immutable fields protection and action boundaries
+      allow update: if isValidId(todoId)
+        && isValidTodo(incoming())
+        && incoming().id == todoId
+        && incoming().userId == existing().userId
+        && incoming().createdAt == existing().createdAt
+        && (
+          incoming().diff(existing()).affectedKeys().hasOnly(['completed', 'text'])
+        );
+
+      // Secure Deletion
+      allow delete: if isValidId(todoId)
+        && existing().userId == 'default_user';
+    }
+  }
+}
