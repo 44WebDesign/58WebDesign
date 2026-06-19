@@ -1,6 +1,7 @@
 import { motion } from 'motion/react';
 import { ArrowRight, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import SEO from '../components/SEO';
 
 const services = [
   { 
@@ -41,6 +42,10 @@ export default function Services() {
       exit={{ opacity: 0 }}
       className="pt-16 bg-zinc-50 dark:bg-primary"
     >
+      <SEO 
+        title="Graphic, Strategy, & Video Services" 
+        description="Comprehensive media products including brand visual identity systems, digital growth roadmaps, promotional video production, & professional content copywriting." 
+      />
       <div className="max-w-[1600px] mx-auto min-h-screen flex flex-col">
         {/* Header Section: Editorial Split */}
         <motion.section 

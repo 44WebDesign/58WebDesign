@@ -1,6 +1,7 @@
 import { motion } from 'motion/react';
 import { ArrowRight, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import SEO from '../components/SEO';
 
 const steps = [
   { id: '01', title: 'Discovery', desc: "We begin by immersing ourselves in your brand's DNA, identifying core objectives, and mapping out the user journey." },
@@ -22,6 +23,10 @@ export default function WebsiteDesign() {
       exit={{ opacity: 0 }}
       className="pt-16 bg-zinc-50 dark:bg-primary"
     >
+      <SEO 
+        title="Web Design Felixstowe, Ipswich & Woodbridge" 
+        description="Expert website design services in Felixstowe, Ipswich, & Woodbridge. We build bespoke, mobile-optimized, high-converting React and WordPress sites." 
+      />
       <div className="max-w-[1600px] mx-auto min-h-screen flex flex-col">
         {/* Header Section: Editorial Split */}
         <motion.section 

@@ -1,6 +1,7 @@
 import { motion } from 'motion/react';
 import { ArrowRight, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import SEO from '../components/SEO';
 
 const services = [
   { 
@@ -43,6 +44,10 @@ export default function Home() {
       transition={{ duration: 0.5 }}
       className="pt-32"
     >
+      <SEO 
+        title="Bespoke Design for Suffolk Brands" 
+        description="Premium web design in Felixstowe, Ipswich, Woodbridge, and across Suffolk. We create high-performance architectural websites for local businesses to scale." 
+      />
       {/* Hero Section */}
       <section className="relative min-h-[80vh] flex flex-col items-center justify-center pb-20 px-6 overflow-hidden">
         {/* Video Background */}

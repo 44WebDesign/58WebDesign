@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowRight, Star, X, Play } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import SEO from '../components/SEO';
 
 interface Project {
   id: string;
@@ -138,14 +139,14 @@ const projects: Project[] = [
   },
   {
     id: '13',
-    title: 'Rise Digital Marketing',
-    category: 'Promo Videos',
-    image: '',
+    title: 'Modcon Design',
+    category: 'Web Design',
+    image: 'https://www.modcondesign.com/images/theme-pics/4.jpg',
     videoUrl: '/Video_Generation_Complete.mp4',
-    desc: 'Eye Catching Social Media Video.',
-    content: 'The breif was to create a high quiality professional video that portrayed the business as a much larger entity by including items such as branded cups and stationary within the video and setting it in a high rise office.',
+    desc: 'Brand-New Website for a Start-Up.',
+    content: 'ModCon came to us as a brand-new start-up with no online presence. They needed a visually appealing, professional website that would not only attract customers but also meet the approval standards required by regional and national tender companies. We designed and built a new website from scratch that aligned with industry expectations and positioned ModCon as a credible, high-quality contractor.',
     type: 'video',
-    websiteUrl: ''
+    websiteUrl: 'https://www.modcondesign.com/'
   },
   {
     id: '14',
@@ -179,6 +180,10 @@ export default function Portfolio() {
       exit={{ opacity: 0 }}
       className="pt-16 bg-zinc-50 dark:bg-primary"
     >
+      <SEO 
+        title="Web Design & Branding Case Studies" 
+        description="Explore the 58WebDesign portfolio of high-impact websites, visual identity branding, and promotional videos produced for Suffolk brands and beyond." 
+      />
       <div className="max-w-[1600px] mx-auto min-h-screen flex flex-col">
         {/* Header Section: Editorial Split */}
         <section className="grid grid-cols-1 lg:grid-cols-3 border-b border-primary/10 dark:border-white/10">

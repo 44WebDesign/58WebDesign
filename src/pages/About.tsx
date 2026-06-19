@@ -1,6 +1,7 @@
 import { motion } from 'motion/react';
 import { ArrowRight, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import SEO from '../components/SEO';
 
 export default function About() {
   return (
@@ -10,6 +11,10 @@ export default function About() {
       exit={{ opacity: 0 }}
       className="pt-16 bg-zinc-50 dark:bg-primary"
     >
+      <SEO 
+        title="About Suffolk's Premier Web Agency" 
+        description="Learn more about 58WebDesign, a boutique web design and visual media agency based in Suffolk. We craft high-performance digital experiences for ambitious brands." 
+      />
       {/* Architectural Grid Container */}
       <div className="max-w-[1600px] mx-auto min-h-screen flex flex-col">
         

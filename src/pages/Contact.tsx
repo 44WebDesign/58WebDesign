@@ -1,6 +1,7 @@
 import { useState, FormEvent, ChangeEvent } from 'react';
 import { motion } from 'motion/react';
 import { Mail, Phone, ArrowRight, Facebook, Instagram, Twitter, Star, Loader2, CheckCircle2 } from 'lucide-react';
+import SEO from '../components/SEO';
 
 export default function Contact() {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -49,6 +50,10 @@ export default function Contact() {
       exit={{ opacity: 0 }}
       className="pt-16 bg-zinc-50 dark:bg-primary"
     >
+      <SEO 
+        title="Contact Us - Suffolk Web Design" 
+        description="Get in touch to discuss your next web design, strategy, or media production project with 58WebDesign. Located in Felixstowe, Woodbridge, & Ipswich." 
+      />
       <div className="max-w-7xl mx-auto px-6 py-24">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-24">
           {/* Left Column: Info */}
