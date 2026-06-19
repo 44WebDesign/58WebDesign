@@ -1,32 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- PRIMARY PAGE -->
   <url>
-    <loc>https://ais-dev-rhbqzgcnmj2tf7f4qz4f2b-79972738019.europe-west3.run.app/</loc>
-    <lastmod>2026-03-15</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://58webdesign.co.uk/</loc>
+    <lastmod>2026-06-18</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+
+  <!-- CORE PAGES -->
   <url>
-    <loc>https://ais-dev-rhbqzgcnmj2tf7f4qz4f2b-79972738019.europe-west3.run.app/portfolio</loc>
-    <lastmod>2026-03-15</lastmod>
+    <loc>https://58webdesign.co.uk/website-design</loc>
+    <lastmod>2026-06-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://58webdesign.co.uk/digital-strategy</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ais-dev-rhbqzgcnmj2tf7f4qz4f2b-79972738019.europe-west3.run.app/services</loc>
-    <lastmod>2026-03-15</lastmod>
+    <loc>https://58webdesign.co.uk/visual-identity</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ais-dev-rhbqzgcnmj2tf7f4qz4f2b-79972738019.europe-west3.run.app/about</loc>
-    <lastmod>2026-03-15</lastmod>
+    <loc>https://58webdesign.co.uk/promo-videos</loc>
+    <lastmod>2026-06-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://58webdesign.co.uk/content-production</loc>
+    <lastmod>2026-06-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- NAVIGATION PAGES -->
+  <url>
+    <loc>https://58webdesign.co.uk/services</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ais-dev-rhbqzgcnmj2tf7f4qz4f2b-79972738019.europe-west3.run.app/contact</loc>
-    <lastmod>2026-03-15</lastmod>
+    <loc>https://58webdesign.co.uk/portfolio</loc>
+    <lastmod>2026-06-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://58webdesign.co.uk/about</loc>
+    <lastmod>2026-06-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://58webdesign.co.uk/contact</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
