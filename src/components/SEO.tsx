@@ -4,9 +4,10 @@ import { useLocation } from 'react-router-dom';
 interface SEOProps {
   title: string;
   description: string;
+  noIndex?: boolean;
 }
 
-export default function SEO({ title, description }: SEOProps) {
+export default function SEO({ title, description, noIndex = false }: SEOProps) {
   const location = useLocation();
 
   useEffect(() => {
@@ -22,6 +23,21 @@ export default function SEO({ title, description }: SEOProps) {
       metaDescription.setAttribute('name', 'description');
       metaDescription.setAttribute('content', description);
       document.head.appendChild(metaDescription);
+    }
+
+    // Dynamic robots meta tag for indexing exclusion
+    let metaRobots = document.querySelector('meta[name="robots"]');
+    if (noIndex) {
+      if (!metaRobots) {
+        metaRobots = document.createElement('meta');
+        metaRobots.setAttribute('name', 'robots');
+        document.head.appendChild(metaRobots);
+      }
+      metaRobots.setAttribute('content', 'noindex, nofollow');
+    } else if (metaRobots) {
+      metaRobots.removeAttribute('content');
+      // Or set it to standard follow index
+      metaRobots.setAttribute('content', 'index, follow');
     }
 
     // Dynamic Open Graph and Twitter Tag updates (crucial for social share indexing)
