@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /templates
+Disallow: /templates/
 
 Sitemap: https://58webdesign.co.uk/sitemap.xml
