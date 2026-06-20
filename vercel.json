@@ -32,6 +32,14 @@
       "destination": "/todo/index.html"
     },
     {
+      "source": "/templates",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/templates/(.*)",
+      "destination": "/index.html"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
