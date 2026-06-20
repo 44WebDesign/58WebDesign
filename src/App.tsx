@@ -38,8 +38,10 @@ function AppContent() {
   const location = useLocation();
   const isContactPage = location.pathname === '/contact';
   
-  // Detect if the user is visiting via templates subdomain
-  const isTemplatesSubdomain = window.location.hostname.startsWith('templates.');
+  // Robustly detect templates subdomain (e.g. templates.58webdesign.co.uk)
+  // Ensures it doesn't match branch preview domains starting with 'templates-'
+  const hostnameParts = window.location.hostname.toLowerCase().split('.');
+  const isTemplatesSubdomain = hostnameParts[0] === 'templates' && hostnameParts.length > 1;
 
   return (
     <>
