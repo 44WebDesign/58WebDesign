@@ -250,7 +250,7 @@ export default function Templates() {
                       <span className="text-[10px] font-mono text-primary/40 dark:text-white/40 truncate">{template.name}</span>
                     </div>
                     {template.size && (
-                      <span className="text-[10px] font-mono font-medium py-1 px-2.5 bg-zinc-100 dark:bg-zinc-805 text-primary/60 dark:text-white/50 rounded-md shrink-0">
+                      <span className="text-[10px] font-mono font-medium py-1 px-2.5 bg-zinc-100 dark:bg-zinc-800 text-primary/60 dark:text-white/50 rounded-md shrink-0">
                         {formatBytes(template.size)}
                       </span>
                     )}
