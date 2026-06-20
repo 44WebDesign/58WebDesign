@@ -15,6 +15,7 @@ import Portfolio from './pages/Portfolio';
 import About from './pages/About';
 import LogoExport from './pages/LogoExport';
 import Todo from './pages/Todo';
+import Templates from './pages/Templates';
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
@@ -36,6 +37,9 @@ function ScrollToTop() {
 function AppContent() {
   const location = useLocation();
   const isContactPage = location.pathname === '/contact';
+  
+  // Detect if the user is visiting via templates subdomain
+  const isTemplatesSubdomain = window.location.hostname.startsWith('templates.');
 
   return (
     <>
@@ -44,7 +48,8 @@ function AppContent() {
       <main>
         <AnimatePresence mode="wait">
           <Routes location={location}>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={isTemplatesSubdomain ? <Templates /> : <Home />} />
+            <Route path="/templates" element={<Templates />} />
             <Route path="/website-design" element={<WebsiteDesign />} />
             <Route path="/digital-strategy" element={<DigitalStrategy />} />
             <Route path="/visual-identity" element={<VisualIdentity />} />
