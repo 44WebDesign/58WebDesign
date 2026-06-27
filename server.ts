@@ -6,7 +6,10 @@ import { Readable } from 'stream';
 import 'dotenv/config';
 
 const PORT = 3000;
-const publicDir = path.join(process.cwd(), 'public');
+const isProd = process.env.NODE_ENV === 'production';
+const publicDir = isProd && fs.existsSync(path.join(process.cwd(), 'dist'))
+    ? path.join(process.cwd(), 'dist')
+    : path.join(process.cwd(), 'public');
 const apiKey = process.env.GOOGLE_API_KEY?.trim();
 const folderId = process.env.GOOGLE_DRIVE_FOLDER_ID?.trim();
 
@@ -101,7 +104,13 @@ function extractFolderId(input: string): string {
 }
 
 async function startServer() {
+    console.log('[Server] Starting server...');
     const app = express();
+
+    // Health check route
+    app.get('/api/health', (req, res) => {
+        res.json({ status: 'ok', timestamp: new Date().toISOString() });
+    });
 
     // API Route for videos
     app.get('/api/videos', async (req, res) => {
@@ -132,16 +141,34 @@ async function startServer() {
         res.json(videos);
     });
 
-    // Explicitly serve the videos directory from public
-    app.get(['/videos', '/videos/'], (req, res) => {
-        res.sendFile(path.join(process.cwd(), 'public/videos/index.html'));
+    // Handle external redirection for Web Design Ideas
+    app.get(['/ideas', '/ideas/'], (req, res) => {
+        res.redirect(301, 'https://service-58webdesign-felixstowe-web-design-717508645202.us-west1.run.app/templates');
     });
+
+    // Explicitly serve the videos directory
+    app.get(['/videos', '/videos/'], (req, res) => {
+        const filePath = path.join(publicDir, 'videos/index.html');
+        if (fs.existsSync(filePath)) {
+            res.sendFile(filePath);
+        } else {
+            // Fallback just in case
+            res.sendFile(path.join(process.cwd(), 'public/videos/index.html'));
+        }
+    });
+    app.use('/videos', express.static(path.join(publicDir, 'videos')));
     app.use('/videos', express.static(path.join(process.cwd(), 'public/videos')));
 
-    // Explicitly serve the clients directory from public
+    // Explicitly serve the clients directory
     app.get(['/clients', '/clients/'], (req, res) => {
-        res.sendFile(path.join(process.cwd(), 'public/clients/index.html'));
+        const filePath = path.join(publicDir, 'clients/index.html');
+        if (fs.existsSync(filePath)) {
+            res.sendFile(filePath);
+        } else {
+            res.sendFile(path.join(process.cwd(), 'public/clients/index.html'));
+        }
     });
+    app.use('/clients', express.static(path.join(publicDir, 'clients')));
     app.use('/clients', express.static(path.join(process.cwd(), 'public/clients')));
 
     // Serve the root public directory for other assets (like videos)
@@ -264,15 +291,34 @@ async function startServer() {
 
     // Vite middleware for development
     if (process.env.NODE_ENV !== 'production') {
+        console.log('[Server] Initializing Vite server...');
         const vite = await createViteServer({
             server: { middlewareMode: true },
             appType: 'spa',
         });
+        console.log('[Server] Vite server initialized.');
         app.use(vite.middlewares);
+        
+        // Fallback for SPA routes in dev
+        app.get('*all', async (req, res, next) => {
+            const url = req.originalUrl;
+            try {
+                // If it's an API route or static file, skip
+                if (url.startsWith('/api') || url.includes('.')) {
+                    return next();
+                }
+                const template = fs.readFileSync(path.resolve(process.cwd(), 'index.html'), 'utf-8');
+                const html = await vite.transformIndexHtml(url, template);
+                res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
+            } catch (e) {
+                vite.ssrFixStacktrace(e as Error);
+                next(e);
+            }
+        });
     } else {
         const distPath = path.join(process.cwd(), 'dist');
         app.use(express.static(distPath));
-        app.get('*', (req, res) => {
+        app.get('*all', (req, res) => {
             res.sendFile(path.join(distPath, 'index.html'));
         });
     }
