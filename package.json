@@ -12,7 +12,7 @@
     "dev:vite": "vite --port 3001 --host 0.0.0.0",
     "build": "npm run clean && vite build && tsc -p tsconfig.server.json",
     "build:pages": "npm run clean && vite build",
-    "vercel-build": "vercel-build": "vite build",
+    "vercel-build": "vite build",
     "start": "NODE_ENV=production node dist-server/server.js",
     "preview": "vite preview",
     "clean": "rm -rf dist dist-server",
